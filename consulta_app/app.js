@@ -73,19 +73,19 @@
   function cartao(r) {
     const bl = (rot, val, sub, c) => '<div class="bl ' + (c || '') + '"><small>' + rot + '</small><b>' + val + '</b>' + (sub ? '<span>' + sub + '</span>' : '') + '</div>';
     const L = r[I.letra], gk = r[I.pos] === 'GOL';
-    const fis = gk ? bl('Físico', 'goleiro', '') : L ? bl('Físico', CORACAO[L] + ' ' + L, LETRA_TXT[L], { 'A+': 'c-az', A: 'c-v', B: 'c-a', C: 'c-r' }[L]) : bl('Físico', '🤍 —', 'sem rastreio suficiente');
+    const fis = gk ? bl('Físico', 'goleiro', '') : L ? bl('Físico', CORACAO[L] + ' ' + L, LETRA_TXT[L], { 'A+': 'c-az', A: 'c-v', B: 'c-a', C: 'c-r' }[L]) : bl('Físico', '🤍 —', 'sem rastreio');
     const sc = r[I.seta] || 'n';
-    const tec = gk ? bl('Técnico', '—', '') : r[I.com] ? bl('Técnico', SETA[sc] + ' ' + r[I.verde] + '/' + r[I.com], 'fundamentais no nível de quem sobe', { v: 'c-v', a: 'c-a', r: 'c-r' }[sc]) : bl('Técnico', '❔ —', 'sem técnico no app');
-    const t2 = r[I.t2] >= 0 ? bl('2º tempo', T2[r[I.t2]] + ' ' + T2N[r[I.t2]], 'mantém ' + r[I.t2m] + '% · ' + r[I.t2j] + ' jogos completos', T2C[r[I.t2]]) : bl('2º tempo', '➖', 'menos de 5 jogos completos');
-    const mi = r[I.min] != null ? bl('Minutagem', r[I.min] + '%', 'dos minutos do time (3 anos)', r[I.min] >= 60 ? 'c-v' : r[I.min] >= 30 ? 'c-a' : 'c-r') : bl('Minutagem', '—', 'sem histórico');
-    const bp = (r[I.cob] != null) ? bl('Bola parada', '⚑ ' + r[I.cob] + ' · ⚽ ' + (r[I.gbp] || 0), r[I.cob] + ' cobranças · ' + (r[I.abp] || 0) + ' assist. · ' + (r[I.gbp] || 0) + ' gols de BP (3 anos)', (r[I.gbp] >= 3 || r[I.abp] >= 6) ? 'c-v' : '')
-      : r[I.cobIdx] != null ? bl('Bola parada', '⚑ ' + r[I.cobIdx] + '%', 'cobrador melhor que ' + r[I.cobIdx] + '% da liga', r[I.cobIdx] >= 80 ? 'c-v' : r[I.cobIdx] >= 65 ? 'c-a' : '') : bl('Bola parada', '—', 'sem dado');
+    const tec = gk ? bl('Técnico', '—', '') : r[I.com] ? bl('Técnico', SETA[sc] + ' ' + r[I.verde] + '/' + r[I.com], 'fundamentais de subida', { v: 'c-v', a: 'c-a', r: 'c-r' }[sc]) : bl('Técnico', '❔ —', 'sem técnico');
+    const t2 = r[I.t2] >= 0 ? bl('2º tempo', T2[r[I.t2]] + ' ' + T2N[r[I.t2]], r[I.t2m] + '% · ' + r[I.t2j] + ' jogos', T2C[r[I.t2]]) : bl('2º tempo', '➖', 'poucos jogos');
+    const mi = r[I.min] != null ? bl('Minutagem', '⏱️ ' + r[I.min] + '%', 'do time · 3 anos', r[I.min] >= 60 ? 'c-v' : r[I.min] >= 30 ? 'c-a' : 'c-r') : bl('Minutagem', '—', 'sem histórico');
+    const bp = (r[I.cob] != null) ? bl('Bola parada', '⚑ ' + r[I.cob] + ' · ⚽ ' + (r[I.gbp] || 0), 'cobranças · ' + (r[I.abp] || 0) + ' assist. · gols de BP · 3 anos', ((r[I.gbp] >= 3 || r[I.abp] >= 6) ? 'c-v ' : '') + 'larga')
+      : r[I.cobIdx] != null ? bl('Bola parada', '⚑ ' + r[I.cobIdx] + '%', 'cobrador melhor que ' + r[I.cobIdx] + '% da liga', (r[I.cobIdx] >= 80 ? 'c-v ' : r[I.cobIdx] >= 65 ? 'c-a ' : '') + 'larga') : bl('Bola parada', '—', 'sem dado', 'larga');
     $('#m').innerHTML = '<div class="nome">' + esc(r[I.n]) + '</div>' +
       '<div class="sub">' + esc(r[I.t]) + ' · ' + esc(r[I.l]) + ' · ' + esc(POSN[r[I.pos]] || r[I.pos]) + '</div>' +
-      '<div class="sub"><b>' + (r[I.id] || '—') + ' anos</b>' + (r[I.nasc] ? ' · nasc. ' + esc(dataBR(r[I.nasc])) : '') + (r[I.ct] ? ' · contrato até ' + esc(mesAno(r[I.ct])) : '') + (r[I.alt] ? ' · ' + r[I.alt] + ' cm' : '') + '</div>' +
+      '<div class="sub"><b>' + (r[I.id] || '—') + ' anos</b>' + (r[I.nasc] ? ' · ' + esc(dataBR(r[I.nasc])) : '') + (r[I.ct] ? ' · contrato ' + esc(mesAno(r[I.ct])) : '') + (r[I.alt] ? ' · ' + r[I.alt] + ' cm' : '') + '</div>' +
       '<div class="grade">' + fis + tec + t2 + mi + bp + '</div>' +
       '<div class="whats"><small>WhatsApp</small>' + esc(linha(r)) + '</div>' +
-      '<div class="bts"><button class="ok" id="cp">📋 Copiar</button><button id="vt">← voltar</button></div>' + legenda();
+      '<div class="bts"><button class="ok" id="cp">📋 Copiar</button><button id="vt">← voltar</button></div>';
     $('#cp').onclick = async () => { const t = linha(r); try { await navigator.clipboard.writeText(t); } catch (e) { const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); } toast('Copiado — cole no WhatsApp'); };
     $('#vt').onclick = () => { buscar(); };
     window.scrollTo(0, 0);
