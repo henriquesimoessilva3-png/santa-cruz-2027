@@ -1,5 +1,5 @@
 /* Santa Cruz Consulta — guarda a "casca" do app para abrir rápido e sem rede; os dados ficam no IndexedDB. */
-const CACHE = 'sc-consulta-v1', CASCA = ['./', 'index.html', 'app.js?v=1', 'manifest.webmanifest', 'icone-192.png', 'icone-512.png'];
+const CACHE = 'sc-consulta-v2', CASCA = ['./', 'index.html', 'app.js?v=2', 'manifest.webmanifest', 'icone-192.png', 'icone-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CASCA)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', e => {
