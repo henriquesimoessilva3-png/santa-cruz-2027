@@ -19,11 +19,11 @@
   function montar() {
     if (painel) return painel;
     painel = document.createElement('div'); painel.id = 'crPainel'; painel.className = 'cr-painel oculta';
-    painel.innerHTML = '<div class="cr-caixa"><div class="cr-topo"><b>🔎 Consulta rápida</b><button class="cr-x" title="fechar (Esc)">✕</button></div>' +
+    painel.innerHTML = '<div class="cr-caixa"><div class="cr-topo"><b>🔎 Consulta rápida</b><span><button class="cr-cel" title="recalcula todos os jogadores e manda para o app do celular (Santa Cruz Consulta)">📱 Atualizar app do celular</button> <button class="cr-x" title="fechar (Esc)">✕</button></span></div>' +
       '<input id="crBusca" type="search" autocomplete="off" placeholder="nome do jogador (ex.: Patrick Novorizontino)">' +
       '<div id="crLista" class="cr-lista"></div><div id="crCard"></div></div>';
     document.body.appendChild(painel);
-    painel.addEventListener('click', e => { if (e.target === painel || e.target.closest('.cr-x')) fechar(); });
+    painel.addEventListener('click', e => { if (e.target === painel || e.target.closest('.cr-x')) fechar(); else if (e.target.closest('.cr-cel')) gerarCelular(e.target.closest('.cr-cel')); });
     const inp = painel.querySelector('#crBusca'); let t = null;
     inp.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => listar(inp.value), 150); });
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') { const p = painel.querySelector('.cr-item'); if (p) p.click(); } });
@@ -62,8 +62,8 @@
     const t0 = Date.now();
     while (!pronto() && Date.now() - t0 < 15000) await new Promise(r => setTimeout(r, 300));
   }
-  async function dadosDe(b) {
-    await esperarNuvem();
+  async function dadosDe(b, rapido) {
+    if (!rapido) await esperarNuvem();
     const pk = primaryKey(b);
     let o = b; try { const od = objDoRaio(pk, null, b); if (od && od.obj) o = od.obj; } catch (e) {}
     let js = o; try { js = comPosCampo(o) || o; } catch (e) {}
@@ -81,6 +81,42 @@
     try { r.foto = (window.fotoExtra && window.fotoExtra(pk)) || null; } catch (e) {}
     return r;
   }
+
+  /* ===== app do celular (docs/consulta/, "Santa Cruz Consulta") =====
+     O celular não roda o app inteiro: aqui o app completo calcula, com as MESMAS funções da ficha, o cartão de todos os
+     jogadores da base e grava na nuvem (cenarios/_cel_meta + _cel_0.._cel_N, texto em pedaços: o Firestore limita 1 MB por
+     documento). Só quem está na lista de e-mails das regras lê — o mesmo login do app. */
+  const CEL_T2 = ['azul', 'verde', 'amarelo', 'vermelho'];
+  function registroCel(r) {
+    const b = r.b, s = r.selo, pf = r.pf || {};
+    return [b.n || '', b.t || '', b.l || '', r.pos || b.p || '', b.id_ || null, pf.nasc || '', b.ct || pf.contrato || '', r.letra || '',
+      r.pos === 'GOL' ? '' : (s ? s.c || 'n' : 'n'), s && s.com ? s.verde : null, s && s.com ? s.com : null,
+      r.t2 ? CEL_T2.indexOf(r.t2.c) : -1, r.t2 ? Math.round(r.t2.manut * 100) : null, r.t2 ? r.t2.n : null,
+      r.min ? Math.round(r.min.pct * 100) : null, r.bp ? r.bp.cob : null, r.bp ? r.bp.abp : null, r.bp ? r.bp.gbp : null,
+      r.cobIdx ? r.cobIdx.cob : null, b.alt || pf.alt || null, b.nc && b.nc !== b.n ? b.nc : '', b.p || ''];
+  }
+  let gerando = false;
+  async function gerarCelular(bt) {
+    if (gerando) return;
+    if (!(typeof FB !== 'undefined' && FB.pronto && FB.usuario && FB.db)) { try { toast('Entre com o login para atualizar o app do celular', 'ruim'); } catch (e) {} return; }
+    gerando = true; const rot = bt ? bt.textContent : '';
+    try {
+      await esperarNuvem();
+      const lista = BASE.filter(x => x && x.n), out = []; const t0 = Date.now();
+      for (let i = 0; i < lista.length; i++) {
+        try { out.push(registroCel(await dadosDe(lista[i], true))); } catch (e) {}
+        if (i % 250 === 0) { if (bt) bt.textContent = '📱 ' + Math.round(i / lista.length * 100) + '%…'; await new Promise(r => setTimeout(r, 0)); }
+      }
+      const txt = JSON.stringify(out), TAM = 600000, partes = Math.ceil(txt.length / TAM), col = FB.db.collection(typeof FB_COLECAO !== 'undefined' ? FB_COLECAO : 'cenarios');
+      if (bt) bt.textContent = '📱 gravando…';
+      for (let k = 0; k < partes; k++) await col.doc('_cel_' + k).set({ t: txt.slice(k * TAM, (k + 1) * TAM) });
+      const gerado = new Date().toISOString();
+      await col.doc('_cel_meta').set({ partes, n: out.length, gerado, porEmail: FB.usuario.email || '', campos: 'n,t,l,pos,idade,nasc,ct,letra,seta,verde,com,t2,t2manut,t2jogos,min,cob,abp,gbp,cobIdx,alt,nc,pcad' });
+      try { toast('App do celular atualizado: ' + out.length.toLocaleString('pt-BR') + ' jogadores (' + Math.round((Date.now() - t0) / 1000) + ' s)', 'bom'); } catch (e) {}
+    } catch (e) { try { toast('Não deu para atualizar o app do celular: ' + ((e && e.message) || e), 'ruim'); } catch (e2) {} }
+    finally { gerando = false; if (bt) bt.textContent = rot; }
+  }
+  window.gerarAppCelular = gerarCelular;
   function linhaWhats(r) {
     const b = r.b, idade = r.b.id_ ? ', ' + r.b.id_ + 'a' : '';
     const s = r.selo, sc = s ? (s.c || 'n') : 'n';

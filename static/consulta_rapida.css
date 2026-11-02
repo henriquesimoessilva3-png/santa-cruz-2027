@@ -28,3 +28,4 @@
 .cr-bts button{padding:8px 12px;border-radius:7px;border:1px solid #3a404b;background:#222831;color:#e8eaed;cursor:pointer;font-size:13px}
 .cr-bts #crCopiar{background:#1f7a44;border-color:#2a9a58;color:#fff;font-weight:600}
 @media (max-width:600px){.cr-painel{padding:10px 6px}.cr-nome{font-size:19px}#btConsultaRapida{right:100px}}
+.cr-cel{background:#14233a;border:1px solid #2f5d9a;color:#bcd6ff;border-radius:6px;padding:4px 8px;font-size:11.5px;cursor:pointer;margin-right:6px}
