@@ -30,7 +30,7 @@
     const c = NOTAS[r[0]];
     return { c, nome: NOME[c], manut: r[1], hi: r[2], dist: r[3], n: r[4], vol: r[5], grupo: D.grupos[r[6]], h2: r[7],
       txt: '2º tempo: ' + NOME[c] + ' — mantém ' + pc(r[1]) + ' da intensidade do 1º tempo (alta intensidade ' + pc(r[2]) + ', distância ' + pc(r[3]) + ') em ' + r[4] + ' jogos completos. ' +
-        'Nota dentro de ' + D.grupos[r[6]] + ': ' + DESC[c] + '. Fonte: SkillCorner 1º × 2º tempo, últimos 24 meses (desde 01/11/2024).' };
+        'Nota dentro de ' + D.grupos[r[6]] + ': ' + DESC[c] + '. Fonte: SkillCorner 1º × 2º tempo, últimos 30 meses (desde 01/05/2024).' };
   }
   window.segTempoDe = segTempoDe;
   window.segTempoQuadrado = function (j) {
@@ -74,7 +74,7 @@
       'Mínimo de <b>' + D.min_jogos + '</b> jogos completos. A nota é dada dentro da posição, contra todos os jogadores da base.</p></div>' +
       '<div class="vnf-duas"><div class="vnf-regra">' + NOTAS.map(c => '<div>' + chip(c) + '<span>' + DESC[c][0].toUpperCase() + DESC[c].slice(1) + '.</span></div>').join('') +
       '<p>Dica: o jogo influencia (quem está ganhando recua e corre menos no 2º tempo); por isso a nota usa a soma de todos os jogos completos e pede o mínimo de jogos.</p></div>' +
-      '<div class="vnf-escopo"><b>De onde vem.</b> <span>SkillCorner, 1º × 2º tempo (o mesmo corte da ferramenta), <b>' + E.eds + '</b> competições liberadas no nosso acesso, <b>últimos 24 meses</b> (jogos desde <b>01/11/2024</b>)' + (E.serieb_anos ? ' (Série B também de ' + esc(E.serieb_anos) + ')' : '') + '.</span> ' +
+      '<div class="vnf-escopo"><b>De onde vem.</b> <span>SkillCorner, 1º × 2º tempo (o mesmo corte da ferramenta), <b>' + E.eds + '</b> competições liberadas no nosso acesso, <b>últimos 30 meses</b> (jogos desde <b>01/05/2024</b>)' + (E.serieb_anos ? ' (Série B também de ' + esc(E.serieb_anos) + ')' : '') + '.</span> ' +
       '<span><b>' + E.jogos.toLocaleString('pt-BR') + '</b> jogos completos (jogador × jogo) de <b>' + E.jogadores.toLocaleString('pt-BR') + '</b> jogadores com nota.</span> ' +
       '<span>A API não divide de 15 em 15 minutos — só em 1º e 2º tempo.</span> <span>Gerado em ' + esc(E.gerado) + '.</span></div></div>' +
       '<h3>Quanto cada posição cai do 1º para o 2º tempo</h3>' + tPos +
