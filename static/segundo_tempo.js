@@ -26,7 +26,19 @@
     let id = j.sc_id || null;
     if (!id && IDS && typeof primaryKey === 'function') id = IDS[primaryKey(j)];
     if (!id && D.chave && typeof primaryKey === 'function') id = D.chave[primaryKey(j)];
-    const r = id != null ? D.jog[id] : null; if (!r) return null;
+    let r = id != null ? D.jog[id] : null;
+    /* 02/11: o mesmo jogador em outro cadastro (outro clube/liga) — vale a nota do cadastro ligado ao SkillCorner
+       (mesma regra do físico colado: nome igual, idade ±1, nacionalidade, posição compatível) */
+    if (!r && typeof equivIndice === 'function' && typeof djMesmo === 'function' && typeof djIdent === 'function') {
+      try {
+        const pk = primaryKey(j), alvo = djIdent(pk, null), ix = equivIndice();
+        for (const n of alvo.ns) { for (const e of (ix.get(n.split(' ')[0]) || [])) {
+          const k = primaryKey(e.x); if (k === pk || !djMesmo(alvo, djIdent(k, null))) continue;
+          const id2 = (IDS && IDS[k]) || (D.chave && D.chave[k]); if (id2 != null && D.jog[id2]) { r = D.jog[id2]; break; }
+        } if (r) break; }
+      } catch (e) {}
+    }
+    if (!r) return null;
     const c = NOTAS[r[0]];
     return { c, nome: NOME[c], manut: r[1], hi: r[2], dist: r[3], n: r[4], vol: r[5], grupo: D.grupos[r[6]], h2: r[7],
       txt: '2º tempo: ' + NOME[c] + ' — mantém ' + pc(r[1]) + ' da intensidade do 1º tempo (alta intensidade ' + pc(r[2]) + ', distância ' + pc(r[3]) + ') em ' + r[4] + ' jogos completos. ' +

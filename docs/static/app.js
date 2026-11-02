@@ -7654,7 +7654,7 @@ function dadosColados(pk, card) { return dadosCorrigir(dadosColados0(pk, card));
    vazio: o jogador que aparece com outro clube ou outra liga (Transfermarkt, temporada anterior, cadastro manual) ficava com o
    número antigo. Agora vale o colado MAIS NOVO de qualquer cadastro do mesmo jogador. Mesmo jogador = nome igual, idade a ±1,
    mesma nacionalidade e posição compatível (goleiro só com goleiro; zagueiro nunca com atacante); nome de uma palavra só
-   (Max, Robinho) ou cadastro sem idade exige também o clube parecido. */
+   (Max, Robinho) ou cadastro sem idade exige também o clube parecido; sem clube parecido, o nome tem de ser raro na base. */
 let DJ_ID = null;
 const DJ_GRUPO = { Zaga: 'D', Lateral: 'L', Volante: 'M', Meia: 'M', Extremo: 'A', Atacante: 'A' };
 const djNac = s => { const t = tipoNorm(s); return t === 'brasil' ? 'brazil' : t; };
@@ -7677,6 +7677,9 @@ function djMesmo(a, b) {
   if (a.id_ != null && b.id_ != null) { if (Math.abs(a.id_ - b.id_) > 1) return false; }
   else if (!clube) return false;
   if (!clube && comum.every(x => !x.includes(' '))) return false;
+  /* 02/11: sem o clube parecido, só vale nome RARO na base (até 3 cadastros com esse nome) — "João Pedro" do Brusque
+     virava o João Pedro do Chelsea (mesma idade, brasileiro, mesma linha). O mesmo jogador aparece em 2–3 cadastros. */
+  if (!clube && !comum.some(x => x.includes(' ') && typeof nomesNaBase === 'function' && nomesNaBase(x) <= 3)) return false;
   return true;
 }
 function djIndice() {   /* refeito quando os dados colados ou a base mudam */
