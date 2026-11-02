@@ -1,4 +1,4 @@
-/* Santa Cruz Consulta — app do celular (02/11/2026, pedido do Henrique: "acessar pelo celular"). Lê da nuvem os cartões
+/* Consulta de Jogadores — app do celular (02/11/2026, pedido do Henrique: "acessar pelo celular"). Lê da nuvem os cartões
    calculados pelo app completo (botão "📱 Atualizar app do celular" na Consulta rápida): cenarios/_cel_meta + _cel_0..N.
    Guarda no celular (IndexedDB) e só baixa de novo quando há versão nova. Mesmo login (Google) e mesma lista de e-mails. */
 (function () {

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111317">
-<title>Santa Cruz Consulta</title>
+<title>Consulta de Jogadores</title>
 <script>/* celular abrindo como "site para computador" (ou dentro do WhatsApp): a página vem com ~980 px de largura e tudo
 encolhe. Aqui o app amplia na proporção da tela de verdade. */
 (function(){function aj(){var w=screen.width||0,i=window.innerWidth||0;document.documentElement.style.zoom=(w&&w<760&&i>w*1.25)?(i/w).toFixed(2):'';}aj();addEventListener('resize',aj);})();</script>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icone-192.png">
-<link rel="apple-touch-icon" href="icone-192.png">
+<link rel="icon" href="icone-cj-192.png">
+<link rel="apple-touch-icon" href="icone-cj-192.png">
 <style>
 :root{--f:#111317;--f2:#1a1e25;--b:#2c313a;--t:#eef0f2;--t2:#a7adb5;--t3:#7d838c;--v:#1F9D55;--a:#E0A100;--r:#D64545;--az:#2563EB;--vm:#C8102E}
 *{box-sizing:border-box}html,body{margin:0;background:var(--f);color:var(--t);font-family:Arial,Helvetica,sans-serif}
@@ -40,7 +40,7 @@ main{padding:10px 16px 104px}
 </head>
 <body>
 <header>
-  <div class="topo"><img src="icone-192.png" alt=""><b>Santa Cruz Consulta</b><small id="ver"></small></div>
+  <div class="topo"><img src="icone-cj-192.png" alt=""><b>Consulta de Jogadores</b><small id="ver"></small></div>
   <input id="q" type="search" placeholder="nome do jogador (e o clube, se precisar)" autocomplete="off" disabled>
 </header>
 <main id="m"><div class="vaz">carregando…</div></main>
@@ -48,6 +48,6 @@ main{padding:10px 16px 104px}
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
