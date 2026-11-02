@@ -53,6 +53,10 @@ def montar():
         origem = os.path.join(AQUI, "dados", nome)
         if os.path.exists(origem):
             shutil.copy2(origem, os.path.join(dados_dest, nome))
+    # 02/11/2026 — app do celular "Santa Cruz Consulta" (PWA): consulta_app/ -> docs/consulta/
+    cel = os.path.join(AQUI, "consulta_app")
+    if os.path.isdir(cel):
+        shutil.copytree(cel, os.path.join(DOCS, "consulta"), dirs_exist_ok=True)
     kpis = os.path.join(AQUI, "dados", "kpis")
     if os.path.isdir(kpis):
         shutil.copytree(kpis, os.path.join(dados_dest, "kpis"), dirs_exist_ok=True)

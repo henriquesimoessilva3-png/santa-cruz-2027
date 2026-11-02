@@ -54,7 +54,16 @@
     if (achados.length === 1) { lista.innerHTML = ''; cartao(achados[0]); }
   }
 
+  /* os dados colados (físico/técnico da busca automática) e a bola parada do Wyscout chegam da nuvem alguns segundos
+     depois da base: sem esperar, a consulta aberta logo no início saía com o número antigo */
+  async function esperarNuvem() {
+    const logado = () => typeof FB !== 'undefined' && FB.pronto && FB.usuario;
+    const pronto = () => (typeof DADOSJOG !== 'undefined' && Object.keys(DADOSJOG).length > 0) && (!logado() || (window.BP_WY && window.BP_WY.jog));
+    const t0 = Date.now();
+    while (!pronto() && Date.now() - t0 < 15000) await new Promise(r => setTimeout(r, 300));
+  }
   async function dadosDe(b) {
+    await esperarNuvem();
     const pk = primaryKey(b);
     let o = b; try { const od = objDoRaio(pk, null, b); if (od && od.obj) o = od.obj; } catch (e) {}
     let js = o; try { js = comPosCampo(o) || o; } catch (e) {}
