@@ -1,0 +1,30 @@
+/* 02/11/2026 — Consulta rápida (static/consulta_rapida.js) */
+#btConsultaRapida{position:fixed;right:110px;bottom:14px;z-index:950;padding:7px 12px;border-radius:18px;border:1px solid #c8a13a;background:#2a2210;color:#ffe08a;font:600 12px Arial,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.cr-painel{position:fixed;inset:0;z-index:960;background:rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:center;padding:40px 12px;overflow:auto}
+.cr-painel.oculta{display:none}
+.cr-caixa{width:min(720px,100%);background:#15181e;color:#e8eaed;border:1px solid #2c313a;border-radius:12px;padding:14px 16px;box-shadow:0 14px 40px rgba(0,0,0,.5);font-family:Arial,Helvetica,sans-serif}
+.cr-topo{display:flex;justify-content:space-between;align-items:center;font-size:16px;margin-bottom:10px}
+.cr-x{background:none;border:0;color:#aaa;font-size:18px;cursor:pointer}
+#crBusca{width:100%;box-sizing:border-box;font-size:17px;padding:10px 12px;border-radius:8px;border:1px solid #3a404b;background:#0e1014;color:#fff}
+.cr-lista{margin-top:8px}
+.cr-item{padding:9px 10px;border-bottom:1px solid #252a33;cursor:pointer;font-size:14px}
+.cr-item:hover{background:#1d222a}.cr-item span{color:#9aa0a8;font-size:12.5px}
+.cr-vaz{color:#8a9099;font-size:13px;padding:10px 4px}
+.cr-card{margin-top:10px}
+.cr-cab{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.cr-cab img{width:64px;height:80px;object-fit:cover;border-radius:8px;background:#222}
+.cr-nome{font-size:22px;font-weight:700}
+.cr-sub{color:#aab0b8;font-size:13px;margin-top:3px}.cr-sub b{color:#fff;font-size:14px}
+.cr-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px}
+.cr-b{border:1px solid #2c313a;border-left-width:5px;border-radius:8px;padding:8px 10px;background:#1a1e25}
+.cr-b small{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:#8a9099}
+.cr-b b{display:block;font-size:20px;margin:3px 0}
+.cr-b span{display:block;font-size:11.5px;color:#aab0b8;line-height:1.3}
+.cr-b.l-ap{border-left-color:#2563EB}.cr-b.l-a{border-left-color:#1F9D55}.cr-b.l-b{border-left-color:#E0A100}.cr-b.l-c{border-left-color:#D64545}
+.cr-b.s-v,.cr-b.m-v,.cr-b.t-verde{border-left-color:#1F9D55}.cr-b.s-a,.cr-b.m-a,.cr-b.t-amarelo{border-left-color:#E0A100}.cr-b.s-r,.cr-b.m-r,.cr-b.t-vermelho{border-left-color:#D64545}.cr-b.t-azul{border-left-color:#2563EB}
+.cr-whats{margin-top:12px;background:#0f2a1c;border:1px solid #1f5a3a;border-radius:8px;padding:8px 10px;font-size:14px}
+.cr-whats small{color:#7fc79b;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px}
+.cr-bts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.cr-bts button{padding:8px 12px;border-radius:7px;border:1px solid #3a404b;background:#222831;color:#e8eaed;cursor:pointer;font-size:13px}
+.cr-bts #crCopiar{background:#1f7a44;border-color:#2a9a58;color:#fff;font-weight:600}
+@media (max-width:600px){.cr-painel{padding:10px 6px}.cr-nome{font-size:19px}#btConsultaRapida{right:100px}}
