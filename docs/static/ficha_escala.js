@@ -24,12 +24,17 @@
     if (f.classList.contains('modo-print')) return;            /* o 📷 Print cuida da ficha enquanto desenha */
     const aberta = !f.classList.contains('oculta') && pg.offsetParent !== null;
     const w = pg.clientWidth, h = pg.clientHeight;
-    if (!aberta || !w || w >= LIMITE) { f.classList.remove('ficha-escalada'); f.style.removeProperty('--fichaZ'); f.style.removeProperty('--fichaH'); return; }
+    if (!aberta || !w || w >= LIMITE) {
+      if (f.classList.contains('ficha-escalada')) { f.classList.remove('ficha-escalada'); f.style.removeProperty('--fichaZ'); f.style.removeProperty('--fichaH'); }
+      return;
+    }
     const z = w / LARG;
     const alturaOutros = [...pg.children].filter(e => e !== f && e.offsetParent !== null).reduce((s, e) => s + e.offsetHeight, 0);
-    f.style.setProperty('--fichaZ', z.toFixed(4));
-    f.style.setProperty('--fichaH', Math.max(200, (h - alturaOutros) / z).toFixed(1) + 'px');
-    f.classList.add('ficha-escalada');
+    const zt = z.toFixed(4), ht = Math.max(200, (h - alturaOutros) / z).toFixed(1) + 'px';
+    /* só mexe quando muda: mexer na classe sem mudar nada também avisa o observador e virava um laço a cada quadro */
+    if (f.style.getPropertyValue('--fichaZ') !== zt) f.style.setProperty('--fichaZ', zt);
+    if (f.style.getPropertyValue('--fichaH') !== ht) f.style.setProperty('--fichaH', ht);
+    if (!f.classList.contains('ficha-escalada')) f.classList.add('ficha-escalada');
   }
   const agenda = () => { if (!pend) { pend = true; requestAnimationFrame(ajustar); } };
   window.fichaEscalaAjustar = ajustar;
