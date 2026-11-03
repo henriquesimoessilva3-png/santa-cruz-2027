@@ -116,6 +116,7 @@
     });
     return out;
   }
+  function gavetaCel(k, n) { let h = 0; for (let i = 0; i < k.length; i++) h = (h * 31 + k.charCodeAt(i)) >>> 0; return h % n; }
   let gerando = false;
   async function gerarCelular(bt) {
     if (gerando) return;
@@ -128,11 +129,16 @@
         try { out.push(registroCel(await dadosDe(lista[i], true))); } catch (e) {}
         if (i % 250 === 0) { if (bt) bt.textContent = '📱 ' + Math.round(i / lista.length * 100) + '%…'; await new Promise(r => setTimeout(r, 0)); }
       }
+      /* 02/11: o detalhe (o que abre ao tocar no bloco) vai à parte, em 96 "gavetas" por jogador — o celular baixa só a gaveta
+         do jogador tocado; a base leve fica com ~5 MB */
+      const NG = 96, gav = Array.from({ length: NG }, () => ({}));
+      out.forEach(r => { const d = r[22]; if (d) { const k = gavetaCel(r[0] + ' - ' + r[1] + ' - ' + r[2], NG); gav[k][r[0] + ' - ' + r[1] + ' - ' + r[2]] = d; r[22] = 1; } else r[22] = 0; });
       const txt = JSON.stringify(out), TAM = 600000, partes = Math.ceil(txt.length / TAM), col = FB.db.collection(typeof FB_COLECAO !== 'undefined' ? FB_COLECAO : 'cenarios');
       if (bt) bt.textContent = '📱 gravando…';
       for (let k = 0; k < partes; k++) await col.doc('_cel_' + k).set({ t: txt.slice(k * TAM, (k + 1) * TAM) });
+      for (let k = 0; k < NG; k++) await col.doc('_cel_d_' + k).set({ t: JSON.stringify(gav[k]) });
       const gerado = new Date().toISOString();
-      await col.doc('_cel_meta').set({ partes, n: out.length, gerado, medias: mediasSerieB(), fisk: FISK, porEmail: FB.usuario.email || '', campos: 'n,t,l,pos,idade,nasc,ct,letra,seta,verde,com,t2,t2manut,t2jogos,min,cob,abp,gbp,cobIdx,alt,nc,pcad,det' });
+      await col.doc('_cel_meta').set({ partes, gavetas: NG, n: out.length, gerado, medias: mediasSerieB(), fisk: FISK, porEmail: FB.usuario.email || '', campos: 'n,t,l,pos,idade,nasc,ct,letra,seta,verde,com,t2,t2manut,t2jogos,min,cob,abp,gbp,cobIdx,alt,nc,pcad,det' });
       try { await col.doc('_cel_extra').set({ j: {} }); } catch (e) {}   /* a base nova já tem o que estava no avulso */
       try { toast('App do celular atualizado: ' + out.length.toLocaleString('pt-BR') + ' jogadores (' + Math.round((Date.now() - t0) / 1000) + ' s)', 'bom'); } catch (e) {}
     } catch (e) { try { toast('Não deu para atualizar o app do celular: ' + ((e && e.message) || e), 'ruim'); } catch (e2) {} }

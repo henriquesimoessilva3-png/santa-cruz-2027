@@ -83,7 +83,7 @@
     return p.join(' · ');
   }
   function cartao(r) {
-    atual = r; const det = r[I.det] || {};
+    atual = r; const det = r[I.det] ? { f: 1, t: 1, s: 1, m: 1, b: 1 } : {};
     let qual = '';
     const bl = (rot, val, sub, c) => { const k = { 'Físico': 'f', 'Técnico': 't', '2º tempo': 's', 'Minutagem': 'm', 'Bola parada': 'b' }[rot]; const tem = det[k] ? ' tem' : ''; return '<div class="bl ' + (c || '') + tem + '" data-k="' + k + '"><small>' + rot + (tem ? ' <i>›</i>' : '') + '</small><b>' + val + '</b>' + (sub ? '<span>' + sub + '</span>' : '') + '</div>'; };
     const L = r[I.letra], gk = r[I.pos] === 'GOL';
@@ -104,15 +104,23 @@
       '<div id="ped"></div>';
     $('#cp').onclick = async () => { const t = linha(r); try { await navigator.clipboard.writeText(t); } catch (e) { const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); } toast('Copiado — cole no WhatsApp'); };
     $('#vt').onclick = () => { atual = null; buscar(); };
-    document.querySelectorAll('.bl[data-k]').forEach(el => el.onclick = () => { const k = el.dataset.k; if (qual === k) { qual = ''; $('#det').innerHTML = ''; document.querySelectorAll('.bl').forEach(x => x.classList.remove('sel')); return; } qual = k; document.querySelectorAll('.bl').forEach(x => x.classList.toggle('sel', x === el)); $('#det').innerHTML = detalhe(r, k); });
+    document.querySelectorAll('.bl[data-k]').forEach(el => el.onclick = () => { const k = el.dataset.k; if (qual === k) { qual = ''; $('#det').innerHTML = ''; document.querySelectorAll('.bl').forEach(x => x.classList.remove('sel')); return; } qual = k; document.querySelectorAll('.bl').forEach(x => x.classList.toggle('sel', x === el)); $('#det').innerHTML = '<div class="det"><div class="vaz">carregando…</div></div>'; detDe(r).then(d => { if (qual === k) $('#det').innerHTML = detalhe(r, k, d); }); });
     statusPedido(r);
     window.scrollTo(0, 0);
   }
 
 
+  const GAV = {};
+  function gavetaCel(k, n) { let h = 0; for (let i = 0; i < k.length; i++) h = (h * 31 + k.charCodeAt(i)) >>> 0; return h % n; }
+  async function detDe(r) {
+    const d = r[I.det]; if (d && typeof d === 'object') return d; if (!d || !DB || !meta || !meta.gavetas) return null;
+    const pk = r[I.n] + ' - ' + r[I.t] + ' - ' + r[I.l], g = gavetaCel(pk, meta.gavetas), ch = 'g' + g + '|' + meta.gerado;
+    if (!GAV[ch]) GAV[ch] = (async () => { const c = await idbGet(ch); if (c) return c; const s = await DB.collection('cenarios').doc('_cel_d_' + g).get(); const o = JSON.parse((s.data() || {}).t || '{}'); idbSet(ch, o); return o; })();
+    try { const o = await GAV[ch]; return o[pk] || null; } catch (e) { return null; }
+  }
   const fmt = (v, d) => v == null ? '—' : Number(v).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
-  function detalhe(r, k) {
-    const d = r[I.det] || {}; const pos = r[I.pos];
+  function detalhe(r, k, d) {
+    d = d || {}; const pos = r[I.pos];
     if (!d[k]) return '<div class="det"><div class="vaz">sem detalhe deste bloco</div></div>';
     let h = '';
     if (k === 'f') {
