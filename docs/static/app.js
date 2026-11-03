@@ -7624,7 +7624,9 @@ function registroEquivalente(j) {
     if (temDados(x)) c.push(x);
   }));
   let r = c.filter(x => clubeParecido(x.t, j.t));
-  if (r.length !== 1) r = c.filter(x => igual(x) && j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!j.nac || !x.nac || x.nac === j.nac));
+  /* 02/11 (Henrique): sem o clube parecido, só vale nome RARO na base (até 3 cadastros) — o "João Victor · Atlético-GO"
+     (cadastro velho, passou lá em 2020) herdava o João Victor do CSKA; o João Pedro do Londrina, o do Chelsea */
+  if (r.length !== 1) r = c.filter(x => igual(x) && j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!j.nac || !x.nac || x.nac === j.nac) && nomesNaBase(tipoNorm(x.n)) <= 3);
   const out = r.length === 1 ? r[0] : null;
   EQUIV_CACHE.set(k, out); return out;
 }
