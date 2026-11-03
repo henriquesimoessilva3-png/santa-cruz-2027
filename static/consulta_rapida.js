@@ -75,7 +75,7 @@
     try { r.cobIdx = bolaParadaDe(b); } catch (e) {}
     try {
       const reg = window.bpWyRegistro ? window.bpWyRegistro(b) : null;
-      if (reg && reg.a) { const t = { cob: 0, abp: 0, gbp: 0, gp: 0 }; Object.values(reg.a).forEach(y => { if (!y) return; t.cob += (y.c || 0) + (y.fc || 0) + (y.fd || 0) + (y.pe || 0); t.abp += y.abp || 0; t.gbp += (y.ge || 0) + (y.gf || 0) + (y.gd || 0) + (y.gl || 0); t.gp += y.gp || 0; }); r.bp = t; }
+      if (reg && reg.a) { const t = { cob: 0, abp: 0, gbp: 0, gp: 0 }; r.bpa = reg.a; Object.values(reg.a).forEach(y => { if (!y) return; t.cob += (y.c || 0) + (y.fc || 0) + (y.fd || 0) + (y.pe || 0); t.abp += y.abp || 0; t.gbp += (y.ge || 0) + (y.gf || 0) + (y.gd || 0) + (y.gl || 0); t.gp += y.gp || 0; }); r.bp = t; }
     } catch (e) {}
     try { r.pf = await perfilExtraDe(b); } catch (e) {}
     try { r.foto = (window.fotoExtra && window.fotoExtra(pk)) || null; } catch (e) {}
@@ -93,7 +93,28 @@
       r.pos === 'GOL' ? '' : (s ? s.c || 'n' : 'n'), s && s.com ? s.verde : null, s && s.com ? s.com : null,
       r.t2 ? CEL_T2.indexOf(r.t2.c) : -1, r.t2 ? Math.round(r.t2.manut * 100) : null, r.t2 ? r.t2.n : null,
       r.min ? Math.round(r.min.pct * 100) : null, r.bp ? r.bp.cob : null, r.bp ? r.bp.abp : null, r.bp ? r.bp.gbp : null,
-      r.cobIdx ? r.cobIdx.cob : null, b.alt || pf.alt || null, b.nc && b.nc !== b.n ? b.nc : '', b.p || ''];
+      r.cobIdx ? r.cobIdx.cob : null, b.alt || pf.alt || null, b.nc && b.nc !== b.n ? b.nc : '', b.p || '', detalheCel(r)];
+  }
+  /* 02/11: o detalhe que abre ao tocar em cada bloco do cartão no celular */
+  const FISK = ['psv', 'spr_n', 'hi_n', 'expl', 'dist', 'obr', 'hi', 'acel'];
+  const r1 = v => (typeof v === 'number' && isFinite(v)) ? Math.round(v * 100) / 100 : null;
+  function detalheCel(r) {
+    const j = r.js || r.b, d = {};
+    const f = FISK.map(k => r1(j[k])); if (f.some(v => v != null)) d.f = f;
+    const s = r.selo; if (s && s.inds && s.inds.length) d.t = s.inds.map(x => [x.rot, r1(x.v), x.c || '', r1(x.ref), x.menor ? 1 : 0]);
+    if (r.t2) d.s = [r1(r.t2.hi), r1(r.t2.dist), r1(r.t2.h2), r.t2.grupo || ''];
+    if (r.min && r.min.anos) d.m = r.min.anos.map(a => [a.t, a.p == null ? null : Math.round(a.p * 100), a.tm || '', (a.txt || '').slice(0, 70)]);
+    if (r.bpa) d.b = Object.keys(r.bpa).sort().map(a => { const y = r.bpa[a] || {}; return [a, (y.c || 0) + (y.fc || 0) + (y.fd || 0) + (y.pe || 0), y.abp || 0, (y.ge || 0) + (y.gf || 0) + (y.gd || 0) + (y.gl || 0), y.gh || 0, y.c || 0, (y.fc || 0) + (y.fd || 0), y.pe || 0]; });
+    return Object.keys(d).length ? d : 0;
+  }
+  const GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
+  function mediasSerieB() {
+    const out = {};
+    ['LD', 'LE', 'ZD', 'ZE', 'VOL', 'MED', 'MEI', 'ED', 'EE', 'CA'].forEach(p => {
+      const ps = GEMEAS[p] || [p], l = BASE.filter(x => x.l === 'Brasil B' && ps.includes(x.p));
+      out[p] = FISK.map(k => { const v = l.map(x => x[k]).filter(v => typeof v === 'number' && isFinite(v)); return v.length >= 5 ? r1(v.reduce((a, b) => a + b, 0) / v.length) : null; });
+    });
+    return out;
   }
   let gerando = false;
   async function gerarCelular(bt) {
@@ -111,12 +132,50 @@
       if (bt) bt.textContent = '📱 gravando…';
       for (let k = 0; k < partes; k++) await col.doc('_cel_' + k).set({ t: txt.slice(k * TAM, (k + 1) * TAM) });
       const gerado = new Date().toISOString();
-      await col.doc('_cel_meta').set({ partes, n: out.length, gerado, porEmail: FB.usuario.email || '', campos: 'n,t,l,pos,idade,nasc,ct,letra,seta,verde,com,t2,t2manut,t2jogos,min,cob,abp,gbp,cobIdx,alt,nc,pcad' });
+      await col.doc('_cel_meta').set({ partes, n: out.length, gerado, medias: mediasSerieB(), fisk: FISK, porEmail: FB.usuario.email || '', campos: 'n,t,l,pos,idade,nasc,ct,letra,seta,verde,com,t2,t2manut,t2jogos,min,cob,abp,gbp,cobIdx,alt,nc,pcad,det' });
+      try { await col.doc('_cel_extra').set({ j: {} }); } catch (e) {}   /* a base nova já tem o que estava no avulso */
       try { toast('App do celular atualizado: ' + out.length.toLocaleString('pt-BR') + ' jogadores (' + Math.round((Date.now() - t0) / 1000) + ' s)', 'bom'); } catch (e) {}
     } catch (e) { try { toast('Não deu para atualizar o app do celular: ' + ((e && e.message) || e), 'ruim'); } catch (e2) {} }
     finally { gerando = false; if (bt) bt.textContent = rot; }
   }
   window.gerarAppCelular = gerarCelular;
+
+  /* ===== pedidos de atualização vindos do celular (cenarios/_cel_pedidos) =====
+     Com o app aberto neste Chrome (login + extensão BFR Busca Jogador), cada pedido pendente roda a busca automática
+     (window.buscaAutoPedido, só segue quando o jogador é inequívoco) e o cartão novo vai para cenarios/_cel_extra, que o
+     celular lê na hora. Um de cada vez, sem atrapalhar quem está usando: espera a janela de dados estar fechada. */
+  const chavePk = s => String(s).replace(/[.~*/\[\]]/g, '_');
+  let filaRodando = false, filaPend = [];
+  async function processarFila() {
+    if (filaRodando || !filaPend.length || typeof window.buscaAutoPedido !== 'function') return;
+    filaRodando = true; const col = FB.db.collection(typeof FB_COLECAO !== 'undefined' ? FB_COLECAO : 'cenarios');
+    try {
+      while (filaPend.length) {
+        const md = document.getElementById('modalDados'); if (md && md.classList.contains('aberto')) { await new Promise(r => setTimeout(r, 5000)); continue; }
+        const [k, p] = filaPend.shift();
+        await col.doc('_cel_pedidos').set({ p: { [k]: Object.assign({}, p, { estado: 'buscando', em_busca: new Date().toISOString() }) } }, { merge: true });
+        const b = fsJogadorPk(p.pk) || BASE.find(x => x.n === p.n && x.t === p.t);
+        let res = b ? await window.buscaAutoPedido(b) : { estado: 'erro', msg: 'jogador não está na base do app' };
+        if (b && (res.estado === 'ok' || res.estado === 'parcial')) {
+          await new Promise(r => setTimeout(r, 1500));
+          try { const reg = registroCel(await dadosDe(b, true)); await col.doc('_cel_extra').set({ j: { [k]: reg } }, { merge: true }); } catch (e) { res.msg += ' (cartão não gravado: ' + e.message + ')'; }
+        }
+        await col.doc('_cel_pedidos').set({ p: { [k]: Object.assign({}, p, { estado: res.estado, msg: res.msg || '', wy: res.wy || '', feito: new Date().toISOString() }) } }, { merge: true });
+        try { toast('Pedido do celular: ' + p.n + ' — ' + (res.msg || res.estado), res.estado === 'ok' ? 'bom' : res.estado === 'erro' ? 'ruim' : ''); } catch (e) {}
+      }
+    } finally { filaRodando = false; }
+  }
+  function ligarFila() {
+    if (!(typeof FB !== 'undefined' && FB.pronto && FB.usuario && FB.db)) return false;
+    FB.db.collection(typeof FB_COLECAO !== 'undefined' ? FB_COLECAO : 'cenarios').doc('_cel_pedidos').onSnapshot(s => {
+      const P = (s.exists && s.data().p) || {};
+      Object.entries(P).forEach(([k, p]) => { if (p && p.estado === 'pendente' && !filaPend.some(x => x[0] === k)) filaPend.push([k, p]); });
+      if (filaPend.length) esperarNuvem().then(processarFila);
+    }, () => {});
+    return true;
+  }
+  { const t0 = Date.now(); const iv = setInterval(() => { if (typeof BASE !== 'undefined' && BASE.length > 1000 && ligarFila()) clearInterval(iv); else if (Date.now() - t0 > 120000) clearInterval(iv); }, 2000); }
+
   function linhaWhats(r) {
     const b = r.b, idade = r.b.id_ ? ', ' + r.b.id_ + 'a' : '';
     const s = r.selo, sc = s ? (s.c || 'n') : 'n';

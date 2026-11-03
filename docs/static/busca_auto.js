@@ -19,6 +19,7 @@
   const erro = t => '<div style="color:#e57373">✖ ' + t + '</div>';
   const SEM_EXT = erro('A extensão <b>BFR Busca Jogador</b> não está carregada neste Chrome. Em <code>chrome://extensions</code> (modo do desenvolvedor) use “Carregar sem compactação” na pasta <code>Santa Cruz/extensao_busca_jogador</code> e recarregue esta página. Enquanto isso, a colagem manual abaixo continua valendo.');
   let ctx = { clube: '', idade: null }, CANDS = [];
+  const PEND = new WeakMap();   /* 02/11: promessas da carreira e das corridas de cada busca (o modo automático espera por elas) */
 
   function ext(msg) {
     return new Promise(res => {
@@ -111,7 +112,7 @@
       html += tf === 'default' ? ok(t) : aviso(t + ' — sem minutos ' + (tf === 'current_season' ? 'nos últimos 12 meses' : 'nos últimos 12 meses nem na época atual'));
     }
     res.innerHTML = html + '<div id="baCar">⏳ minutagem e bola parada no Wyscout, jogo a jogo (leva uns 30 s)…</div><div id="baSc">⏳ procurando no SkillCorner…</div>';
-    carreira(c, info);
+    const pCar = carreira(c, info); PEND.set(info, [pCar]);
     const s = await ext({ tipo: 'sc_buscar', nomes: [c.completo, c.nome].filter(Boolean) });
     const el = $q('#baSc');
     if (s.erro) { el.innerHTML = erro(esc(s.erro)); return fim(info); }
@@ -131,7 +132,7 @@
     const f = await ext({ tipo: 'sc_fisico', id: x.id, datas: SC_DATAS });
     if (f.erro) { el.innerHTML = erro(esc(f.erro)); return fim(info); }
     info.sc_id = x.id;
-    corridas(x, info);
+    const pObr = corridas(x, info); (PEND.get(info) || PEND.set(info, []).get(info)).push(pObr);
     if (f.vazio) {
       el.innerHTML = aviso('SkillCorner: ' + esc(x.completo || x.nome) + ' (nasc. ' + br(x.nasc) + ') não tem jogo com 60+ min desde 01/06/2025 nem desde 01/01/2025. Cole à mão abaixo — ou vemos outra forma de puxar.');
       return fim(info);
@@ -182,6 +183,33 @@
     window.MD_AUTO = info;
     const res = $q('#baRes'); if (res && !$q('#baFim')) res.insertAdjacentHTML('beforeend', '<div id="baFim" style="margin-top:6px"><b>Confira os números abaixo e clique em Salvar.</b></div>');
   }
+
+
+  /* 02/11/2026 — pedido de atualização vindo do celular (app Consulta de Jogadores): roda a mesma busca, mas só segue
+     sozinho quando o jogador do Wyscout é inequívoco (mesmo clube do cadastro + idade ±1, e nenhum outro com a mesma
+     nota) e o do SkillCorner tem o MESMO nascimento — senão devolve "conferir" e não salva nada. */
+  window.buscaAutoPedido = async function (j) {
+    try {
+      if (typeof abrirDadosBase !== 'function') return { estado: 'erro', msg: 'app sem a janela de dados' };
+      abrirDadosBase(j);
+      const nome = (j.nc || j.n || '').replace(/\s*\(.*?\)\s*/g, ' ').trim(); if ($q('#baNome')) $q('#baNome').value = nome;
+      const r = await ext({ tipo: 'wy_buscar', nome });
+      if (r.erro === 'semext') return { estado: 'erro', msg: 'extensão BFR Busca Jogador desligada' };
+      if (r.erro) return { estado: 'erro', msg: String(r.erro) };
+      const C = r.candidatos || []; if (!C.length) return { estado: 'nao_achou', msg: 'não está no Wyscout com esse nome' };
+      C.forEach(c => { c.nota = nota(c, nome); }); C.sort((a, b) => b.nota - a.nota || minTot(b) - minTot(a)); CANDS = C;
+      const top = C[0];
+      if (!(top.nota >= 3 && (C.length === 1 || C[1].nota < top.nota))) return { estado: 'conferir', msg: C.length + ' jogadores com esse nome no Wyscout — escolha na ficha' };
+      await escolher(top);
+      const info = window.MD_AUTO; const pend = (info && PEND.get(info)) || [];
+      await Promise.all(pend.map(p => Promise.resolve(p).catch(() => {})));
+      const temF = !!(typeof mdFis !== 'undefined' && mdFis), temT = !!(typeof mdTec !== 'undefined' && mdTec);
+      if (!temF && !temT) { const x = $q('#modalDados'); if (x) x.classList.remove('aberto'); return { estado: 'sem_dado', msg: 'Wyscout e SkillCorner sem dado recente' }; }
+      const bt = $q('#mdOk'); if (!bt) return { estado: 'erro', msg: 'botão salvar não achado' };
+      bt.click();
+      return { estado: temF && temT ? 'ok' : 'parcial', msg: (temT ? 'técnico' : '') + (temF && temT ? ' e ' : '') + (temF ? 'físico' : '') + ' atualizados', wy: top.nome + ' · ' + top.clube };
+    } catch (e) { return { estado: 'erro', msg: (e && e.message) || String(e) }; }
+  };
 
   /* ficha do jogador: botão ao lado do "+ físico/técnico" (chamado pelo abrirFicha do app.js) */
   window.buscaAutoFicha = function (j) {

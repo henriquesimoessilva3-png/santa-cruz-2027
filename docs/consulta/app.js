@@ -9,7 +9,10 @@
   const POSN = { GOL: 'Goleiro', LD: 'Lateral direito', LE: 'Lateral esquerdo', ZD: 'Zagueiro (dir.)', ZE: 'Zagueiro (esq.)', VOL: 'Volante', MED: 'Médio', MEI: 'Meia', ED: 'Extremo direito', EE: 'Extremo esquerdo', CA: 'Centroavante' };
   const CORACAO = { 'A+': '💙', A: '💚', B: '💛', C: '❤️' }, LETRA_TXT = { 'A+': 'explosivo + volume', A: 'explosivo e rápido', B: 'volume / intermediário', C: 'baixa intensidade' };
   const SETA = { v: '✅', a: '⚠️', r: '❌', n: '❔' }, T2 = ['💎', '🔋', '🔸', '🪫'], T2N = ['Elite', 'Mantém', 'Cai um pouco', 'Cai muito'], T2C = ['c-az', 'c-v', 'c-a', 'c-r'];
-  const I = { n: 0, t: 1, l: 2, pos: 3, id: 4, nasc: 5, ct: 6, letra: 7, seta: 8, verde: 9, com: 10, t2: 11, t2m: 12, t2j: 13, min: 14, cob: 15, abp: 16, gbp: 17, cobIdx: 18, alt: 19, nc: 20 };
+  const I = { n: 0, t: 1, l: 2, pos: 3, id: 4, nasc: 5, ct: 6, letra: 7, seta: 8, verde: 9, com: 10, t2: 11, t2m: 12, t2j: 13, min: 14, cob: 15, abp: 16, gbp: 17, cobIdx: 18, alt: 19, nc: 20, det: 22 };
+  const FISL = ['PSV-99 (km/h)', 'Sprints /90', 'Ações de alta intensidade /90', 'Arrancadas explosivas /90', 'Distância /90 (m)', 'Corridas sem bola /30', 'Distância em alta intensidade /90', 'Acelerações fortes /90'];
+  const chavePk = r => String(r[I.n] + ' - ' + r[I.t] + ' - ' + r[I.l]).replace(/[.~*/\[\]]/g, '_');
+  let EXTRA = {}, PED = {}, DB = null, USER = null, atual = null;
   let J = [], IDX = [], meta = null;
   const toast = t => { const e = $('#toast'); e.textContent = t; e.classList.add('on'); setTimeout(() => e.classList.remove('on'), 2200); };
   const dataBR = iso => iso && /^\d{4}-\d\d-\d\d/.test(iso) ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : (iso || '');
@@ -20,8 +23,12 @@
   const idbGet = async k => { try { const d = await idb(); return await new Promise(res => { const q = d.transaction('k').objectStore('k').get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(null); }); } catch (e) { return null; } };
   const idbSet = async (k, v) => { try { const d = await idb(); await new Promise(res => { const t = d.transaction('k', 'readwrite'); t.objectStore('k').put(v, k); t.oncomplete = res; t.onerror = res; }); } catch (e) {} };
 
+  function aplicarExtra() {
+    Object.entries(EXTRA).forEach(([k, r]) => { const i = J.findIndex(x => chavePk(x) === k); if (i >= 0) J[i] = r; else J.push(r); });
+    IDX = J.map(r => norm(r[I.n] + ' ' + (r[I.nc] || '') + ' ' + r[I.t]));
+  }
   function usar(dados, m) {
-    J = dados; meta = m;
+    J = dados; meta = m; aplicarExtra();
     IDX = J.map(r => norm(r[I.n] + ' ' + (r[I.nc] || '') + ' ' + r[I.t]));
     $('#ver').textContent = (J.length).toLocaleString('pt-BR') + ' jogadores · dados de ' + dataBR((m && m.gerado) || '');
     $('#q').disabled = false;
@@ -30,7 +37,12 @@
   }
   const legenda = () => '<div class="leg">Físico: 💙A+ 💚A 💛B ❤️C · Técnico: ✅ atende ⚠️ médio ❌ abaixo · 2º tempo: 💎 elite 🔋 mantém 🔸 cai um pouco 🪫 cai muito · ⏱️ minutagem · ⚑ bola parada</div>';
 
+  function ouvir(db) {
+    db.collection('cenarios').doc('_cel_extra').onSnapshot(s => { EXTRA = (s.exists && s.data().j) || {}; if (J.length) { aplicarExtra(); if (atual) { const n = J.find(x => chavePk(x) === chavePk(atual)); if (n) cartao(n); } } }, () => {});
+    db.collection('cenarios').doc('_cel_pedidos').onSnapshot(s => { PED = (s.exists && s.data().p) || {}; if (atual) statusPedido(atual); }, () => {});
+  }
   async function carregar(db) {
+    DB = db; ouvir(db);
     const local = await idbGet('dados'), lm = await idbGet('meta');
     if (local && lm) usar(local, lm);
     try {
@@ -71,7 +83,9 @@
     return p.join(' · ');
   }
   function cartao(r) {
-    const bl = (rot, val, sub, c) => '<div class="bl ' + (c || '') + '"><small>' + rot + '</small><b>' + val + '</b>' + (sub ? '<span>' + sub + '</span>' : '') + '</div>';
+    atual = r; const det = r[I.det] || {};
+    let qual = '';
+    const bl = (rot, val, sub, c) => { const k = { 'Físico': 'f', 'Técnico': 't', '2º tempo': 's', 'Minutagem': 'm', 'Bola parada': 'b' }[rot]; const tem = det[k] ? ' tem' : ''; return '<div class="bl ' + (c || '') + tem + '" data-k="' + k + '"><small>' + rot + (tem ? ' <i>›</i>' : '') + '</small><b>' + val + '</b>' + (sub ? '<span>' + sub + '</span>' : '') + '</div>'; };
     const L = r[I.letra], gk = r[I.pos] === 'GOL';
     const fis = gk ? bl('Físico', 'goleiro', '') : L ? bl('Físico', CORACAO[L] + ' ' + L, LETRA_TXT[L], { 'A+': 'c-az', A: 'c-v', B: 'c-a', C: 'c-r' }[L]) : bl('Físico', '🤍 —', 'sem rastreio');
     const sc = r[I.seta] || 'n';
@@ -84,11 +98,54 @@
       '<div class="sub">' + esc(r[I.t]) + ' · ' + esc(r[I.l]) + ' · ' + esc(POSN[r[I.pos]] || r[I.pos]) + '</div>' +
       '<div class="sub"><b>' + (r[I.id] || '—') + ' anos</b>' + (r[I.nasc] ? ' · ' + esc(dataBR(r[I.nasc])) : '') + (r[I.ct] ? ' · contrato ' + esc(mesAno(r[I.ct])) : '') + (r[I.alt] ? ' · ' + r[I.alt] + ' cm' : '') + '</div>' +
       '<div class="grade">' + fis + tec + t2 + mi + bp + '</div>' +
+      '<div id="det"></div>' +
       '<div class="whats"><small>WhatsApp</small>' + esc(linha(r)) + '</div>' +
-      '<div class="bts"><button class="ok" id="cp">📋 Copiar</button><button id="vt">← voltar</button></div>';
+      '<div class="bts"><button class="ok" id="cp">📋 Copiar</button><button id="vt">← voltar</button></div>' +
+      '<div id="ped"></div>';
     $('#cp').onclick = async () => { const t = linha(r); try { await navigator.clipboard.writeText(t); } catch (e) { const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); } toast('Copiado — cole no WhatsApp'); };
-    $('#vt').onclick = () => { buscar(); };
+    $('#vt').onclick = () => { atual = null; buscar(); };
+    document.querySelectorAll('.bl[data-k]').forEach(el => el.onclick = () => { const k = el.dataset.k; if (qual === k) { qual = ''; $('#det').innerHTML = ''; document.querySelectorAll('.bl').forEach(x => x.classList.remove('sel')); return; } qual = k; document.querySelectorAll('.bl').forEach(x => x.classList.toggle('sel', x === el)); $('#det').innerHTML = detalhe(r, k); });
+    statusPedido(r);
     window.scrollTo(0, 0);
+  }
+
+
+  const fmt = (v, d) => v == null ? '—' : Number(v).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+  function detalhe(r, k) {
+    const d = r[I.det] || {}; const pos = r[I.pos];
+    if (!d[k]) return '<div class="det"><div class="vaz">sem detalhe deste bloco</div></div>';
+    let h = '';
+    if (k === 'f') {
+      const med = (meta && meta.medias && meta.medias[pos]) || [];
+      h = '<b class="dt">Físico — contra a média da Série B na posição</b><table class="dtab"><tr><th>indicador</th><th>jogador</th><th>média</th></tr>' + d.f.map((v, i) => {
+        if (v == null) return ''; const m = med[i]; const c = m == null ? '' : v >= m ? 'v' : v >= m * 0.95 ? 'a' : 'r';
+        return '<tr><td>' + FISL[i] + (i < 6 ? ' <i class="dm">◆</i>' : '') + '</td><td class="n"><b class="' + c + '">' + fmt(v, i === 4 ? 0 : i === 2 ? 0 : 1) + '</b></td><td class="n">' + fmt(m, i === 4 ? 0 : i === 2 ? 0 : 1) + '</td></tr>'; }).join('') + '</table><div class="dn">◆ entram na letra (explosão e volume) · SkillCorner, por 90 min</div>';
+    } else if (k === 't') {
+      h = '<b class="dt">Técnico — fundamentais de subida da posição</b><table class="dtab"><tr><th>indicador</th><th>jogador</th><th>quem sobe</th></tr>' + d.t.map(x => '<tr><td><i class="bola ' + (x[2] || 'n') + '"></i>' + esc(x[0]) + (x[4] ? ' ↓' : '') + '</td><td class="n"><b class="' + (x[2] || '') + '">' + fmt(x[1], Math.abs(x[1]) < 10 ? 2 : 1) + '</b></td><td class="n">' + fmt(x[3], Math.abs(x[3] || 0) < 10 ? 2 : 1) + '</td></tr>').join('') + '</table><div class="dn">verde = no nível de quem sobe ou acima · amarelo = até 10% abaixo · vermelho = abaixo · ↓ menor é melhor · Wyscout</div>';
+    } else if (k === 's') {
+      h = '<b class="dt">2º tempo — o que ele mantém do 1º tempo</b><table class="dtab"><tr><td>Manutenção (média)</td><td class="n"><b>' + (r[I.t2m] != null ? r[I.t2m] + '%' : '—') + '</b></td></tr><tr><td>Alta intensidade (2º ÷ 1º, por minuto)</td><td class="n"><b>' + (d.s[0] != null ? Math.round(d.s[0] * 100) + '%' : '—') + '</b></td></tr><tr><td>Distância (2º ÷ 1º, por minuto)</td><td class="n"><b>' + (d.s[1] != null ? Math.round(d.s[1] * 100) + '%' : '—') + '</b></td></tr><tr><td>Alta intensidade no 2º tempo</td><td class="n"><b>' + fmt(d.s[2], 1) + '</b> m/min</td></tr><tr><td>Jogos completos</td><td class="n"><b>' + (r[I.t2j] || '—') + '</b></td></tr></table><div class="dn">nota dentro de ' + esc(d.s[3] || 'posição') + ' · 1º tempo inteiro e 30+ min no 2º · desde 01/05/2024 · SkillCorner</div>';
+    } else if (k === 'm') {
+      h = '<b class="dt">Minutagem — % dos minutos do time</b><table class="dtab"><tr><th>ano</th><th>%</th><th>clube · minutos</th></tr>' + d.m.map(a => '<tr><td>' + esc(a[0]) + '</td><td class="n"><b class="' + (a[1] == null ? '' : a[1] >= 60 ? 'v' : a[1] >= 30 ? 'a' : 'r') + '">' + (a[1] == null ? '—' : a[1] + '%') + '</b></td><td class="pq">' + esc(a[2] ? a[2] + ' · ' : '') + esc(a[3]) + '</td></tr>').join('') + '</table>';
+    } else if (k === 'b') {
+      h = '<b class="dt">Bola parada — por ano (Wyscout, jogo a jogo)</b><table class="dtab"><tr><th>ano</th><th>esc.</th><th>faltas</th><th>pên.</th><th>total</th><th>assist.</th><th>gols</th><th>cabeça</th></tr>' + d.b.map(a => '<tr><td>' + esc(a[0]) + '</td><td class="n">' + a[5] + '</td><td class="n">' + a[6] + '</td><td class="n">' + a[7] + '</td><td class="n"><b>' + a[1] + '</b></td><td class="n">' + a[2] + '</td><td class="n"><b>' + a[3] + '</b></td><td class="n">' + a[4] + '</td></tr>').join('') + '</table><div class="dn">total = escanteios + faltas + pênaltis cobrados · gols = gols depois de bola parada</div>';
+    }
+    return '<div class="det">' + h + '</div>';
+  }
+  function statusPedido(r) {
+    const el = $('#ped'); if (!el) return;
+    const k = chavePk(r), p = PED[k], gk = r[I.pos] === 'GOL';
+    const falta = !gk && (!r[I.letra] || !r[I.com]);
+    const NOME = { pendente: '⏳ pedido na fila — roda quando o app estiver aberto no computador', buscando: '🔎 buscando no Wyscout e no SkillCorner…', ok: '✅ atualizado', parcial: '✅ atualizado em parte', conferir: '⚠️ precisa conferir no computador', nao_achou: '❔ não achado', sem_dado: '➖ sem dado novo', erro: '✖ erro' };
+    let h = '';
+    if (p) h += '<div class="pst">' + (NOME[p.estado] || p.estado) + (p.msg ? ' · ' + esc(p.msg) : '') + (p.feito ? ' · ' + dataBR(p.feito.slice(0, 10)) : '') + '</div>';
+    if (!p || !['pendente', 'buscando'].includes(p.estado)) h += '<button class="pedir' + (falta ? ' forte' : '') + '" id="pd">🔄 ' + (falta ? 'Pedir atualização (sem ' + (!r[I.letra] && !r[I.com] ? 'físico e técnico' : !r[I.letra] ? 'físico' : 'técnico') + ')' : 'Pedir atualização') + '</button>';
+    el.innerHTML = h;
+    const b = $('#pd'); if (b) b.onclick = async () => {
+      if (!DB) return toast('Sem conexão');
+      const pk = r[I.n] + ' - ' + r[I.t] + ' - ' + r[I.l];
+      try { await DB.collection('cenarios').doc('_cel_pedidos').set({ p: { [k]: { pk, n: r[I.n], t: r[I.t], l: r[I.l], pos: r[I.pos], estado: 'pendente', em: new Date().toISOString(), por: (USER && USER.email) || '' } } }, { merge: true }); toast('Pedido enviado'); }
+      catch (e) { toast('Não deu para pedir: ' + (e.message || e)); }
+    };
   }
 
   let t = null; $('#q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(buscar, 120); });
@@ -100,7 +157,7 @@
     firebase.initializeApp(cfg); const auth = firebase.auth(), db = firebase.firestore();
     try { await auth.getRedirectResult(); } catch (e) {}
     auth.onAuthStateChanged(u => {
-      if (u) return carregar(db);
+      USER = u; if (u) return carregar(db);
       if (local) return;
       $('#m').innerHTML = '<div class="vaz">Entre com o mesmo e-mail Google do app do Santa Cruz.</div><button class="entrar" id="ent">Entrar com Google</button>';
       $('#ent').onclick = async () => { const p = new firebase.auth.GoogleAuthProvider(); try { await auth.signInWithPopup(p); } catch (e) { try { await auth.signInWithRedirect(p); } catch (e2) { toast('Não deu para entrar'); } } };

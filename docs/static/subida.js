@@ -556,7 +556,7 @@ window.abrevInd = function (r) {
       if (v == null || !sb) { sem_.push(e.rot); inds.push({ rot: e.rot, k: e.k, v: null }); return; }
       let c = corSB(i, sb, v); if (c === 'b') c = 'v'; com++; if (c === 'v') nv++; else if (c === 'a') na++; else nr++;
       let z = (v - e.mu) / (e.sd || 1); if (e.menor) z = -z; zs.push(Math.max(-ZM, Math.min(ZM, z)));
-      inds.push({ rot: e.rot, k: e.k, v, c });
+      inds.push({ rot: e.rot, k: e.k, v, c, ref: sb.med, menor: !!i.menor });   /* 02/11: ref = régua de quem sobe (app do celular mostra) */
     });
     const n = R.entra.length, pts = com ? (nv - nr) / com : null;
     const o = { nova: true, conta: true, verde: nv, amarelo: na, vermelho: nr, ok: nv, com, n, sem: sem_, inds, pontos: pts,
