@@ -17,15 +17,12 @@
     return 'print-' + String(n).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w]+/g, '-').replace(/^-|-$/g, '').toLowerCase() + '.png';
   };
   const aviso = (t, c) => { try { toast(t, c); } catch (e) { console.log(t); } };
-  /* 03/11 (Henrique: "o print ainda ficou muito ruim"): a ficha tem 1.900 px de largura e o WhatsApp reduz a foto para
-     1.600 px no lado maior — a letra encolhia. No print a ficha é redesenhada mais estreita (1.240 px, o técnico em duas
-     colunas, minutagem em cima de cobrador/finalizador, sem os botões), quase quadrada: no WhatsApp a letra sai ~50% maior,
-     e em HD sai nítida (3x = 3.720 px). A tela volta ao normal logo depois. */
-  const CSS_PRINT = `.ficha.modo-print{width:1240px!important;max-width:1240px!important;height:auto!important;max-height:none!important;flex:none!important}
-.ficha.modo-print .ficha-rolagem{height:auto!important;max-height:none!important;overflow:visible!important;flex:none!important}
-.ficha.modo-print .ficha-topo button{display:none!important}
-.ficha.modo-print .sf-extra{grid-template-columns:1fr 1fr!important}
-.ficha.modo-print .sf-extra>:first-child{grid-column:1/-1}`;
+  /* 03/11 (Henrique): o print da ficha sai sempre na organização do monitor grande (1.920 px: físico + os 4 blocos do
+     técnico numa linha, minutagem/cobrador/finalizador numa linha), inteira e sem os botões, em 3x — em qualquer tela.
+     Usa as regras de static/ficha_escala.js (classe ficha-escalada) com o zoom desligado enquanto desenha. */
+  const CSS_PRINT = `#ficha.ficha-escalada.modo-print{zoom:1!important;width:1920px!important;min-width:1920px!important;max-width:none!important;height:auto!important;max-height:none!important;flex:none!important}
+#ficha.modo-print .ficha-rolagem{height:auto!important;max-height:none!important;overflow:visible!important;flex:none!important}
+#ficha.modo-print .ficha-topo button{display:none!important}`;
   const quadro = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 250))));
   async function gerar(el) {
     const bg = getComputedStyle(document.body).backgroundColor || '#0d0f13';
@@ -33,7 +30,7 @@
     let st = null;
     if (ehFicha) {
       st = document.createElement('style'); st.id = 'cssModoPrint'; st.textContent = CSS_PRINT; document.head.appendChild(st);
-      el.classList.add('modo-print'); await quadro();
+      el.classList.add('modo-print', 'ficha-escalada'); await quadro();
     }
     try {
       const larg = Math.max(el.scrollWidth, el.offsetWidth), alt = Math.max(el.scrollHeight, el.offsetHeight);
@@ -44,7 +41,7 @@
         timeout: 15000,
       });
     } finally {
-      if (ehFicha) { el.classList.remove('modo-print'); if (st) st.remove(); }
+      if (ehFicha) { el.classList.remove('modo-print'); el.classList.remove('ficha-escalada'); if (st) st.remove(); if (window.fichaEscalaAjustar) window.fichaEscalaAjustar(); }
     }
   }
   async function printar() {
