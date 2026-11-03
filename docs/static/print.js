@@ -17,15 +17,35 @@
     return 'print-' + String(n).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w]+/g, '-').replace(/^-|-$/g, '').toLowerCase() + '.png';
   };
   const aviso = (t, c) => { try { toast(t, c); } catch (e) { console.log(t); } };
+  /* 03/11 (Henrique: "o print ainda ficou muito ruim"): a ficha tem 1.900 px de largura e o WhatsApp reduz a foto para
+     1.600 px no lado maior — a letra encolhia. No print a ficha é redesenhada mais estreita (1.240 px, o técnico em duas
+     colunas, minutagem em cima de cobrador/finalizador, sem os botões), quase quadrada: no WhatsApp a letra sai ~50% maior,
+     e em HD sai nítida (3x = 3.720 px). A tela volta ao normal logo depois. */
+  const CSS_PRINT = `.ficha.modo-print{width:1240px!important;max-width:1240px!important;height:auto!important;max-height:none!important;flex:none!important}
+.ficha.modo-print .ficha-rolagem{height:auto!important;max-height:none!important;overflow:visible!important;flex:none!important}
+.ficha.modo-print .ficha-topo button{display:none!important}
+.ficha.modo-print .sf-extra{grid-template-columns:1fr 1fr!important}
+.ficha.modo-print .sf-extra>:first-child{grid-column:1/-1}`;
+  const quadro = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 250))));
   async function gerar(el) {
     const bg = getComputedStyle(document.body).backgroundColor || '#0d0f13';
-    const larg = Math.max(el.scrollWidth, el.offsetWidth), alt = Math.max(el.scrollHeight, el.offsetHeight);
-    return window.modernScreenshot.domToBlob(el, {
-      scale: 3, backgroundColor: bg, type: 'image/png', width: larg, height: alt,
-      filter: n => !(n.id === 'btPrintAlta'),
-      fetch: { requestInit: { mode: 'cors', cache: 'force-cache' }, placeholderImage: '' },
-      timeout: 15000,
-    });
+    const ehFicha = el.id === 'ficha';
+    let st = null;
+    if (ehFicha) {
+      st = document.createElement('style'); st.id = 'cssModoPrint'; st.textContent = CSS_PRINT; document.head.appendChild(st);
+      el.classList.add('modo-print'); await quadro();
+    }
+    try {
+      const larg = Math.max(el.scrollWidth, el.offsetWidth), alt = Math.max(el.scrollHeight, el.offsetHeight);
+      return await window.modernScreenshot.domToBlob(el, {
+        scale: 3, backgroundColor: bg, type: 'image/png', width: larg, height: alt,
+        filter: n => !(n.id === 'btPrintAlta'),
+        fetch: { requestInit: { mode: 'cors', cache: 'force-cache' }, placeholderImage: '' },
+        timeout: 15000,
+      });
+    } finally {
+      if (ehFicha) { el.classList.remove('modo-print'); if (st) st.remove(); }
+    }
   }
   async function printar() {
     if (!window.modernScreenshot) { aviso('Gerador de print indisponível', 'ruim'); return; }
@@ -40,7 +60,7 @@
       const b = await pBlob;
       const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nome; a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-      aviso((copiou ? 'Print copiado — é só colar no WhatsApp. ' : '') + 'Também salvo como ' + nome, 'bom');
+      aviso((copiou ? 'Print copiado — cole no WhatsApp e marque HD para sair nítido. ' : '') + 'Também salvo como ' + nome, 'bom');
     } catch (e) { aviso('Não deu para gerar o print: ' + ((e && e.message) || e), 'ruim'); }
   }
   window.printAlta = printar;
