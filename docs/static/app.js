@@ -2981,6 +2981,21 @@ const FIS_GRUPOS = [
   ['Volume', [['dist', 'Distância /90 (m)', 0, 1], ['obr', 'Corridas sem bola /30 min de posse', 1],
     ['mmin', 'Metros por minuto', 1], ['run', 'Distância em corrida /90 (15–20 km/h)', 0], ['desa_m', 'Desacelerações médias /90', 1], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
 ];
+/* 04/11 (Henrique): cada nome do SkillCorner vem com a explicação e a faixa de velocidade, logo abaixo do nome na ficha.
+   Faixas do SkillCorner: corrida 15–20 km/h · HSR 20–25 km/h · sprint acima de 25 km/h · alta intensidade = acima de 20 km/h
+   (HSR + sprint) · aceleração/freada média 1,5–3 m/s², forte acima de 3 m/s² · arrancada explosiva = aceleração forte que sai
+   de parado/andando (abaixo de 9 km/h) e chega a 20 km/h ou mais. */
+const FIS_EXPL = {
+  psv: 'velocidade máxima (o pico das corridas mais rápidas)', psv5: 'média das 5 partidas mais rápidas', vmax: 'maior velocidade registrada',
+  spr_n: 'corridas acima de 25 km/h', hi_n: 'corridas acima de 20 km/h (HSR + sprint)',
+  expl: 'sai de parado/andando (abaixo de 9 km/h) e passa de 20 km/h',
+  spr_km: 'metros correndo acima de 25 km/h', hsr_n: 'corridas entre 20 e 25 km/h', hsr: 'metros entre 20 e 25 km/h', hi: 'metros acima de 20 km/h',
+  acel: 'acelerações acima de 3 m/s²', acel_m: 'acelerações de 1,5 a 3 m/s²', desa: 'freadas acima de 3 m/s²', desa_m: 'freadas de 1,5 a 3 m/s²',
+  cod: 'mudanças bruscas de direção',
+  dist: 'distância total percorrida', mmin: 'distância ÷ minutos em campo', run: 'metros entre 15 e 20 km/h',
+  obr: 'corridas de ataque sem a bola, a cada 30 min de posse', obr_area: 'corridas sem bola para dentro da área, a cada 30 min de posse',
+};
+window.FIS_EXPL = FIS_EXPL;
 const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
 /* 18/10 — perfil que falta no cadastro (static/perfil_extra.json, gerar_perfil_js.py): card manual pelo levantamento;
    os demais pelo banco do Transfermarkt, casando o nome e conferindo clube ou idade (±1) — nome repetido sem conferência fica de fora */
@@ -3107,8 +3122,8 @@ function fisicoSerieBHtml(j) {
       if (letra) totL++;
       if (letra && v != null) { nL++; if (c === 'acima' || c === 'lider') okL++; }
       const alvo = Math.max(v || 0, best, rs || 0, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
-      return '<div class="fi-linha sf sf6 ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + ': ' + (v == null ? 'sem dado' : f(v, casas)) + (rs != null ? ' · RÉGUA: média dos titulares dos times que subiram (Série B 2022–25) ' + f(rs, casas) : '') + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
-        '<span class="rot">' + (letra ? '<i class="sf-f">◆</i>' : '') + esc(window.abrevInd ? window.abrevInd(rot) : rot) + '</span><span class="val">' + f(v, casas) + '</span>' +
+      return '<div class="fi-linha sf sf6 ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + (FIS_EXPL[campo] ? ' (' + FIS_EXPL[campo] + ')' : '') + ': ' + (v == null ? 'sem dado' : f(v, casas)) + (rs != null ? ' · RÉGUA: média dos titulares dos times que subiram (Série B 2022–25) ' + f(rs, casas) : '') + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
+        '<span class="rot">' + (letra ? '<i class="sf-f">◆</i>' : '') + esc(window.abrevInd ? window.abrevInd(rot) : rot) + (FIS_EXPL[campo] ? '<small class="sf-exp">' + esc(FIS_EXPL[campo]) + '</small>' : '') + '</span><span class="val">' + f(v, casas) + '</span>' +
         '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca' + (rs != null ? ' sobe' : '') + '" style="left:' + w(rg) + '%"></span></span>' +
         '<span class="sf-sobe">' + (rs != null ? f(rs, casas) : '') + '</span><span class="med">' + f(med, casas) + '</span><span class="mx">' + f(best, casas) + '</span></div>';
     }).join('');

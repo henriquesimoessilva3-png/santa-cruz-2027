@@ -3952,3 +3952,8 @@ body.visao-nova .jpainel{flex:none}
 
 /* 23/10: % de minutagem com poucos jogos do time no Wyscout */
 .mp.mp-curto{color:var(--tinta3)!important;background:transparent!important;font-weight:600}
+
+/* 04/11: explicação de cada indicador do SkillCorner (faixa de velocidade) logo abaixo do nome, na ficha */
+.fi-linha.sf .rot .sf-exp{display:block;white-space:normal;overflow:visible;font-size:9px;line-height:1.2;color:var(--tinta3);font-weight:400;margin:1px 0 2px}
+.fi-linha.sf:has(.sf-exp){align-items:start}
+.fi-linha.sf:has(.sf-exp) > span:not(.rot){margin-top:1px}
