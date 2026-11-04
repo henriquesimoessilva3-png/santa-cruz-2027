@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="static/subida.css?v=1793672170">
 <link rel="stylesheet" href="static/tipo_a.css?v=1793672170">
 <link rel="stylesheet" href="static/destaques.css?v=1793672170">
+<link rel="stylesheet" href="static/listas.css?v=1793790000">  <!-- 04/11: aba 6 Listas -->
 <link rel="stylesheet" href="static/novorizontino.css?v=1793672170">
 <link rel="stylesheet" href="static/ameaca.css?v=1793672170">
 <link rel="stylesheet" href="static/visao_nova.css?v=1793672170">
@@ -176,6 +177,7 @@
   <button class="aba" data-aba="bancotm" title="Banco no formato do Transfermarkt (CONMEBOL): contrato, valor, letra física, selo de subida, bola parada e o + Mais com técnico e físico comparados com o mundo e a Série B/A">Banco Transfermarkt</button>
   <button class="aba" data-aba="treinador" title="Triagem de treinadores — Santa Cruz Série B 2027 (18 nomes, por tema)">Treinadores</button>
   <button class="aba" data-aba="destaques" title="Listas de destaque dos campeonatos — shortlists do TransferRoom Scout">Destaques</button>
+  <button class="aba" data-aba="listascamp" title="As cinco listas completas por campeonato (Série B, Série A, brasileiros no exterior, sul-americanos e segundas divisões) — tabela com filtros">Listas por campeonato</button>
   <button class="aba" data-aba="tipoa" title="Jogadores A e B (tipo físico pela regra do clube), por posição: Série B, ligas sul-americanas e sul-americanos no exterior — com PDF">Tipo físico A e B</button>
       <button class="aba aba-auxiliar" data-aba="novoriz" hidden title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
       <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
@@ -639,6 +641,10 @@
       <iframe class="tr-pdf" data-src="static/treinadores/treinadores_por_tema.pdf#view=FitH" title="Treinadores por tema"></iframe>
     </section>
 
+    <section class="pagina oculta" id="pgListasCamp">
+      <div class="emp-rolagem"><div class="lc" id="lcCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgDestaques">
       <div class="emp-rolagem"><div class="dt" id="dtCorpo"></div></div>
     </section>
@@ -938,7 +944,7 @@
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1792553712";</script>
 <script src="static/fs_visoes.js?v=1793672170"></script>
-<script src="static/visao_nova.js?v=1793769000"></script>
+<script src="static/visao_nova.js?v=1793790000"></script>
 <script src="static/jog_base.js?v=1793672170"></script>
 <script src="static/sb_clubes.js?v=1793672170"></script>
 <!-- Protótipo: o dado primeiro (prototipo.js = cópia do dados/prototipo.json), depois a
@@ -982,6 +988,8 @@
 <script src="static/treinadores.js?v=1793672170"></script>
 <script src="static/destaques_dados.js?v=1793672170"></script>
 <script src="static/destaques.js?v=1793672170"></script>
+<script src="static/listas_dados.js?v=1793790000"></script>  <!-- 04/11: aba 6 Listas — as cinco listas completas por campeonato -->
+<script src="static/listas.js?v=1793790000"></script>
 <script src="static/importar_lista.js?v=1793672170"></script>
 <script src="static/novorizontino_dados.js?v=1793672170"></script>
 <script src="static/novorizontino.js?v=1793672170"></script>
