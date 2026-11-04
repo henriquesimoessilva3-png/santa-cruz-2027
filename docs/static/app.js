@@ -8146,14 +8146,31 @@ function montarImpressao() {
   $('#impTabela').innerHTML = html;
 }
 
-function gerarPdf() {
-  const temaAntes = estado.tema;
-  if (temaAntes !== 'claro') { estado.tema = 'claro'; aplicarTema(); }
+/* 04/11/2026 (Henrique: "quero o campograma do PDF exatamente igual ao da tela, com o campo verde e os cards do jeito
+   que estão"): o campograma vai para o PDF como FOTO da tela (modern-screenshot, 2x), no tema que está aberto —
+   gramado verde, cards com as cores de nível, selos e salários iguais. A tabela do elenco continua depois, em texto. */
+async function fotoCampograma() {
+  const campo = $('#campo');
+  if (!campo || !window.modernScreenshot) return null;
+  const w = campo.scrollWidth || campo.offsetWidth, h = campo.scrollHeight || campo.offsetHeight;
+  return window.modernScreenshot.domToPng(campo, {
+    scale: 2, width: w, height: h, style: { transform: 'none', margin: '0' },
+    filter: n => !(n.classList && (n.classList.contains('pos-add') || n.classList.contains('add-mini'))),
+    fetch: { requestInit: { mode: 'cors', cache: 'force-cache' }, placeholderImage: '' }, timeout: 20000,
+  });
+}
+async function gerarPdf() {
   montarImpressao();
+  let img = $('#impCampoImg');
+  if (!img) { img = document.createElement('img'); img.id = 'impCampoImg'; img.alt = 'Campograma'; const imp = $('#impressao'); imp.insertBefore(img, imp.firstChild); }
+  try { toast('Preparando o PDF do campograma…'); } catch (e) {}
+  let ok = false;
+  try { const url = await fotoCampograma(); if (url) { img.src = url; await img.decode(); ok = true; } } catch (e) { console.warn('pdf: foto do campograma', e); }
+  document.body.classList.toggle('pdf-foto', ok);
   setTimeout(() => {
     window.print();
-    if (temaAntes !== 'claro') { estado.tema = temaAntes; aplicarTema(); }
-  }, 120);
+    setTimeout(() => document.body.classList.remove('pdf-foto'), 500);
+  }, 80);
 }
 
 /* ---------------- ligacoes de tela ---------------- */
