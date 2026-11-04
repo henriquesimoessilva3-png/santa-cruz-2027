@@ -28,7 +28,8 @@ service cloud.firestore {
              && request.auth.token.email in [
                   'henriquesimoessilva3@gmail.com',
                   'raphaelrezende7@gmail.com',
-                  'eduardofreeland@gmail.com'
+                  'eduardofreeland@gmail.com',
+                  'jrmannarino@hotmail.com'
                   /* uma linha por pessoa, com vírgula antes:
                      , 'outra.pessoa@gmail.com' */
                 ];
