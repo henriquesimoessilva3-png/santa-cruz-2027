@@ -2984,11 +2984,11 @@ const FIS_GRUPOS = [
 /* 04/11 (Henrique): cada nome do SkillCorner vem com a explicação e a faixa de velocidade, logo abaixo do nome na ficha.
    Faixas do SkillCorner: corrida 15–20 km/h · HSR 20–25 km/h · sprint acima de 25 km/h · alta intensidade = acima de 20 km/h
    (HSR + sprint) · aceleração/freada média 1,5–3 m/s², forte acima de 3 m/s² · arrancada explosiva = aceleração forte que sai
-   de parado/andando (abaixo de 9 km/h) e chega a 20 km/h ou mais. */
+   de parado/andando (abaixo de 9 km/h) e chega a 20 km/h ou mais — a letra usa a arrancada até o sprint, 25 km/h. */
 const FIS_EXPL = {
   psv: 'velocidade máxima (o pico das corridas mais rápidas)', psv5: 'média das 5 partidas mais rápidas', vmax: 'maior velocidade registrada',
   spr_n: 'corridas acima de 25 km/h', hi_n: 'corridas acima de 20 km/h (HSR + sprint)',
-  expl: 'sai de parado/andando (abaixo de 9 km/h) e passa de 20 km/h',
+  expl: 'sai de parado/andando (abaixo de 9 km/h) e chega ao sprint (25 km/h)',
   spr_km: 'metros correndo acima de 25 km/h', hsr_n: 'corridas entre 20 e 25 km/h', hsr: 'metros entre 20 e 25 km/h', hi: 'metros acima de 20 km/h',
   acel: 'acelerações acima de 3 m/s²', acel_m: 'acelerações de 1,5 a 3 m/s²', desa: 'freadas acima de 3 m/s²', desa_m: 'freadas de 1,5 a 3 m/s²',
   cod: 'mudanças bruscas de direção',
@@ -3000,7 +3000,7 @@ window.FIS_EXPL = FIS_EXPL;
    ao lado do nome; a explicação inteira fica no passe o mouse da linha */
 const FIS_FAIXA = {
   psv: '', psv5: '', vmax: '(maior vel.)',
-  spr_n: '(+25 km/h)', hi_n: '(+20 km/h)', expl: '(<9 → +20 km/h)',
+  spr_n: '(+25 km/h)', hi_n: '(+20 km/h)', expl: '(<9 → +25 km/h)',
   spr_km: '(+25 km/h)', hsr_n: '(20–25 km/h)', hsr: '(20–25 km/h)', hi: '(+20 km/h)',
   acel: '(+3 m/s²)', acel_m: '(1,5–3 m/s²)', desa: '(+3 m/s²)', desa_m: '(1,5–3 m/s²)',
   run: '(15–20 km/h)', mmin: '(dist. ÷ min)',
