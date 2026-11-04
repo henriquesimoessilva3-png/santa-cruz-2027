@@ -117,7 +117,7 @@
     const b = BASE.find(x => x && x.n === n && x.t === t) || BASE.find(x => x && x.n === n);
     if (!b) { try { toast('Não achei esse jogador na base atual', 'ruim'); } catch (e) {} return; }
     try { if (typeof irParaAba === 'function') irParaAba('campo'); } catch (e) {}
-    setTimeout(() => { try { abrirFicha(primaryKey(b)); } catch (e) { try { abrirFicha(b); } catch (e2) {} } }, 60);
+    setTimeout(() => { try { abrirFicha(b.id != null ? b.id : b); } catch (e) {} }, 60);   /* a ficha acha o jogador pelo id da base */
   }
 
   function eventos(el) {
