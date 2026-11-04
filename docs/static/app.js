@@ -7366,16 +7366,17 @@ function explosivoSemVolume(j, x) {
   if (!cai.includes(x.tipo)) return false;
   const z = tipoEixos(j); return !!(z && z.exp > EXPL_SEM_VOL);
 }
-/* A+ (azul) — 11/10/2026: tipo A que também tem volume (distância e corridas sem bola acima de +0,5 desvio).
-   Vale em zaga, lateral, volante, extremo e atacante; no médio o A já é o de volume e no meia o completo não sobe. */
+/* A+ (azul) — 11/10/2026: tipo A que também tem volume E explosão acima de +0,5 desvio da Série B do setor.
+   04/11 (Henrique): vale também no médio e no meia — "é melhor ser os dois do que ser só explosivo ou só volume", mesmo que
+   no teste o completo não separe quem sobe. No médio o A é o de volume: A+ = volume E explosão acima de +0,5. */
 function tipoMais(j) {
-  if (!j || ['GOL', 'MED', 'MEI'].includes(j.p)) return false;
+  if (!j || j.p === 'GOL') return false;
   if (tipoLetra(j) !== 'A') return false;
   const z = tipoEixos(j); return !!(z && z.vol > 0.5 && z.exp > 0.5);
 }
 function tipoNome(j) {
   const x = tipoResolvido(j); if (!x) return null;
-  if (j.p === 'MED' && tipoLetra(j) === 'A') return MED_VOLUME;
+  if (j.p === 'MED' && tipoLetra(j) === 'A') return MED_VOLUME + (tipoMais(j) ? ' + explosão' : '');
   if (explosivoSemVolume(j, x)) return 'Explosivo, pouco volume';
   return x.tipo + (tipoMais(j) ? ' + volume' : '');
 }
@@ -7512,10 +7513,10 @@ function tipoBadgeLetra(pk, obj) {
   const doSetor = Object.keys(((D.cen || {})[TIPO_SET[pos]] || {}).tipos || {});
   const meio = doSetor.filter(tp => !pref.includes(tp) && !cai.includes(tp));
   const legenda = pos === 'MED'
-    ? 'No médio: A = motor de volume (distância e corridas sem bola acima de +0,5 desvio); C = ' + (cai.join(' / ') || '—') + '; o resto é B. Revisão 11/10: o médio que sobe é o de volume.'
+    ? 'No médio: A = motor de volume (distância acima de +0,5 desvio); A+ (azul) = volume e explosão acima de +0,5; C = ' + (cai.join(' / ') || '—') + '; o resto é B. Revisão 11/10: o médio que sobe é o de volume.'
     : 'No ' + posn + ': A = ' + pref.join(' / ') + '; B = ' + (meio.join(' / ') || '—') + '; C = ' + (cai.join(' / ') || '—') + '. Regra do clube: A é o tipo mais forte fisicamente, C o de menor intensidade.' +
       ' Quem tem o tipo do C mas explosão acima de +0,25 desvio fica B (explosivo, pouco volume).' +
-      (pos !== 'MEI' ? ' A+ (azul) = A que também tem volume (distância e corridas sem bola acima de +0,5 desvio).' : '');
+      ' A+ (azul) = A que também tem volume (explosão e distância acima de +0,5 desvio).';
   const t = 'Tipo físico deste jogador: ' + tipoNome(j) + ' → ' + g + '. ' + legenda + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '');
   return '<span class="tipo-abc tipo-' + (mais ? 'Ap' : g) + '" title="' + esc(t) + '">' + g + '</span>';
 }

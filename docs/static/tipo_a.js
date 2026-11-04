@@ -188,7 +188,7 @@
         '<b>▲</b> = no nível de quem sobe · <b>↔</b> = entre quem sobe e quem cai (o ▼ e quem não tem dado técnico ficam de fora). Fund. = quantos fundamentais ele tem no nível ou acima · Fís. = a letra física · Min. = % dos minutos do time em 3 anos · ⚑ = cobrador (percentil na liga). ' +
         'Mesmos grupos e filtros do físico; aqui dá para filtrar também pela letra. Clique no nome para abrir a ficha; o ↗ leva ao campograma.</p></div>' : '') +
       (TEC ? '' : '<div class="ta-topo"><h2>Jogadores A+, A e B por posição — tipo físico</h2>' +
-      '<p>Letra pela regra do clube: <b class="ta-ap">A+</b> = explosivo que também é motor de volume (fora médio e meia) · <b>A</b> = o tipo mais forte fisicamente da posição (explosivo e rápido; no volante, mais intenso; <b>no médio, o motor de volume</b> — revisão 11/10) · <b>B</b> = o tipo do meio (motor de volume, médio em tudo ou intermediário). O C (baixa intensidade) fica de fora. ' +
+      '<p>Letra pela regra do clube: <b class="ta-ap">A+</b> = explosivo que também é motor de volume (todas as posições; no médio, volume que também é explosivo) · <b>A</b> = o tipo mais forte fisicamente da posição (explosivo e rápido; no volante, mais intenso; <b>no médio, o motor de volume</b> — revisão 11/10) · <b>B</b> = o tipo do meio (motor de volume, médio em tudo ou intermediário). O C (baixa intensidade) fica de fora. ' +
       'Só a parte física (SkillCorner, 5 jogos rastreados ou mais). Quatro grupos por posição: Série B, Série A, ligas sul-americanas e sul-americanos (com brasileiros) jogando fora da América do Sul. Vetados ficam de fora. ' +
       'Clique no nome para abrir a ficha dele no campograma; o ↗ leva o jogador para o campograma.</p></div>') +
       '<div class="ta-ctrl"><div class="ta-chips">' + (TEC ? '' : '<button class="ta-chip' + (!E.pos ? ' on' : '') + '" data-pos="">Todas</button>') +
@@ -212,7 +212,7 @@
     else lista.forEach(p => {
       const tA = pref[p[0]] || [], tB = meio(p[0]);
       const nMais = contaMais(p[0]);
-      h += '<section class="ta-pos" data-p="' + p[0] + '"><h3>' + esc(p[1]) + ' <span>' + (['MED', 'MEI'].includes(p[0]) ? '' : '<i class="lap">A+</i> <b>' + nMais + '</b> &nbsp; ') + '<i class="la">A</i> ' + esc(tA.join(' / ')) + ' <b>' + conta(p[0], 'A') + '</b> &nbsp; <i class="lb">B</i> ' + esc(tB.join(' / ')) + ' <b>' + conta(p[0], 'B') + '</b></span></h3>';
+      h += '<section class="ta-pos" data-p="' + p[0] + '"><h3>' + esc(p[1]) + ' <span>' + ('<i class="lap">A+</i> <b>' + nMais + '</b> &nbsp; ') + '<i class="la">A</i> ' + esc(tA.join(' / ')) + ' <b>' + conta(p[0], 'A') + '</b> &nbsp; <i class="lb">B</i> ' + esc(tB.join(' / ')) + ' <b>' + conta(p[0], 'B') + '</b></span></h3>';
       GRUPOS.forEach(g => { h += '<div class="ta-grupo"><h4>' + esc(g[1]) + '</h4><div class="ta-par">' + tabela('A', D[p[0]].A[g[0]], g[0]) + tabela('B', D[p[0]].B[g[0]], g[0]) + '</div></div>'; });
       h += '</section>';
     });

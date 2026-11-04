@@ -150,7 +150,7 @@
       '<span><b>Régua dos tipos e das letras:</b> os <b>1.327</b> titulares da Série B 2022–2025 com <b>900 minutos</b> ou mais e físico rastreado; cada temporada tem <b>4</b> times que subiram, <b>12</b> que ficaram e <b>4</b> que caíram.</span> ' +
       '<span><b>Quem recebe letra hoje:</b> qualquer jogador da base do app com <b>5 jogos</b> rastreados ou mais — por isso a Série B 2026 tem, por exemplo, 53 laterais direitos com letra: são todos os que passaram de 5 jogos, titulares ou não.</span> ' +
       '<span><b>Mercados:</b> Série B 2026, ligas sul-americanas e sul-americanos no exterior (base Wyscout de ago/26); as segundas divisões de Argentina, Colômbia e Equador não têm rastreio.</span></div>' +
-      '<div class="vnf-duas"><div class="vnf-regra"><div><span class="tipo-abc tipo-Ap">A+</span><span><b>Explosivo e motor de volume</b> — explosão <i>e</i> volume acima de +0,5 desvio da Série B do setor. Não existe no médio e no meia.</span></div>' +
+      '<div class="vnf-duas"><div class="vnf-regra"><div><span class="tipo-abc tipo-Ap">A+</span><span><b>Explosivo e motor de volume</b> — explosão <i>e</i> volume acima de +0,5 desvio da Série B do setor, em todas as posições (no médio e no meia desde 04/11: ser os dois é melhor que ser só um).</span></div>' +
       '<div><span class="tipo-abc tipo-A">A</span><span><b>O tipo mais forte da posição</b> — explosivo e rápido; no volante, o "mais intenso"; no médio, o <i>motor de volume</i> (volume acima de +0,5).</span></div>' +
       '<div><span class="tipo-abc tipo-B">B</span><span><b>O do meio</b> — motor de volume, médio em tudo ou intermediário. Também o "explosivo, pouco volume": seria C pelo volume, mas tem explosão acima de +0,25.</span></div>' +
       '<div><span class="tipo-abc tipo-C">C</span><span><b>Baixa intensidade</b> (no volante, "menos intenso") — fraco em explosão <i>e</i> em volume.</span></div>' +
@@ -227,8 +227,8 @@
     const tipos = Object.keys(((C.cen || {})[setor] || {}).tipos || {});
     const pref = (C.pref || {})[pos] || [], cai = (C.cai || {})[pos] || [];
     const meio = tipos.filter(t => !pref.includes(t) && !cai.includes(t));
-    if (pos === 'MED') return { 'A+': '—', A: 'Motor de volume (volume acima de +0,5, seja qual for o tipo)', B: tipos.filter(t => !cai.includes(t)).join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
-    if (pos === 'MEI') return { 'A+': '—', A: pref.join(' · '), B: meio.join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
+    if (pos === 'MED') return { 'A+': 'Motor de volume + explosão (volume e explosão acima de +0,5)', A: 'Motor de volume (volume acima de +0,5, seja qual for o tipo)', B: tipos.filter(t => !cai.includes(t)).join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
+    if (pos === 'MEI') return { 'A+': pref.join(' · ') + ' + volume (explosão e volume acima de +0,5)', A: pref.join(' · '), B: meio.join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
     return { 'A+': pref.join(' · ') + ' + volume (explosão e volume acima de +0,5)', A: pref.join(' · '), B: meio.join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
   }
   function vnfMatriz() {
