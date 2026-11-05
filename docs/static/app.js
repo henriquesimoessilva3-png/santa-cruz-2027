@@ -7021,7 +7021,9 @@ async function aplicarOverridesContrato() {
   try { const v = window.__verDados ? '?v=' + window.__verDados : ''; const r = await fetch('dados/contrato_overrides.json' + v); if (!r.ok) return; mapa = (await r.json()).overrides || {}; } catch (e) { return; }
   const porPk = new Map(BASE.map(j => [primaryKey(j), j]));
   Object.entries(mapa).forEach(([pk, o]) => {
-    const j = porPk.get(pk); if (!j || !o || !o.ct) return;
+    const j = porPk.get(pk); if (!j || !o) return;
+    if (o.alt) { j.alt = o.alt; j.alt_fonte = o.fonte || 'manual'; }   /* 05/11: altura conferida (Japa, Cruzeiro: 177 cm, a base tinha 186) */
+    if (!o.ct) return;
     j.ct = o.ct; j.ctc = 'alta'; j.ctf = ['conferido: ' + (o.fonte || 'manual')]; j.src = Object.assign({}, j.src || {}, { manual: o.ct });
   });
 }

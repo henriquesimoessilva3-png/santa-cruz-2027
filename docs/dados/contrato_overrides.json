@@ -1,9 +1,17 @@
 {
- "_doc": "Correções de contrato sobre a base (05/11/2026). Vale por cima do consenso das fontes; chave = primary_key ('Nome - Clube - Liga'). Use quando o Henrique conferir o contrato numa fonte (ex.: Footlink atualizado).",
+ "_doc": "Correções conferidas pelo Henrique sobre a base (05/11/2026): contrato (ct) e altura (alt, cm). Vale por cima das fontes; chave = primary_key ('Nome - Clube - Liga').",
  "overrides": {
   "João Victor - Mirassol - Brasil A": {
    "ct": "2028-06-30",
    "fonte": "Footlink (conferido pelo Henrique em 05/11/2026)"
+  },
+  "Japa - Cruzeiro - Brasil A": {
+   "alt": 177,
+   "fonte": "Henrique em 05/11/2026 (Transfermarkt também dá 177 cm)"
+  },
+  "Japa - Mirassol - Brasil A": {
+   "alt": 177,
+   "fonte": "Henrique em 05/11/2026 (Transfermarkt também dá 177 cm)"
   }
  }
 }
