@@ -24,3 +24,6 @@
 .fi-ind-trilho input[type=range]::-moz-range-thumb{pointer-events:auto;width:12px;height:12px;border-radius:50%;background:#c9a227;border:2px solid #f0d77a;cursor:pointer}
 .fi-ind-trilho input[type=range]::-webkit-slider-runnable-track{background:transparent}
 .fi-ind-pe{display:flex;justify-content:space-between;font-size:10px;color:var(--tinta3);padding:0 38px}
+
+/* 05/11: grupo SofaScore no "+ indicador" — cor própria para não confundir com o Wyscout */
+.fi-ind-g.sofa{color:#2bb5a0}

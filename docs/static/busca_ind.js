@@ -28,7 +28,11 @@
     if (!x) { x = j; if (typeof j.psv !== 'number') { try { x = comFisicoDoEstudo(j) || j; } catch (e) {} } fisMemo.set(j, x); }
     return x;
   }
+  /* 05/11 (Henrique): grupo SofaScore — fonte DIFERENTE do Wyscout, só de referência (static/sofascore_dados.js) */
+  const SOFA = window.SOFA || null;
+  const SOFA_IX = SOFA ? Object.fromEntries(SOFA.campos.map((c, i) => [c, i])) : {};
   function valor(j, f) {
+    if (f.tipo === 'sofa') { const r = SOFA && SOFA.jog[primaryKey(j)]; const v = r ? r[SOFA_IX[f.k]] : null; return typeof v === 'number' && isFinite(v) ? v : null; }
     if (f.tipo === 'fis') { const v = fisDe(j)[f.k]; return typeof v === 'number' && isFinite(v) ? v : null; }
     const K = kpis[f.pos]; if (!K) return null;
     const o = K.porPk.get(primaryKey(j)); const v = o ? o[f.k] : null; return typeof v === 'number' ? v : null;
@@ -44,7 +48,7 @@
   /* faixa da régua: menor e maior valor entre os jogadores da posição (na base inteira) */
   function faixa(f) {
     let mn = Infinity, mx = -Infinity;
-    if (f.tipo === 'fis') { const pos = f.pos; BASE.forEach(j => { if (pos && j.p !== pos) return; const v = valor(j, f); if (v == null) return; if (v < mn) mn = v; if (v > mx) mx = v; }); }
+    if (f.tipo === 'fis' || f.tipo === 'sofa') { const pos = f.pos; BASE.forEach(j => { if (pos && j.p !== pos) return; const v = valor(j, f); if (v == null) return; if (v < mn) mn = v; if (v > mx) mx = v; }); }
     else { const K = kpis[f.pos]; if (K) K.porPk.forEach(o => { const v = o[f.k]; if (typeof v !== 'number') return; if (v < mn) mn = v; if (v > mx) mx = v; }); }
     if (!isFinite(mn)) { mn = 0; mx = 1; }
     if (mn === mx) mx = mn + 1;
@@ -85,7 +89,7 @@
   }
   function desenhar() {
     const box = caixa(); if (!box) return;
-    box.innerHTML = FIL.map((f, i) => '<div class="fi-ind" data-i="' + i + '"><div class="fi-ind-cab"><b>' + esc(f.rot) + '</b><small>' + (f.tipo === 'fis' ? 'físico' : 'técnico · ' + esc(f.pos)) + '</small><button type="button" data-x="' + i + '" title="tirar o filtro">✕</button></div>' +
+    box.innerHTML = FIL.map((f, i) => '<div class="fi-ind" data-i="' + i + '"><div class="fi-ind-cab"><b>' + esc(f.rot) + '</b><small>' + (f.tipo === 'fis' ? 'físico' : f.tipo === 'sofa' ? 'SofaScore · não é Wyscout' : 'técnico · ' + esc(f.pos)) + '</small><button type="button" data-x="' + i + '" title="tirar o filtro">✕</button></div>' +
       '<div class="fi-ind-regua"><span class="lo"></span><div class="fi-ind-trilho"><i></i><input type="range" min="0" max="1000" step="1" data-i="' + i + '" data-l="lo"><input type="range" min="0" max="1000" step="1" data-i="' + i + '" data-l="hi"></div><span class="hi"></span></div>' +
       '<div class="fi-ind-pe"><span>' + fmt(f.min) + '</span><span>' + fmt(f.max) + '</span></div></div>').join('');
     FIL.forEach((f, i) => atualizarRotulos(i));
@@ -102,15 +106,16 @@
     const K = await carregarKpis(pos);
     const fis = []; (typeof FIS_GRUPOS !== 'undefined' ? FIS_GRUPOS : []).forEach(([g, rows]) => rows.forEach(([k, rot]) => fis.push({ tipo: 'fis', k, rot, g })));
     const tec = K ? K.nomes.map(([g, nm]) => ({ tipo: 'tec', k: nm, rot: nm, g })) : [];
-    const todos = fis.concat(tec);
+    const sofa = SOFA ? SOFA.mostrar.map(([k, rot, g]) => ({ tipo: 'sofa', k, rot, g })) : [];
+    const todos = fis.concat(tec, sofa);
     const lista = pop.querySelector('.fi-ind-lista');
     const pinta = q => {
       const n = String(q || '').toLowerCase();
       let h = '', gAnt = '';
       todos.forEach((x, i) => {
         if (n && !x.rot.toLowerCase().includes(n)) return;
-        const g = (x.tipo === 'fis' ? 'Físico · ' : 'Técnico · ') + x.g;
-        if (g !== gAnt) { h += '<div class="fi-ind-g">' + esc(g) + '</div>'; gAnt = g; }
+        const g = (x.tipo === 'fis' ? 'Físico · ' : x.tipo === 'sofa' ? 'SofaScore (não é Wyscout) · ' : 'Técnico · ') + x.g;
+        if (g !== gAnt) { h += '<div class="fi-ind-g' + (x.tipo === 'sofa' ? ' sofa' : '') + '">' + esc(g) + '</div>'; gAnt = g; }
         h += '<button type="button" data-n="' + i + '">' + esc(x.rot) + '</button>';
       });
       lista.innerHTML = h || '<div class="fi-ind-g">nenhum</div>';
@@ -135,8 +140,8 @@
     if (typeof ab === 'function') window.abrirBusca = function () {
       const r = ab.apply(this, arguments);
       /* a posição da vaga mudou: o técnico usa o arquivo de outra posição — os filtros técnicos de outra posição saem */
-      const p = posFiltro(); const antes = FIL.length; FIL = FIL.filter(f => f.tipo === 'fis' || f.pos === p);
-      FIL.forEach(f => { if (f.tipo === 'fis' && f.pos !== p) { f.pos = p; const [mn, mx] = faixa(f); f.min = mn; f.max = mx; f.lo = Math.max(f.lo, mn); f.hi = Math.min(f.hi, mx); } });
+      const p = posFiltro(); const antes = FIL.length; FIL = FIL.filter(f => f.tipo === 'fis' || f.tipo === 'sofa' || f.pos === p);
+      FIL.forEach(f => { if ((f.tipo === 'fis' || f.tipo === 'sofa') && f.pos !== p) { f.pos = p; const [mn, mx] = faixa(f); f.min = mn; f.max = mx; f.lo = Math.max(f.lo, mn); f.hi = Math.min(f.hi, mx); } });
       desenhar(); if (FIL.length || antes) refaz();
       return r;
     };
