@@ -29,7 +29,8 @@ service cloud.firestore {
                   'henriquesimoessilva3@gmail.com',
                   'raphaelrezende7@gmail.com',
                   'eduardofreeland@gmail.com',
-                  'jrmannarino@hotmail.com'
+                  'jrmannarino@hotmail.com',
+                  'lucioguisilva@gmail.com'
                   /* uma linha por pessoa, com vírgula antes:
                      , 'outra.pessoa@gmail.com' */
                 ];
