@@ -7013,6 +7013,19 @@ function finLigar() {
   });
 }
 
+/* ---------------- correções de contrato (05/11/2026) ----------------
+   Contrato conferido pelo Henrique numa fonte (ex.: João Victor, Mirassol: jun/2028 no Footlink, a base tinha jan/2027)
+   fica escrito em dados/contrato_overrides.json e vale por cima do consenso — a base pode ser regerada sem perder. */
+async function aplicarOverridesContrato() {
+  let mapa;
+  try { const v = window.__verDados ? '?v=' + window.__verDados : ''; const r = await fetch('dados/contrato_overrides.json' + v); if (!r.ok) return; mapa = (await r.json()).overrides || {}; } catch (e) { return; }
+  const porPk = new Map(BASE.map(j => [primaryKey(j), j]));
+  Object.entries(mapa).forEach(([pk, o]) => {
+    const j = porPk.get(pk); if (!j || !o || !o.ct) return;
+    j.ct = o.ct; j.ctc = 'alta'; j.ctf = ['conferido: ' + (o.fonte || 'manual')]; j.src = Object.assign({}, j.src || {}, { manual: o.ct });
+  });
+}
+
 /* ---------------- correções de posição ----------------
    A posicao vem do Wyscout pela PRIMEIRA sigla do campo Position, e as vezes ela nao e
    a que o jogador realmente faz — o F. Nicola do Atletico Tucuman entrava como Medio
@@ -8767,6 +8780,7 @@ async function iniciar() {
     }
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
     await aplicarOverridesPosicao();
+    await aplicarOverridesContrato();
     await manuaisCarregar();
     await raioCarregar();
     /* se a aba Fisico ja estava aberta numa forma alternativa, ela estava esperando
