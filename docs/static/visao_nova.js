@@ -11,14 +11,16 @@
    entra ANTES dos módulos das abas no index.html. */
 (function () {
   'use strict';
-  const LS = 'sc_visao', LS_EST = 'sc_visao_estado';
+  /* 06/11: a visão nova passou a ser o padrão para todos (o Rapha abria sem ?visao=nova e caía na barra antiga,
+     onde o login fica fora da tela). Chave nova para ninguém ficar preso num 'atual' antigo. */
+  const LS = 'sc_visao2', LS_EST = 'sc_visao_estado';
   const ler = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   const gravar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   let q = null;
   try { q = new URLSearchParams(location.search).get('visao'); } catch (e) {}
   if (q === 'nova' || q === 'atual') gravar(LS, q);
-  const NOVA = ler(LS) === 'nova';
+  const NOVA = ler(LS) !== 'atual';
   window.VISAO_NOVA = NOVA;
 
   const ABAS = [

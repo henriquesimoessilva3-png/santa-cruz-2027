@@ -141,3 +141,7 @@ A aba **Jogador** (Consulta) foi ocultada em 19/10 com `oculta: true` em visao_n
   - "Novo" só fica salvo depois do Salvar;
   - "Novo" começa vazio (para copiar, é "Duplicar");
   - precedência nuvem > navegador.
+
+## 06/11 · visão nova como padrão
+- `visao_nova.js`: chave `sc_visao2` e `NOVA = ler(LS) !== 'atual'`. Todo mundo abre na visão nova, sem `?visao=nova`. A barra antiga só aparece com "← Visão atual" ou `?visao=atual`. Motivo: na barra antiga o login ("✓ e-mail · sair") fica fora da tela, à direita das abas.
+- **CUIDADO: `publicar_site.py` regride o site.** O `docs/` tem mudanças que não estão em `static/` (print.js, style.css, app.js, tipo_a.js, busca_ind, cenarios_publicados.json, que perdeu o "Emprestados"). Até sincronizar `static/` com `docs/`, editar direto em `docs/` e não rodar o publicar.
