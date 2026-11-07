@@ -3952,3 +3952,26 @@ body.visao-nova .jpainel{flex:none}
 
 /* 23/10: % de minutagem com poucos jogos do time no Wyscout */
 .mp.mp-curto{color:var(--tinta3)!important;background:transparent!important;font-weight:600}
+
+/* 07/11/2026 — ficha maior (Henrique: "os dados estão ficando muito pequenos... tem um espaço grande preto entre os
+   grupos"). As linhas passam a ocupar a largura inteira de cada grupo e a fonte cresce com a largura do painel
+   (cqi = 1% da largura do painel), com teto. Vale para o físico (coluna da esquerda) e para o técnico. */
+.sf-col-fis{container-type:inline-size}
+@container (min-width:1250px){
+  .sf-tec-grid{gap:26px}
+  .sf-tec-grid .fi-linha.sf.sf6{font-size:clamp(11px,.74cqi,17px);grid-template-columns:minmax(0,3.4fr) minmax(0,.9fr) minmax(0,1.1fr) repeat(3,minmax(0,.72fr))!important;justify-content:stretch;column-gap:8px;padding-top:1px;padding-bottom:1px}
+  .sf-tec-grid .fi-linha.sf.sf6.cab{font-size:clamp(9px,.56cqi,13px)}
+  .sf-tec-grid h4.sf-gh{font-size:clamp(10.5px,.62cqi,15px);padding:5px 12px}
+  .sf-tec-grid .fi-barra{height:.72em}
+}
+@container (min-width:640px) and (max-width:1249.98px){
+  .sf-tec-grid .fi-linha.sf.sf6{font-size:clamp(10.5px,1.25cqi,15px);grid-template-columns:minmax(0,3.4fr) minmax(0,.9fr) minmax(0,1.1fr) repeat(3,minmax(0,.72fr))!important;justify-content:stretch;column-gap:6px}
+  .sf-tec-grid .fi-linha.sf.sf6.cab{font-size:clamp(8.5px,.95cqi,12px)}
+  .sf-tec-grid .fi-barra{height:.72em}
+}
+@container (min-width:380px){
+  .sf-col-fis .fi-linha.sf.sf6{font-size:clamp(10.5px,2.75cqi,15px);grid-template-columns:minmax(0,3.3fr) minmax(0,.9fr) minmax(0,.9fr) repeat(3,minmax(0,.68fr))!important;justify-content:stretch;column-gap:6px;padding-top:1px;padding-bottom:1px}
+  .sf-col-fis .fi-linha.sf.sf6.cab{font-size:clamp(8.5px,2.05cqi,12px)}
+  .sf-col-fis .sf-sub{font-size:clamp(11.5px,3.1cqi,16px);padding-top:5px;padding-bottom:5px}
+  .sf-col-fis .fi-barra{height:.72em}
+}
