@@ -221,6 +221,9 @@
     b.onclick = () => { abrirDadosBase(j); buscar(); };
   };
 
+  /* 07/11: lista "Escolher jogador" — quem está sem dado ganha o ↻ que abre esta mesma busca */
+  window.buscaAutoAbrir = function (j) { if (typeof abrirDadosBase !== 'function') return; abrirDadosBase(j); buscar(); };
+
   /* "Jogador fora da base": adiciona e já busca */
   function botaoManual() {
     const base = $q('#btManualDados'); if (!base || $q('#btManualBusca')) return;

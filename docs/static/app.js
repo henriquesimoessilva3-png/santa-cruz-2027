@@ -2100,9 +2100,12 @@ function renderTabela() {
   /* 19/10 ("tá demorando demais"): o ícone de raio de cada linha calcula a letra e a seta do jogador (~2 ms cada na
      primeira vez) — 400 linhas davam 1 a 4 s com a janela travada. Agora as 60 primeiras saem na hora e o resto entra
      em lotes, sem travar; os cliques vão por delegação no tbody (vale para as linhas que chegam depois). */
+  /* 07/11: sem indicador na base e sem dado colado → botão ↻ que puxa Wyscout + SkillCorner (busca automática) e salva para todos */
+  const semDado = j => { if (j.rk_ok) return false; try { const pk = primaryKey(j); return !(typeof dadosColados === 'function' && dadosColados(pk, null)); } catch (e) { return true; } };
+  const btPuxar = j => (typeof window.buscaAutoAbrir === 'function' && semDado(j)) ? ' <button class="bt mini bt-puxar" type="button" title="Sem dados na base: puxar do Wyscout e do SkillCorner (você confere e salva; fica para todos)">↻ puxar</button>' : '';
   const linhaHtml = j => '<tr data-id="' + j.id + '"' + (jaNaPos.has(j.id) ? ' class="ja"' : '') + '>' +
-    COLUNAS.map(col => '<td' + (col.num ? ' class="num-c"' : '') +
-      (col.tit ? ' title="' + esc(col.tit(j)) + '"' : '') + '>' + col.cel(j) + '</td>').join('') + '</tr>';
+    COLUNAS.map((col, i) => '<td' + (col.num ? ' class="num-c"' : '') +
+      (col.tit ? ' title="' + esc(col.tit(j)) + '"' : '') + '>' + col.cel(j) + (i === 0 ? btPuxar(j) : '') + '</td>').join('') + '</tr>';
   const tb = $('#tbody'), lote = ++renderTabela.lote, PRIM = 60, PASSO = 60;
   tb.innerHTML = linhas.slice(0, PRIM).map(linhaHtml).join('');
   for (let i = PRIM; i < linhas.length; i += PASSO) {
@@ -2113,6 +2116,7 @@ function renderTabela() {
     tb.addEventListener('click', e => {
       const tr = e.target.closest('tr[data-id]'); if (!tr) return;
       if (e.target.closest('.ver-ficha')) { e.stopPropagation(); alternarDetalhe(tr, idDeLinha(tr.dataset.id)); return; }
+      if (e.target.closest('.bt-puxar')) { e.stopPropagation(); const jj = acharNaBase(idDeLinha(tr.dataset.id)); if (jj && window.buscaAutoAbrir) window.buscaAutoAbrir(jj); return; }
       if (e.target.closest('tr.detalhe')) return;
       adicionarDaBase(idDeLinha(tr.dataset.id));
     });
