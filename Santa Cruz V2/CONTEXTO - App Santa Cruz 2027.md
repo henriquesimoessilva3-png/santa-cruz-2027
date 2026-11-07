@@ -145,3 +145,10 @@ A aba **Jogador** (Consulta) foi ocultada em 19/10 com `oculta: true` em visao_n
 ## 06/11 · visão nova como padrão
 - `visao_nova.js`: chave `sc_visao2` e `NOVA = ler(LS) !== 'atual'`. Todo mundo abre na visão nova, sem `?visao=nova`. A barra antiga só aparece com "← Visão atual" ou `?visao=atual`. Motivo: na barra antiga o login ("✓ e-mail · sair") fica fora da tela, à direita das abas.
 - **CUIDADO: `publicar_site.py` regride o site.** O `docs/` tem mudanças que não estão em `static/` (print.js, style.css, app.js, tipo_a.js, busca_ind, cenarios_publicados.json, que perdeu o "Emprestados"). Até sincronizar `static/` com `docs/`, editar direto em `docs/` e não rodar o publicar.
+
+## 07/11 · base completada com quem joga pouco (corte de 300 min)
+- O ranking do Portal corta quem tem menos de 30% dos minutos (~860 min na Série A): metade da base ficava sem Overall/OF/DEF/FÍS/min (caso Marcos Victor, Bahia).
+- Feito sem mexer no Ranking: `out26/_pre_filtro` com corte de 300 min → `ranking_engine` rodado numa pasta à parte ($HOME da sessão) → `rankings_out26sc.json` (21.332) e `kpis_detail_out26sc.json` (320 MB, não guardado).
+- `completar_base_300min.py <rankings> <kpis_detail> <skillcorner_out26>`: preenche SÓ quem tinha `rk_ok = 0` (marca `rk_src = "out26 ≥300 min"`) e o físico de quem não tinha. Resultado: **2.086** ganharam indicadores, **518** ganharam físico. Copiado para `docs/dados/`.
+- Ainda sem dado: **19.857** (quem tem menos de 300 min ou não está numa liga extraída). **8.610** jogadores do OUT26 não existem na base (cadastro é de ago26: transferências e jogadores novos) — próximo passo, se o Henrique quiser.
+- Cópia do ranking em `dados/ranking_300min/` (fora do git).
