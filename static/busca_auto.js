@@ -231,4 +231,20 @@
     b.onclick = () => { base.click(); if ($q('#modalDados').classList.contains('aberto')) buscar(); };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', botaoManual); else botaoManual();
+
+  /* 07/11/2026 — Salvar ESPERA a minutagem e a bola parada (Henrique, caso Lucas Crispim): a carreira jogo a jogo leva
+     ~30 s; quem clicava em Salvar antes disso gravava o técnico e o físico sem os quadros de Minutagem e Cobrador.
+     Agora o clique fica segurado até a busca terminar e o Salvar segue sozinho. */
+  let esperando = false;
+  document.addEventListener('click', async ev => {
+    const bt = ev.target && ev.target.closest && ev.target.closest('#mdOk');
+    if (!bt || esperando) return;
+    const info = window.MD_AUTO, pend = (info && PEND.get(info)) || [];
+    if (!pend.length || info._pronto) return;
+    ev.preventDefault(); ev.stopImmediatePropagation();
+    esperando = true; const txt = bt.textContent; bt.disabled = true; bt.textContent = '⏳ esperando minutagem e bola parada…';
+    try { await Promise.race([Promise.all(pend.map(p => Promise.resolve(p).catch(() => {}))), new Promise(r => setTimeout(r, 90000))]); } catch (e) {}
+    info._pronto = 1; bt.disabled = false; bt.textContent = txt; esperando = false;
+    bt.click();
+  }, true);
 })();
