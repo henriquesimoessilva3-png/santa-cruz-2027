@@ -38,6 +38,13 @@ def main():
     ap = os.path.join(AQUI, "dados", "alturas_manuais.csv")
     if os.path.exists(ap):
         out["altx"] = {r.pk: int(r.altura_cm) for r in pd.read_csv(ap, sep=";").itertuples() if not pd.isna(r.altura_cm)}
+    # 07/11/2026 — vínculo manual pk → id TM (dados/tm_vinculo.json): caso Luiz Otávio do Ceará, que no Wyscout é o Luizão
+    #   (194 cm, 1992) e casava por nome com o outro Luiz Otávio do Ceará (190 cm, 1988)
+    vp = os.path.join(AQUI, "dados", "tm_vinculo.json")
+    if os.path.exists(vp):
+        ids = {str(k): str(v) for k, v in json.load(open(vp, encoding="utf-8")).items() if not k.startswith("_")}
+        por_id = {str(r[6]): r for L in out["tm"].values() for r in L}
+        out["tmx"] = {pk: por_id[i] for pk, i in ids.items() if i in por_id}
     mp = os.path.join(AQUI, "dados", "manuais_perfil.csv")
     if os.path.exists(mp):
         for r in pd.read_csv(mp, sep=None, engine="python").itertuples():

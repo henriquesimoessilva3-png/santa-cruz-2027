@@ -3029,7 +3029,9 @@ async function perfilExtraDe(j) {
     let c = (P.tm && (P.tm[k] || (j.nc && P.tm[String(j.n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim()]))) || [];
     const porClube = c.filter(x => typeof clubeParecido === 'function' && (clubeParecido(x[0], j.t) || (P.emp && P.emp[x[6]] && clubeParecido(P.emp[x[6]].de, j.t))));   /* 21/10: emprestado — o cadastro pode estar no clube dono (caso Raul, Athletico → Cuiabá) */
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
-    const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
+    /* 07/11: mesmo clube mas idade muito diferente é outro jogador (dois Luiz Otávio no Ceará); e o vínculo manual (tmx) vence tudo */
+    const porClubeIdade = porClube.filter(x => !(j.id_ && x[1] && Math.abs(x[1] - j.id_) > 2));
+    const x = (P.tmx && (P.tmx[pk] || P.tmx[pkM])) || (porClubeIdade.length === 1 ? porClubeIdade[0] : porIdade.length === 1 ? porIdade[0] : null);
     let r = x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], nasc: x[10], emp: (P.emp && P.emp[x[6]]) || null, fonte: 'Transfermarkt' } : null;
     /* 22/10: altura informada pelo Henrique (dados/alturas_manuais.csv) vale por cima do Transfermarkt */
     const ax = P.altx && (P.altx[pk] || P.altx[pkM]);
