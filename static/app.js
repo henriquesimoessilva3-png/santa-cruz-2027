@@ -2092,7 +2092,7 @@ function renderTabela() {
     return desc ? y - x : x - y;
   });
 
-  const LIM = 400;
+  const LIM = Infinity;   /* 07/11: mostra todos (pedido do Henrique); as linhas já entram em lotes, sem travar */
   const jaNaPos = new Set((estado.elenco[posAtual] || []).map(j => j.jid).filter(v => v != null));
   const linhas = resultado.slice(0, LIM);
 
