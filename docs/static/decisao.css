@@ -182,3 +182,9 @@ details.dc-sec[open] summary h3::before{content:'▾ '}
 .dc-prem-g input[type=number]{width:84px;padding:3px 6px;font-size:12px;border:1px solid var(--input-borda);border-radius:4px;background:var(--input-bg);color:var(--tinta)}
 .dc-prem-acoes{display:flex;gap:8px;align-items:center;margin:8px 0}
 .dc-prem-acoes small{color:var(--tinta3)}
+/* 08/11: conversa */
+.dc-conv{margin-top:8px}
+.dc-hist{display:grid;gap:3px;margin-bottom:6px;font-size:12px}
+.dc-h b{color:var(--tinta2);font-weight:600} .dc-h i{color:var(--txt-verde);font-style:normal}
+.dc-conv-f input{font-size:13px}
+.dc-posf{font-style:normal;color:var(--txt-ambar);font-size:11px}

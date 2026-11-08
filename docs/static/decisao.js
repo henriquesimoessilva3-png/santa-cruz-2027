@@ -218,18 +218,41 @@
       if (Q.altMin != null && !(Number(b.alt) >= Q.altMin)) fora.push('abaixo de ' + Q.altMin + ' cm');
       if (Q.minMin != null && (min26 || 0) < Q.minMin) fora.push('menos de ' + num(Q.minMin) + ' min em 2026');
     }
-    return { b, pk, pos, posBase: b.p, nome: b.n, clube: b.t, liga: b.l, idade, idade27, nasc: null, estr, ct, livre, mv, card, cs, s, letra, mais, tipo, psv, t2, mi, min26, h26, cobW, gbpW, cob, aer, am, sofa, listas, ind,
+    const pe_ = posEf(b); return { b, pk, pos, posBase: pe_.p, posFonte: pe_.fonte, nome: b.n, clube: b.t, liga: b.l, idade, idade27, nasc: null, estr, ct, livre, mv, card, cs, s, letra, mais, tipo, psv, t2, mi, min26, h26, cobW, gbpW, cob, aer, am, sofa, listas, ind,
       tec, ader, niv, tecFonte, comp, bonus, nota: notaT, notaA, sal, fora, W };
+  }
+
+  /* ---------------- a posição em que o jogador joga de verdade ----------------
+     08/11 (Henrique: "Janderson e Geovany Soares são extremos" — vinham como centroavante): vale, nesta ordem,
+     1) a correção feita na conversa desta aba (fica no navegador), 2) a posição do campograma/overrides do app (comPosCampo),
+     3) a posição principal do Wyscout na temporada (pw: CF, LAMF, RB…) quando ela é de outra função, 4) a da base. */
+  const LS_POS = 'sc2027_decisao_pos';
+  let POSX = {}; try { POSX = JSON.parse(localStorage.getItem(LS_POS) || '{}') || {}; } catch (e) {}
+  const WYP = { GK: 'GOL', RB: 'LD', RWB: 'LD', RB5: 'LD', LB: 'LE', LWB: 'LE', LB5: 'LE', DMF: 'VOL', LDMF: 'VOL', RDMF: 'VOL', CMF: 'MED', LCMF: 'MED', RCMF: 'MED', LCMF3: 'MED', RCMF3: 'MED', AMF: 'MEI', LAMF: 'EE', LW: 'EE', LWF: 'EE', RAMF: 'ED', RW: 'ED', RWF: 'ED', CF: 'CA', SS: 'CA', RCB: 'ZD', RCB3: 'ZD', LCB: 'ZE', LCB3: 'ZE', CB: 'ZD' };
+  const MACRO = { GOL: 'g', LD: 'l', LE: 'l', ZD: 'z', ZE: 'z', VOL: 'm', MED: 'm', MEI: 'o', ED: 'x', EE: 'x', CA: 'c' };
+  let POSEF = null;
+  function posEf(b) {
+    if (!POSEF) POSEF = new Map();
+    if (POSEF.has(b)) return POSEF.get(b);
+    let p = b.p, fonte = 'base';
+    const pk = (() => { try { return primaryKey(b); } catch (e) { return b.n; } })();
+    if (POSX[pk]) { p = POSX[pk]; fonte = 'corrigida na conversa'; }
+    else {
+      let pc = null; try { const o = comPosCampo(b); pc = o && o.p; } catch (e) {}
+      if (pc && pc !== b.p) { p = pc; fonte = 'campograma'; }
+      else if (b.pw) { const w = WYP[String(b.pw).split(',')[0].trim()]; if (w && MACRO[w] !== MACRO[b.p]) { p = w; fonte = 'Wyscout (' + String(b.pw).split(',')[0].trim() + ')'; } }
+    }
+    const r = { p, fonte }; POSEF.set(b, r); return r;
   }
 
   /* ---------------- o conjunto de candidatos de uma posição (em lotes, sem travar a tela) ---------------- */
   const POOL = {};   /* pos|assinatura das premissas → lista avaliada */
   function assinatura() { return JSON.stringify([PREM.pesos, PREM.pesosFis, PREM.pesosGol, PREM.bonus, PREM.filtros, PREM.salario, Object.keys(SALX).length]); }
   async function pool(pos, Q, aviso) {
-    const ch = pos + '|' + assinatura() + '|' + JSON.stringify(Q || null);
+    const ch = pos + '|' + assinatura() + '|' + Object.keys(POSX).length + '|' + JSON.stringify(Q ? Object.assign({}, Q, { excl: null, offset: null, hist: null }) : null);
     if (POOL[ch]) return POOL[ch];
     const kp = await kpisPos(pos);
-    const fonte = BASE.filter(b => b && b.p === pos && !b.manual);
+    const fonte = BASE.filter(b => b && !b.manual && posEf(b).p === pos);
     const out = []; let i = 0;
     await new Promise(res => {
       const passo = () => {
@@ -266,7 +289,7 @@
     [/\bextremo[s]? direit|\bponta[s]? direit|\bed\b|\brw\b/, ['ED'], 1],
     [/\bextremo[s]? esquerd|\bponta[s]? esquerd|\bee\b|\blw\b/, ['EE'], 1],
     [/\bextremo|\bponta[s]?\b|\bwinger|\bjogador(es)? de lado/, ['ED', 'EE'], 0],
-    [/\bcentroavante|\bcentro[- ]avante|\batacante|\bcamisa 9\b|\bartilheir|\bhomem de area|\bcf\b|\bgoleador/, ['CA'], 1],
+    [/\bcentr\w*[- ]?avante|\bcentroavante|\bcentro[- ]avante|\batacante|\bcamisa 9\b|\bartilheir|\bhomem de area|\bcf\b|\bgoleador/, ['CA'], 1],
   ];
   const PAISES = [['argentin', 'argentina'], ['uruguai', 'uruguay'], ['colombian', 'colombia'], ['paraguai', 'paraguay'], ['chilen', 'chile'], ['equatorian', 'ecuador'], ['peruan', 'peru'], ['bolivian', 'bolivia'], ['venezuelan', 'venezuela']];
   const LIGA_TERMS = [
@@ -507,7 +530,7 @@
       '<div class="dc-card-topo"><span class="dc-ordem">' + (i + 1) + 'º</span><span class="dc-foto"></span><div class="dc-id">' +
         '<b class="dc-nome" data-id="' + c.b.id + '">' + esc(c.nome) + '</b><small>' + (c.b.nc && c.b.nc !== c.nome ? esc(c.b.nc) : '') + '</small>' +
         '<div class="dc-clube"><span class="dc-escudo"></span>' + esc(c.clube) + ' · ' + esc(c.liga) + '</div>' +
-        '<div class="dc-meta"><b>' + (c.idade != null ? c.idade + ' anos' : '—') + '</b> <span class="dc-nasc"></span>' + (c.idade27 != null ? ' · ' + c.idade27 + ' em 2027' : '') + ' · ' + esc(POSN[c.posBase] || c.posBase) + (c.posBase !== c.pos ? ' → ' + esc(SIGP(c.pos)) : '') + ' · <span class="dc-altura">' + (c.b.alt ? c.b.alt + ' cm' : '') + '</span>' + (c.b.pe ? ' · ' + esc(c.b.pe) : '') + (c.estr ? ' · <i class="dc-estr">' + esc(c.b.nac) + '</i>' : '') + '</div>' +
+        '<div class="dc-meta"><b>' + (c.idade != null ? c.idade + ' anos' : '—') + '</b> <span class="dc-nasc"></span>' + (c.idade27 != null ? ' · ' + c.idade27 + ' em 2027' : '') + ' · ' + esc(POSN[c.posBase] || c.posBase) + (c.posFonte && c.posFonte !== 'base' ? ' <i class="dc-posf" title="posição ' + esc(c.posFonte) + '">(' + esc(c.posFonte) + ')</i>' : '') + (c.posBase !== c.pos ? ' → ' + esc(SIGP(c.pos)) : '') + ' · <span class="dc-altura">' + (c.b.alt ? c.b.alt + ' cm' : '') + '</span>' + (c.b.pe ? ' · ' + esc(c.b.pe) : '') + (c.estr ? ' · <i class="dc-estr">' + esc(c.b.nac) + '</i>' : '') + '</div>' +
       '</div><div class="dc-nota ' + corNota(c.nota) + '"><b>' + R0(c.nota) + '</b><small>Nota 2027</small>' + (dif != null ? '<em>' + (dif >= 0 ? '+' : '') + num(dif, 1) + ' vs 1º</em>' : '') + '</div></div>' +
       '<div class="dc-chips">' + chipLetra(c) + chipSeta(c) + chipT2(c) + chipMin(c) + '<span class="dc-chip ct' + (c.livre ? ' livre' : '') + '" title="contrato' + (c.b.ctc ? ' (' + esc(c.b.ctc) + ')' : '') + '">' + (c.ct ? ma(c.ct) : 'livre') + '</span>' + (c.mv ? '<span class="dc-chip vm">€ ' + num(c.mv / 1e6, 2) + ' mi</span>' : '') +
         '<span class="dc-chip sal" title="' + esc('salário: ' + c.sal.f) + '">' + brlk(c.sal.v) + '/mês<small>' + (c.sal.f === 'campograma' || c.sal.f === 'digitado' ? '' : '~') + '</small></span></div>' +
@@ -607,19 +630,27 @@
       L.slice(0, n).map((c, i) => linhaTab(c, i, melhor)).join('') + '</tbody></table></div></section>';
   }
   async function responderContratar(Q, raiz) {
-    const poss = Q.pos.length ? Q.pos : ['CA'];
+    if (!Q.pos.length) {
+      raiz.innerHTML = '<section class="dc-sec"><h3>Para qual posição?<small>não achei a posição na pergunta — clique numa, ou escreva de novo (ex.: "centroavante", "lateral direito", "ponta esquerda")</small></h3><div class="dc-ex">' + ORDEM.map(p => '<button type="button" class="dc-exb dc-escpos" data-p="' + p + '">' + esc(POSN[p]) + '</button>').join('') + '</div></section>';
+      raiz.querySelectorAll('.dc-escpos').forEach(b => { b.onclick = () => { Q.pos = [b.dataset.p]; montarLeitura(Q); responder(Q); }; });
+      return;
+    }
+    const poss = Q.pos;
     raiz.innerHTML = '<div class="dc-espera">⏳ avaliando ' + poss.map(p => POSN[p]).join(' e ') + '…<span id="dcProg"></span></div>';
     const prog = (p, i, n) => { const e = $q('#dcProg'); if (e) e.textContent = ' ' + POSN[p] + ' ' + Math.round(100 * i / n) + '%'; };
     const Qf = Object.assign({}, Q); let html = '';
     for (const pos of poss) {
       const L = await pool(pos, Qf, prog);
-      const ok = dentro(L), n = Q.n || 3, papel = Q.papel;
+      const ex = new Set(Q.excl || []);
+      const ok = dentro(L).filter(c => !ex.has(c.pk)), n = Q.n || 3, papel = Q.papel;
       if (papel === 'aposta') ok.sort((a, b) => (b.notaA || 0) - (a.notaA || 0));
-      const top = ok.slice(0, Math.max(3, Math.min(n, 5))), melhor = top[0];
+      let off = Q.offset || 0; if (off >= ok.length) { off = 0; Q.offset = 0; }
+      const top = ok.slice(off, off + Math.max(3, Math.min(n, 5))), melhor = top[0];
+      if (pos === poss[0]) ULTIMO_TOP = top.slice(0, 3);
       const nossos = nossosDa(pos, L);
       if (!ok.length) { html += '<section class="dc-sec"><h3>' + esc(POSN[pos]) + ': ninguém passou nos filtros</h3><p class="dc-txt">Afrouxe o pedido (idade, liga, salário) ou os filtros nas premissas.</p></section>' + blocoFora(L); continue; }
       const empate = top.length > 1 && (melhor.nota - top[1].nota) < 3;
-      html += '<section class="dc-sec dc-veredito"><h2>' + esc(POSN[pos]) + ' · ' + (papel === 'aposta' ? 'aposta para o banco' : 'quem contratar') + '<small>' + num(ok.length) + ' candidatos passaram nos filtros, de ' + num(L.length) + ' na posição' + (empate ? ' · <b>empate técnico</b> entre os primeiros (menos de 3 pontos de diferença): decide a visão do scout e a negociação' : '') + '</small></h2>' +
+      html += '<section class="dc-sec dc-veredito"><h2>' + esc(POSN[pos]) + ' · ' + (papel === 'aposta' ? 'aposta para o banco' : 'quem contratar') + (off ? ' · opções ' + (off + 1) + ' a ' + (off + top.slice(0, 3).length) : '') + '<small>' + num(ok.length) + ' candidatos passaram nos filtros, de ' + num(L.length) + ' na posição' + (ex.size ? ' · ' + ex.size + ' tirado' + (ex.size > 1 ? 's' : '') + ' na conversa' : '') + (empate ? ' · <b>empate técnico</b> entre os primeiros (menos de 3 pontos de diferença): decide a visão do scout e a negociação' : '') + '</small></h2>' +
         '<div class="dc-cards">' + top.slice(0, 3).map((c, i) => cardGrande(c, i, melhor)).join('') + '</div></section>';
       html += blocoNossos(nossos, melhor, pos);
       html += reguas(top.slice(0, 5), ok, nossos, pos);
@@ -776,7 +807,7 @@
   }
 
   /* ---------------- a página ---------------- */
-  let ultimaResposta = null, Qatual = null;
+  let ultimaResposta = null, Qatual = null, ULTIMO_TOP = [];
   const EXEMPLOS = ['Quem devo contratar para ser o centroavante do Santa Cruz em 2027?', 'Qual o melhor elenco para a Série B de 2027 com até 2 milhões por mês em salários?', 'Zagueiro esquerdo canhoto até 29 anos que pode vir livre', 'Lateral direito A+ da Série B que mantém no 2º tempo', 'Meia cobrador de bola parada, brasileiro, até R$ 120 mil por mês', 'Goleiro até 32 anos, Série B ou Série C', 'Comparar Carlão e Raniel', 'Volante argentino até 27 anos'];
   function montarPagina(el) {
     el.innerHTML = '<div class="dc"><header class="dc-topo"><div class="dc-titulo"><b>Decisão 2027</b><small>pergunte ao modelo: ele junta o estudo, o campograma e todas as bases do app e responde com nome, porquê, alternativas e quem ficou de fora</small></div>' +
@@ -810,9 +841,53 @@
     if (card && sal > 0 && !card.salario) { card.salario = Math.round(sal); card.sugerido = 1; salvarLocal(); render(); }
     if (bt) { bt.replaceWith(Object.assign(document.createElement('span'), { className: 'dc-ja', textContent: 'no campograma' })); }
   }
+  /* ---------------- a conversa: refinar a resposta sem recomeçar ----------------
+     08/11 (Henrique: "esse aqui não é, traga outras opções"). Entende: tirar nomes ("tira o Janderson", "o segundo não",
+     "nenhum desses"), corrigir a posição de alguém ("Janderson é extremo" — fica gravado neste navegador), pedir mais
+     ("mais opções", "outros nomes"), apertar ou soltar o pedido ("só até 28 anos", "pode ser estrangeiro", "até 120 mil",
+     "lateral esquerdo agora") e voltar ("volta ao início"). */
+  function conversar(texto) {
+    texto = String(texto || '').trim(); if (!texto) return;
+    if (!Qatual) return perguntar(texto);
+    const Q = Qatual, t = ' ' + nz(texto) + ' ';
+    Q.excl = Q.excl || []; Q.hist = Q.hist || []; Q.offset = Q.offset || 0;
+    const feito = [];
+    if (/\b(volta|recomeca|reset|desfaz)\w*/.test(t)) { Q.excl = []; Q.offset = 0; feito.push('voltei à lista original'); }
+    const neg = /\b(nao|tira|tire|tirar|tira o|sem|exclu\w*|remov\w*|fora|descart\w*|esquece|nenhum)\b/.test(t);
+    const ns = nomesNoTexto(texto).map(n => ({ n, b: escolherCand(n, Q) })).filter(x => x.b);
+    const N = interpretar(texto);
+    const tirar = pk => { if (!Q.excl.includes(pk)) Q.excl.push(pk); };
+    /* "X é extremo" / "X joga de zagueiro": corrige a posição */
+    if (ns.length && N.pos.length === 1 && /\b(e|eh|joga|atua|na verdade|virou)\b/.test(t) && !/\b(quero|contratar|busc|procur)/.test(t) && !(neg && Q.pos.includes(N.pos[0]))) {
+      ns.forEach(({ b }) => { const pk = primaryKey(b); POSX[pk] = N.pos[0]; feito.push(b.n + ' passa a contar como ' + POSN[N.pos[0]]); if (!Q.pos.includes(N.pos[0])) tirar(pk); });
+      try { localStorage.setItem(LS_POS, JSON.stringify(POSX)); } catch (e) {}
+      POSEF = null; Object.keys(POOL).forEach(k => delete POOL[k]);
+    } else if (neg && (ns.length || /\b(primeiro|segundo|terceiro|1o|2o|3o|desses|esses|todos|nenhum)\b/.test(t))) {
+      ns.forEach(({ b }) => { tirar(primaryKey(b)); feito.push('tirei ' + b.n); });
+      [['primeiro', 0], ['1o', 0], ['segundo', 1], ['2o', 1], ['terceiro', 2], ['3o', 2]].forEach(([w, i]) => { if (new RegExp('\\b' + w + '\\b').test(t) && ULTIMO_TOP[i]) { tirar(ULTIMO_TOP[i].pk); feito.push('tirei ' + ULTIMO_TOP[i].nome); } });
+      if (/\b(desses|esses|todos|nenhum)\b/.test(t)) ULTIMO_TOP.forEach(c => { tirar(c.pk); feito.push('tirei ' + c.nome); });
+    }
+    if (/\bmais (opcoes|nomes|jogadores)|\boutr[ao]s\b|\bproxim|\bdiferente|\bseguintes/.test(t) && !feito.some(x => /^tirei/.test(x))) { Q.offset += Math.min(Q.n || 3, 5); feito.push('mostrando as próximas opções'); }
+    else if (feito.some(x => /^tirei/.test(x))) Q.offset = 0;
+    /* filtros novos por cima do pedido (a posição só muda quando não foi correção nem exclusão) */
+    if (N.pos.length && !ns.length && !neg) { Q.pos = N.pos; Q.offset = 0; feito.push('posição: ' + N.pos.map(p => POSN[p]).join(' / ')); }
+    if (/\bqualquer nacionalidade|\bpode ser estrangeir|\bestrangeiro (tambem|pode)/.test(t)) { Q.nac = ''; Q.paises = []; feito.push('nacionalidade: qualquer'); }
+    else if (N.nac) { Q.nac = N.nac; feito.push('nacionalidade: ' + ({ br: 'só brasileiros', sul: 'sul-americanos', ex: 'só estrangeiros' })[N.nac]); }
+    if (N.paises.length) { Q.paises = N.paises; feito.push(N.paises.join(', ')); }
+    if (N.ligas.length) { Q.ligas = N.ligas; feito.push('ligas: ' + (N.ligas.length > 4 ? N.ligas.length : N.ligas.join(', '))); }
+    if (/\bqualquer liga|\btodas as ligas/.test(t)) { Q.ligas = []; feito.push('qualquer liga'); }
+    const ROT = { idadeMin: v => 'idade a partir de ' + v, idadeMax: v => 'idade até ' + v, salMax: v => 'salário até ' + brlk(v), altMin: v => 'altura ≥ ' + v + ' cm', minMin: v => '≥ ' + num(v) + ' min', n: v => 'mostrar ' + v, livre: () => 'pode vir livre', t2: () => 'mantém no 2º tempo', letra: () => 'físico A/A+', bp: v => v === 'cobr' ? 'cobrador' : 'aéreo', pe: v => /esq/.test(v) ? 'canhoto' : 'destro', papel: v => v === 'aposta' ? 'aposta' : 'titular' };
+    ['idadeMin', 'idadeMax', 'salMax', 'altMin', 'minMin', 'n'].forEach(k => { if (N[k] != null) { Q[k] = N[k]; feito.push(ROT[k](N[k])); } });
+    ['livre', 't2', 'letra', 'bp', 'pe', 'papel'].forEach(k => { if (N[k]) { Q[k] = N[k]; feito.push(ROT[k](N[k])); } });
+    if (/\bsem limite de idade|\bqualquer idade/.test(t)) { Q.idadeMin = null; Q.idadeMax = null; }
+    if (/\bsem teto|\bqualquer salario/.test(t)) Q.salMax = 0;
+    if (N.intent !== 'contratar' && N.intent !== Q.intent && /\belenco|\bcompar|\bficha|\bquem e\b/.test(t)) return perguntar(texto);
+    Q.hist.push({ eu: texto, ok: feito.length ? feito.join(' · ') : 'não entendi — tente "tira o Fulano", "mais opções", "só até 28 anos", "Fulano é extremo"' });
+    montarLeitura(Q); responder(Q);
+  }
   function perguntar(texto) {
     texto = String(texto || '').trim(); if (!texto) return;
-    const Q = interpretar(texto); Qatual = Q;
+    const Q = interpretar(texto); Qatual = Q; Q.hist = [{ eu: texto, ok: '' }];
     try { localStorage.setItem(LS_ULT, JSON.stringify({ texto })); } catch (e) {}
     montarLeitura(Q); responder(Q);
   }
@@ -846,7 +921,10 @@
       '<label>Massa salarial (R$ mil/mês) <input id="dlMassa" type="number" min="500" step="100" value="' + (Q.massa ? Math.round(Q.massa / 1000) : '') + '"></label>' +
       '<label>Papel ' + sel('dlPapel', [['', 'titular'], ['aposta', 'reserva / aposta']], Q.papel || '') + '</label>' +
       '<label>Mostrar <input id="dlN" type="number" min="3" max="50" value="' + (Q.n || 3) + '"></label>' +
-      '<button class="bt mini" id="dlOk">Refazer</button></div>';
+      '<button class="bt mini" id="dlOk">Refazer</button></div>' +
+      '<div class="dc-conv">' + ((Q.hist || []).length > 1 ? '<div class="dc-hist">' + Q.hist.map((h, i) => '<div class="dc-h"><b>' + (i ? 'você' : 'pergunta') + ':</b> ' + esc(h.eu) + (h.ok ? ' <i>→ ' + esc(h.ok) + '</i>' : '') + '</div>').join('') + '</div>' : '') +
+      '<form id="dcConvF" class="dc-perg dc-conv-f"><input id="dcConv" autocomplete="off" placeholder="Continue a conversa: “tira o Janderson, ele é extremo”, “mais opções”, “o segundo não”, “só até 28 anos”, “pode ser estrangeiro”, “volta ao início”"><button class="bt" type="submit">Enviar</button></form></div>';
+    const cf = $q('#dcConvF'); if (cf) cf.onsubmit = ev => { ev.preventDefault(); const v = $q('#dcConv').value; conversar(v); };
     $q('#dlOk').onclick = () => {
       Q.intent = $q('#dlInt').value; const p = $q('#dlPos').value; if (p) Q.pos = [p];
       Q.nac = $q('#dlNac').value; Q.idadeMin = $q('#dlImin').value ? +$q('#dlImin').value : null; Q.idadeMax = $q('#dlImax').value ? +$q('#dlImax').value : null;
@@ -886,5 +964,5 @@
     sync();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
-  window.DECISAO = { perguntar, interpretar, avaliar, pool, otimizar, PREM: () => PREM };
+  window.DECISAO = { perguntar, conversar, interpretar, avaliar, pool, otimizar, PREM: () => PREM };
 })();
