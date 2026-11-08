@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="static/tipo_a.css?v=1793672170">
 <link rel="stylesheet" href="static/destaques.css?v=1793672170">
 <link rel="stylesheet" href="static/listas.css?v=1793790000">  <!-- 04/11: aba 6 Listas -->
+<link rel="stylesheet" href="static/decisao.css?v=1794112500">  <!-- 08/11: aba 6 Decisão -->
 <link rel="stylesheet" href="static/novorizontino.css?v=1793672170">
 <link rel="stylesheet" href="static/ameaca.css?v=1793672170">
 <link rel="stylesheet" href="static/visao_nova.css?v=1793672170">
@@ -178,6 +179,7 @@
   <button class="aba" data-aba="treinador" title="Triagem de treinadores — Santa Cruz Série B 2027 (18 nomes, por tema)">Treinadores</button>
   <button class="aba" data-aba="destaques" title="Listas de destaque dos campeonatos — shortlists do TransferRoom Scout">Destaques</button>
   <button class="aba" data-aba="listascamp" title="As cinco listas completas por campeonato (Série B, Série A, brasileiros no exterior, sul-americanos e segundas divisões) — tabela com filtros">Listas por campeonato</button>
+  <button class="aba" data-aba="decisao" title="Decisão 2027 — pergunte ao modelo (quem contratar, melhor elenco com R$ X, comparar) e ele responde com o porquê">Decisão</button>
   <button class="aba" data-aba="tipoa" title="Jogadores A e B (tipo físico pela regra do clube), por posição: Série B, ligas sul-americanas e sul-americanos no exterior — com PDF">Tipo físico A e B</button>
       <button class="aba aba-auxiliar" data-aba="novoriz" hidden title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
       <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
@@ -645,6 +647,10 @@
       <div class="emp-rolagem"><div class="lc" id="lcCorpo"></div></div>
     </section>
 
+    <section class="pagina oculta" id="pgDecisao">
+      <div class="emp-rolagem" id="dcRaiz"></div>
+    </section>
+
     <section class="pagina oculta" id="pgDestaques">
       <div class="emp-rolagem"><div class="dt" id="dtCorpo"></div></div>
     </section>
@@ -990,6 +996,8 @@
 <script src="static/destaques.js?v=1793672170"></script>
 <script src="static/listas_dados.js?v=1793890000"></script>  <!-- 04/11: aba 6 Listas — as cinco listas completas por campeonato -->
 <script src="static/listas.js?v=1793796000"></script>
+<script src="static/decisao_dados.js?v=1794112500"></script>  <!-- 08/11: aba 6 Decisão — força das ligas, retas de conversão, vetados (gerar_decisao_js.py) -->
+<script src="static/decisao.js?v=1794112500"></script>
 <script src="static/importar_lista.js?v=1793672170"></script>
 <script src="static/novorizontino_dados.js?v=1793672170"></script>
 <script src="static/novorizontino.js?v=1793672170"></script>

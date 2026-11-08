@@ -44,6 +44,9 @@
     /* 20/10: as listas do TransferRoom Scout, campeonato a campeonato (static/destaques.js) */
     { id: 'destaques', num: '5', rot: 'Destaques', dica: 'listas dos campeonatos', sub: [
       { id: 'dtlistas', rot: 'Destaques dos campeonatos', aba: 'destaques', dica: 'as shortlists do TransferRoom Scout por campeonato: Série B, América do Sul, copas e outros mercados' }] },
+    /* 08/11: a aba Decisão — pergunte ao modelo (static/decisao.js) */
+    { id: 'decisao', num: '6', rot: 'Decisão', dica: 'pergunte ao modelo', sub: [
+      { id: 'dcperg', rot: 'Pergunte ao modelo', aba: 'decisao', dica: 'quem contratar para cada posição, o melhor elenco com R$ X por mês, comparar nomes — com o porquê, as réguas, o custo e quem ficou de fora' }] },
   ];
   /* aba original → [principal, sub] (as alternativas de um sub também apontam para ele) */
   const MAPA = {};

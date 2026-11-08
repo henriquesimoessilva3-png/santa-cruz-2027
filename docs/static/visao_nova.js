@@ -46,6 +46,9 @@
     /* 04/11: as cinco listas completas por campeonato (static/listas.js), como tabela com filtros */
     { id: 'listas', num: '5', rot: 'Listas', dica: 'completas por campeonato', sub: [
       { id: 'lclistas', rot: 'Listas por campeonato', aba: 'listascamp', dica: 'Série B, Série A, brasileiros no exterior, sul-americanos e segundas divisões: todos os jogadores com os indicadores da posição, com filtros' }] },
+    /* 08/11: a aba Decisão — pergunte ao modelo (static/decisao.js) */
+    { id: 'decisao', num: '6', rot: 'Decisão', dica: 'pergunte ao modelo', sub: [
+      { id: 'dcperg', rot: 'Pergunte ao modelo', aba: 'decisao', dica: 'quem contratar para cada posição, o melhor elenco com R$ X por mês, comparar nomes — com o porquê, as réguas, o custo e quem ficou de fora' }] },
   ];
   /* aba original → [principal, sub] (as alternativas de um sub também apontam para ele) */
   const MAPA = {};
