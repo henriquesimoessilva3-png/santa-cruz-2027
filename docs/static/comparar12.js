@@ -136,7 +136,7 @@
     ['desacel. medias', 'Medium Deceleration Count P90'], ['mud. de direcao', 'Change of Direction Count P90'], ['distancia', 'Distance P90'], ['metros por minuto', 'M/min P90'], ['dist. corrida', 'Running Distance P90']];
   const vTec = (rot, a) => { const k = nk(rot); const m = TEC.find(([re]) => re.test(k)); return m ? m[1](a) : null; };
   const vFis = (rot, d) => { if (!d || !d.linha) return null; const k = nk(rot); const m = FIS.find(([p]) => k.startsWith(p)); if (!m) return null; const v = parseFloat(d.linha[m[1]]); return isFinite(v) ? v : null; };
-  const casas = (v, rot) => { if (v == null) return 1; const a = Math.abs(v); return /%/.test(rot) ? 1 : a >= 100 ? 0 : a >= 10 ? 1 : 2; };
+  const casas = (v, rot) => { if (v == null) return 1; const a = Math.abs(v); return /%/.test(rot) ? 1 : a >= 100 ? 0 : a >= 1 ? 1 : 2; };
 
   /* ---------- o documento (mesmo desenho do PDF) ---------- */
   const cor = (x, sobe, med, inv) => { const r = sobe != null ? sobe : med; if (x == null || r == null) return 'n'; if (inv) return x <= r ? 'v' : x <= r * 1.1 ? 'a' : 'r'; return x >= r ? 'v' : x >= r * 0.9 ? 'a' : 'r'; };
@@ -146,7 +146,11 @@
   const refs = (l, d) => '<span class="ref s">' + (l.sobe != null ? f(l.sobe, d) : '') + '</span><span class="ref">' + (l.med != null ? f(l.med, d) : '') + '</span><span class="ref mx">' + (l.mx != null ? f(l.mx, d) : '') + '</span>';
 
   function doc(A, B, pa, pb, da, db) {
-    const CA = '#3fa3e6', CB = '#e0a82e', nA = A.nc && A.nc.length < 18 ? A.nc : A.n, nB = B.nc && B.nc.length < 18 ? B.nc : B.n;
+    const CA = '#3fa3e6', CB = '#e0a82e', nA = A.n, nB = B.n;
+    /* rótulo curto das colunas do técnico (Henrique, 08/11: estava embolado): o primeiro nome; se empatar, 3 letras + sobrenome */
+    const curto = (n, o) => { const p = String(n || '').replace(/^[A-Z]\.\s*/, '').split(/\s+/), q = String(o || '').replace(/^[A-Z]\.\s*/, '').split(/\s+/);
+      if (p[0] && p[0] !== q[0] && p[0].length <= 9) return p[0]; return (p[0] || '').slice(0, 3) + (p.length > 1 ? ' ' + p[p.length - 1][0] + '.' : ''); };
+    const sA = curto(nA, nB), sB = curto(nB, nA);
     const cA = { fis: 0, tec: 0 }, cB = { fis: 0, tec: 0 }, fund = { a: [0, 0], b: [0, 0], fa: [0, 0], fb: [0, 0] };
     /* físico */
     const gf = refsFis(A);
@@ -170,8 +174,8 @@
     const ligaA = la ? la.nome.replace(/^[^.]*\.\s*/, '') : '', ligaB = lb ? lb.nome.replace(/^[^.]*\.\s*/, '') : '';
     const gt = refsTec(A);
     const def = gt.find(g => /defesa|duelo/i.test(g.nome)) || gt[gt.length - 1];
-    const cabT = '<div class="ln t gcab"><span class="rot"></span><span class="grp">12 MESES</span><span class="sp"></span><span class="grp">SÓ A LIGA' + (ligaA && ligaA === ligaB ? ' (' + esc(ligaA.toUpperCase()) + ')' : '') + '</span><span class="ref s"></span><span class="ref"></span><span class="ref mx"></span></div>' +
-      '<div class="ln t cab"><span class="rot">indicador</span><span style="color:' + CA + '">' + esc(nA) + '</span><span style="color:' + CB + '">' + esc(nB) + '</span><span class="sp"></span><span style="color:' + CA + '">' + esc(nA) + '</span><span style="color:' + CB + '">' + esc(nB) + '</span><span class="ref s">sobe</span><span class="ref">média</span><span class="ref mx">melhor</span></div>';
+    const cabT = '<div class="ln t gcab"><span class="rot"></span><span class="grp">12 MESES</span><span class="sp"></span><span class="grp">' + (ligaA && ligaA === ligaB && ligaA.length <= 12 ? 'SÓ ' + esc(ligaA.toUpperCase()) : 'SÓ A LIGA') + '</span><span class="ref s"></span><span class="ref"></span><span class="ref mx"></span></div>' +
+      '<div class="ln t cab"><span class="rot">indicador</span><span style="color:' + CA + '">' + esc(sA) + '</span><span style="color:' + CB + '">' + esc(sB) + '</span><span class="sp"></span><span style="color:' + CA + '">' + esc(sA) + '</span><span style="color:' + CB + '">' + esc(sB) + '</span><span class="ref s">sobe</span><span class="ref">média</span><span class="ref mx">melhor</span></div>';
     const linT = (rot, fn, l) => {
       const vs = [fn(ta), fn(tb), fn(la), fn(lb)]; if (vs.every(v => v == null)) return '';
       const d = casas(vs.find(v => v != null), rot), top = Math.max(...vs.concat([l.sobe, l.med, l.mx]).filter(x => x != null), 1e-6);
@@ -223,7 +227,7 @@
     ];
     const box = ([t, x]) => '<div class="li"><b>' + t + '</b><p>' + x + '</p></div>';
     const CSS_APP = '.pg{height:auto;min-height:1018px;overflow:visible} .fonte{position:static;margin-top:10px} .vazio{padding:10px;color:#8a93a0;font-size:11px} span.fo{display:inline-block;background:#1b212b}' +
-      '@media print{html,body{background:#11151c} .pg{zoom:.78}}';
+      '@media print{html,body{background:#11151c} .pg{zoom:.78;min-height:0;page-break-after:auto;break-after:auto}}';
     return '<!doctype html><html><head><meta charset="utf-8"><title>' + esc(nA + ' x ' + nB + ' - ultimos 12 meses') + '</title><style>' + CSS_DOC + CSS_APP + '</style></head><body><div class="pg">' +
       '<div class="cab0"><h1>' + esc(nA) + ' × ' + esc(nB) + (A.p ? ' · ' + esc(A.p) : '') + '</h1><span>Últimos 12 meses · ' + br(da.de) + ' a ' + br(da.tec.ate || hojeISO()) + ' · Wyscout (técnico, jogos oficiais) e SkillCorner (físico)</span></div>' +
       '<div class="jgs">' + cab(A, pa, da, CA, fund.a) + cab(B, pb, db, CB, fund.b) + '</div>' + leg +
@@ -233,29 +237,51 @@
   }
 
   /* ---------- na ficha ---------- */
+  /* 08/11 (Henrique: "a tela não ficou… tem que diminuir o tamanho da parte de cima para a análise ficar toda visível"):
+     os botões do modo vão para a linha de cima da ficha, ao lado do "⇆ vs. …" (não ocupam mais uma faixa), e o
+     comparativo de 12 meses é reduzido para caber inteiro na área da ficha, na largura e na altura. */
+  function controles(par) {
+    const ref = document.getElementById('fiCmpBox'); if (!ref) return;
+    let c = document.getElementById('c12Ctl');
+    if (!c) { c = document.createElement('span'); c.id = 'c12Ctl'; c.className = 'c12-ctl'; }
+    if (c.previousElementSibling !== ref) ref.insertAdjacentElement('afterend', c);
+    const e = EST[par] || {};
+    c.innerHTML = '<button type="button" class="bt mini' + (modo === '12m' ? ' on' : '') + '" data-m="12m" title="Comparativo dos últimos 12 meses (Wyscout + SkillCorner)">📅 12 meses</button>' +
+      '<button type="button" class="bt mini' + (modo === 'base' ? ' on' : '') + '" data-m="base" title="Comparação pela base da ficha">📋 base</button>' +
+      (modo === '12m' ? '<button type="button" class="bt mini" id="c12Pdf"' + (e.st === 'ok' ? '' : ' disabled') + ' title="Gerar PDF (A4 deitada)">📄 PDF</button><button type="button" class="bt mini" id="c12Re" title="Buscar de novo no Wyscout e no SkillCorner">↻</button>' : '');
+    c.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { modo = b.dataset.m; try { localStorage.setItem(LS_MODO, modo); } catch (x) {} aplicar(); });
+    const pdf = c.querySelector('#c12Pdf'); if (pdf) pdf.onclick = () => { const w = document.getElementById('c12If'); if (w && w.contentWindow) { w.contentWindow.focus(); w.contentWindow.print(); } };
+    const re = c.querySelector('#c12Re'); if (re) re.onclick = () => { const k = window.cmpAtual && window.cmpAtual(); if (!k) return;
+      const all = lsGet(); [k.a, k.b].forEach(j => { delete all['d:' + pkDe(j) + ':' + hojeISO()]; }); try { localStorage.setItem(LS, JSON.stringify(all)); } catch (x) {} delete EST[par]; aplicar(); };
+  }
+  function ajustaIf() {
+    const ifr = document.getElementById('c12If'); if (!ifr) return;
+    const fr = ifr.parentElement, box = document.querySelector('#ficha .ficha-rolagem'), corpo = document.getElementById('fiCorpo');
+    if (corpo) corpo.style.zoom = 1;
+    const d = ifr.contentDocument, h = d && d.body ? Math.max(d.body.scrollHeight, 600) : 1018;
+    const cw = (box && box.clientWidth) || fr.clientWidth || 1200;
+    const st = fr.previousElementSibling ? fr.previousElementSibling.offsetHeight + 4 : 0;
+    const ch = box ? box.clientHeight - st - 6 : h;
+    const z = Math.min(1, (cw - 4) / 1440, ch > 200 ? ch / h : 1);
+    ifr.style.width = '1440px'; ifr.style.height = h + 'px'; ifr.style.border = '0'; ifr.style.transformOrigin = '0 0'; ifr.style.transform = 'scale(' + z + ')';
+    fr.style.width = Math.ceil(1440 * z) + 'px'; fr.style.height = Math.ceil(h * z) + 'px'; fr.style.margin = '0 auto';
+  }
   function barra(corpo, par) {
+    controles(par);
     let bx = document.getElementById('cmp12Box');
+    if (modo !== '12m') { if (bx) bx.remove(); if (typeof caberFicha === 'function') caberFicha(); return; }
     if (!bx) { bx = document.createElement('div'); bx.id = 'cmp12Box'; corpo.prepend(bx); }
     const e = EST[par] || {};
-    bx.innerHTML = '<div class="c12-bar"><b>Comparativo</b><button type="button" class="bt mini' + (modo === '12m' ? ' on' : '') + '" data-m="12m">📅 últimos 12 meses</button>' +
-      '<button type="button" class="bt mini' + (modo === 'base' ? ' on' : '') + '" data-m="base">📋 base da ficha</button>' +
-      (modo === '12m' ? '<button type="button" class="bt mini" id="c12Pdf"' + (e.st === 'ok' ? '' : ' disabled') + '>📄 Gerar PDF</button><button type="button" class="bt mini" id="c12Re" title="Busca de novo no Wyscout e no SkillCorner">↻</button>' : '') +
-      '<span class="c12-st">' + (modo === '12m' ? (e.st === 'busca' ? '⏳ buscando no Wyscout e no SkillCorner…' : e.st === 'erro' ? '✖ ' + e.msg : e.st === 'ok' ? 'Wyscout e SkillCorner · ' + br(de12()) + ' a ' + br(hojeISO()) : '') : '') + '</span></div>' +
-      (modo === '12m' && e.st === 'escolher' ? e.html : '') +
-      (modo === '12m' && e.st === 'ok' ? '<div class="c12-fr"><iframe id="c12If" title="comparativo 12 meses"></iframe></div>' : '');
-    bx.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { modo = b.dataset.m; try { localStorage.setItem(LS_MODO, modo); } catch (e) {} aplicar(); });
-    const pdf = bx.querySelector('#c12Pdf'); if (pdf) pdf.onclick = () => { const w = bx.querySelector('#c12If'); if (w && w.contentWindow) { w.contentWindow.focus(); w.contentWindow.print(); } };
-    const re = bx.querySelector('#c12Re'); if (re) re.onclick = () => { const c = window.cmpAtual && window.cmpAtual(); if (!c) return;
-      const all = lsGet(); [c.a, c.b].forEach(j => { delete all['d:' + pkDe(j) + ':' + hojeISO()]; }); try { localStorage.setItem(LS, JSON.stringify(all)); } catch (e) {} delete EST[par]; aplicar(); };
+    const st = e.st === 'busca' ? '⏳ buscando no Wyscout e no SkillCorner…' : e.st === 'erro' ? '✖ ' + e.msg : '';
+    bx.innerHTML = (st ? '<div class="c12-st">' + st + '</div>' : '') + (e.st === 'escolher' ? e.html : '') +
+      (e.st === 'ok' ? '<div class="c12-fr"><iframe id="c12If" title="comparativo 12 meses"></iframe></div>' : '');
     bx.querySelectorAll('.c12-op').forEach(b => b.onclick = () => { lsSet('wy:' + b.dataset.pk, JSON.parse(b.dataset.v)); delete EST[par]; aplicar(); });
     const ifr = bx.querySelector('#c12If');
     if (ifr && e.doc) {
+      ifr.onload = () => { ajustaIf(); setTimeout(ajustaIf, 400); };
       ifr.srcdoc = e.doc;
-      const ajusta = () => { const w = ifr.parentElement.clientWidth || 1200, z = Math.min(1, w / 1440); const d = ifr.contentDocument; const h = d && d.body ? d.body.scrollHeight : 1018;
-        ifr.style.transform = 'scale(' + z + ')'; ifr.style.height = h + 'px'; ifr.parentElement.style.height = Math.ceil(h * z) + 'px'; };
-      ifr.onload = () => { ajusta(); setTimeout(ajusta, 400); };
-      if (!barra._rs) { barra._rs = true; window.addEventListener('resize', () => { const i = document.getElementById('c12If'); if (i && i.onload) i.onload(); }); }
-    }
+      if (!barra._rs) { barra._rs = true; window.addEventListener('resize', () => setTimeout(ajustaIf, 60)); }
+    } else if (typeof caberFicha === 'function') caberFicha();
   }
   function escolhaHtml(j, ops) {
     return '<div class="c12-esc"><b>Qual é o ' + esc(j.nc || j.n) + ' (' + esc(j.t) + (j.id_ ? ', ' + j.id_ + ' anos' : '') + ') no Wyscout?</b> O app não teve certeza pelo clube e pela idade:' +
@@ -281,7 +307,7 @@
   function aplicar() {
     const c = window.cmpAtual && window.cmpAtual();
     const corpo = document.getElementById('fiCorpo');
-    if (!c || !corpo) { const bx = document.getElementById('cmp12Box'); if (bx) bx.remove(); if (corpo) corpo.classList.remove('cmp12-on'); return; }
+    if (!c || !corpo) { const bx = document.getElementById('cmp12Box'); if (bx) bx.remove(); const ct = document.getElementById('c12Ctl'); if (ct) ct.remove(); if (corpo) corpo.classList.remove('cmp12-on'); return; }
     const par = pkDe(c.a) + '|' + pkDe(c.b);
     corpo.classList.toggle('cmp12-on', modo === '12m');
     barra(corpo, par);
