@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BFR Busca Jogador — Wyscout e SkillCorner",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Deixa o app Santa Cruz (localhost:5090 e o site) buscar o jogador no Wyscout e no SkillCorner em que você está logado e trazer o técnico e o físico.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyVEu4uAttzInqQZpruewD+jdj9NJLlGWeRPTeQHYz/DWcH9kcuGdf1FF1Vyrxl2Bhv8wVblE9QLINv8r3xJqALCEyCqilvlHfx65up2mgahp1eZWPLq9WuN2d5B5JAxowRAaJhkJjY7pN1N/mCSWu6nDhsDWQW7uArxPeOzr9cYPF3nG0nvIS5Rlv4RfgflO8yeJbcHH4Ov0qGTKt40VEDcq2TvjXHKJU7wyk6PZkMyKeSkLc4X++Fe1eii68znvvlPKmlJVpzF0M3KP3QKztjA5r+r06owUPdRXP852DboniYzspxRkjTi120x7B3uLgdw5sEhUlsaRAaLupL4KUQIDAQAB",
   "permissions": ["scripting", "tabs"],

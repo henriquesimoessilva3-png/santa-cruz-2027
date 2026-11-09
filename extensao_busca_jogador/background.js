@@ -2,7 +2,8 @@
 // Ponte entre o app e os dois sites JÁ LOGADOS neste Chrome: faz, dentro de uma aba de cada site,
 // as mesmas consultas que as telas fazem (busca avançada do Wyscout e Physical do SkillCorner).
 // Não guarda senha nem dado. Não baixa PDF nem Excel. Fonte: Santa Cruz/extensao_busca_jogador/.
-const VERSAO = '1.3.1';  // 24/10: corridas sem bola (Game Intelligence) · 25/10: minutagem e bola parada (Wyscout jogo a jogo)
+const VERSAO = '1.4.0';  // 08/11: comparativo 12 meses (wy_12m: técnico jogo a jogo somado + minutagem por clube)
+const VERSAO_ANT = '1.3.1';  // 24/10: corridas sem bola (Game Intelligence) · 25/10: minutagem e bola parada (Wyscout jogo a jogo)
 const WY = 'https://wyscout.hudl.com/app/';
 const SC = 'https://skillcorner.com/app/physical';
 const dorme = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -286,6 +287,48 @@ async function wyFoto(m) {
   return Object.assign({ ok: true }, r || {});
 }
 
+/* 08/11/2026 — comparativo de 12 meses (Henrique: "coloca como padrão esse comparativo de jogadores lá no aplicativo,
+   sempre os últimos 12 meses"). match_stats do jogador desde `de`, só jogos oficiais (sem amistoso, seleção e base),
+   SOMA de todos os campos (o app calcula por 90 e %), o mesmo só na liga atual (a liga do jogo de liga mais recente) e a
+   minutagem por clube: minutos dele ÷ minutos dos jogos oficiais do clube no período em que esteve lá (team_stats). */
+async function pgWy12m(id, de) {
+  const tok = window.uidirectives && window.uidirectives.access_key;
+  if (!tok) return { __erro: 'login' };
+  const get = async (u) => { for (let t = 0; t < 3; t++) { try { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'access_token=' + tok); if (r.ok) return await r.json(); if (r.status === 401 || r.status === 403) return { __erro: 'login' }; } catch (e) { /* de novo */ } await new Promise((ok) => setTimeout(ok, 800 * (t + 1))); } return { __erro: 'rede' }; };
+  const fora = (m) => /friendly|national/i.test(m.competitionFormat || '') || /\bU-?1\d\b|\bU-?2[0-3]\b|youth|junior|sub-?\d\d|reserve|amistos|friendl/i.test(m.competition || '');
+  const hoje = new Date().toISOString().slice(0, 10);
+  const ms = await get('https://searchapi.wyscout.com/api/v1/match_stats/players/' + id + '?from=' + de + '&to=' + hoje);
+  if (ms && ms.__erro) return ms;
+  const jogos = (Array.isArray(ms) ? ms : []).filter((x) => x && x.match && !fora(x.match) && x.playerStats && x.playerStats.minutes_on_field > 0);
+  const soma = (lst) => { const s = {}; let yc = 0, rc = 0, j80 = 0;
+    lst.forEach((x) => { const p = x.playerStats; Object.keys(p).forEach((k) => { const v = p[k]; if (typeof v === 'number' && isFinite(v)) s[k] = (s[k] || 0) + v; });
+      if (p.yellow_cards || p.yellow_card_minute) yc++; if (p.red_card_minute || p.red_cards) rc++; if (p.minutes_on_field >= 80) j80++; });
+    return { j: lst.length, min: s.minutes_on_field || 0, j80, yc, rc, s }; };
+  const conta = {}; jogos.forEach((x) => { [x.match.teamAId, x.match.teamBId].forEach((t) => { conta[t] = (conta[t] || 0) + 1; }); });
+  const por = {};
+  jogos.forEach((x) => { const m = x.match; const meu = (conta[m.teamAId] || 0) >= (conta[m.teamBId] || 0) ? m.teamAId : m.teamBId; x._t = meu; (por[meu] || (por[meu] = { id: meu, nome: meu === m.teamAId ? m.teamA : m.teamB, jogos: [] })).jogos.push(x); });
+  const ligaJ = jogos.filter((x) => x.match.competitionFormat === 'domestic_league').sort((a, b) => (a.match.date < b.match.date ? 1 : -1));
+  const lig = ligaJ[0] ? { id: ligaJ[0].match.competitionId, nome: ligaJ[0].match.competition } : null;
+  const clubes = Object.values(por).map((T) => { const ds = T.jogos.map((x) => x.match.date).sort(); return Object.assign(T, { pri: ds[0], ult: ds[ds.length - 1] }); }).sort((a, b) => (a.pri < b.pri ? -1 : 1));
+  const out = [];
+  for (let i = 0; i < clubes.length; i++) {
+    const T = clubes[i];
+    const ini = i === 0 ? de : T.pri, fim = i === clubes.length - 1 ? hoje : T.ult;
+    const ts = await get('https://searchapi.wyscout.com/api/v1/team_stats/teams/' + T.id + '/stats?from=' + ini + '&to=' + fim + '&columns=name,team,minutesOnField');
+    const tm = ((ts && ts.matches) || []).filter((x) => x.match && !fora(x.match));
+    const t = soma(T.jogos);
+    out.push({ nome: T.nome, de: ini, ate: fim, j: t.j, j80: t.j80, min: t.min, cj: tm.length, cmin: tm.reduce((s, x) => s + (x.match.duration || (x.teamStats && x.teamStats.minutesOnField) || 0), 0) });
+    await new Promise((ok) => setTimeout(ok, 300));
+  }
+  return { de, ate: hoje, tudo: soma(jogos), liga: lig ? Object.assign({ nome: lig.nome }, soma(jogos.filter((x) => x.match.competitionId === lig.id))) : null, clubes: out };
+}
+async function wy12m(id, de) {
+  const tab = await abaWy(); if (!tab) return { erro: 'Não consegui abrir o Wyscout logado.' };
+  const r = await rodaWy(tab, pgWy12m, [id, de]);
+  if (r && r.__erro) return { erro: r.__erro === 'login' ? 'O Wyscout pediu login de novo.' : 'O Wyscout não respondeu (' + r.__erro + ').' };
+  return Object.assign({ ok: true }, r || {});
+}
+
 const PEDIDOS = {
   ping: async () => ({ ok: true, versao: VERSAO }),
   wy_buscar: (m) => wyBuscar(String(m.nome || '').trim()),
@@ -293,6 +336,7 @@ const PEDIDOS = {
   sc_obr: (m) => scObr(m.id, m.desde),
   wy_carreira: (m) => wyCarreira(m.id, m.anos),
   wy_foto: (m) => wyFoto(m),
+  wy_12m: (m) => wy12m(m.id, m.de),
   sc_fisico: (m) => scFisico(m.id, Array.isArray(m.datas) && m.datas.length ? m.datas : ['2025-06-01', '2025-01-01']),
 };
 chrome.runtime.onMessageExternal.addListener((msg, _s, responde) => {

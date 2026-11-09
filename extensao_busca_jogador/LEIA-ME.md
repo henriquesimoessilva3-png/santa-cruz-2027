@@ -21,4 +21,5 @@ Mudou o `background.js`? Clique no ↻ da extensão em `chrome://extensions`.
   O jogador do SkillCorner é casado com o do Wyscout pela **data de nascimento**.
 - Abre uma aba do Wyscout/SkillCorner em segundo plano se não houver uma aberta, e a deixa aberta.
 
-Pedidos (do app): `ping`, `wy_buscar {nome}`, `sc_buscar {nomes}`, `sc_fisico {id, datas}`.
+Pedidos (do app): `ping`, `wy_buscar {nome}`, `sc_buscar {nomes}`, `sc_fisico {id, datas}`, `sc_obr`, `wy_carreira`, `wy_foto` e
+(1.4.0, 08/11) `wy_12m {id, de}` — o comparativo de 12 meses da ficha: técnico jogo a jogo somado (tudo e só a liga atual) e a minutagem por clube.

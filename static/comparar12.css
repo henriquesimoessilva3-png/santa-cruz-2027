@@ -1,0 +1,12 @@
+/* 08/11/2026 — comparativo de 12 meses na comparação de jogadores (static/comparar12.js) */
+#fiCorpo.cmp12-on > :not(#cmp12Box){display:none!important}
+#cmp12Box{width:100%;grid-column:1/-1;margin:0 0 8px;box-sizing:border-box}
+.c12-bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 8px;background:#151a22;border:1px solid #2a313c;border-radius:8px}
+.c12-bar>b{font-size:12px;margin-right:4px}
+.c12-bar .bt.on{background:#2f5fb3;border-color:#2f5fb3;color:#fff}
+.c12-bar .bt[disabled]{opacity:.45;cursor:default}
+.c12-st{font-size:12px;color:#9aa3af;margin-left:6px}
+.c12-fr{width:100%;overflow:hidden;margin-top:6px;position:relative}
+#c12If{width:1440px;height:1018px;border:0;transform-origin:0 0;display:block;background:#11151c}
+.c12-esc{margin-top:6px;padding:8px 10px;border:1px solid #c98a00;border-radius:8px;font-size:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:rgba(201,138,0,.06)}
+.c12-esc>b{width:100%}

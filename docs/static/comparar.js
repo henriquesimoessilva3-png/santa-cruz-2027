@@ -252,11 +252,13 @@
   function ligar() {
     if (typeof window.renderFicha !== 'function' || typeof window.botaoFichaComp !== 'function') return;
     const rf = window.renderFicha, bf = window.botaoFichaComp;
-    window.renderFicha = async function () { const r = await rf.apply(this, arguments); const vb = document.getElementById('fiCmpB'); if (vb) vb.remove(); const f = document.getElementById('ficha'); if (f) f.classList.toggle('modo-cmp', ativo()); const cp = document.getElementById('fiCorpo'); if (cp && !ativo()) cp.classList.remove('cmp-on'); if (ativo()) await render(); return r; };
+    window.renderFicha = async function () { const r = await rf.apply(this, arguments); const vb = document.getElementById('fiCmpB'); if (vb) vb.remove(); const f = document.getElementById('ficha'); if (f) f.classList.toggle('modo-cmp', ativo()); const cp = document.getElementById('fiCorpo'); if (cp && !ativo()) cp.classList.remove('cmp-on'); if (ativo()) await render(); document.dispatchEvent(new Event('cmp:render')); return r; };
     window.botaoFichaComp = function () { const r = bf.apply(this, arguments); botao(); return r; };
     /* ficha de outro jogador: a comparação é da ficha em que foi aberta; troca de jogador volta ao normal */
     const fe = window.fecharFicha; if (typeof fe === 'function') window.fecharFicha = function () { CMP = null; return fe.apply(this, arguments); };
     /* 27/10: "jogadores similares" (static/similares.js) abre a comparação direto com o escolhido */
+    /* 08/11: o comparativo de 12 meses (static/comparar12.js) lê o par aberto e redesenha a cada render */
+    window.cmpAtual = () => (ativo() ? { a: fichaAtual, b: CMP.b } : null);
     window.compararCom = b => { if (!b || typeof fichaAtual === 'undefined' || !fichaAtual) return; CMP = { a: pkDe(fichaAtual), b, so: false }; botao(); window.renderFicha(); };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
