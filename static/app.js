@@ -1940,6 +1940,7 @@ function renderCT() {
 
 /* ---------------- busca na base ---------------- */
 function abrirBusca(cod) {
+  renderTabela.ver = null;   /* 09/11: linhas guardadas valem só dentro da mesma abertura da janela */
   posAtual = cod;
   const p = POSICOES.find(x => x.c === cod);
   $('#mbTitulo').textContent = 'Escolher jogador · ' + p.nome;
@@ -1977,7 +1978,7 @@ function filtrar() {
     else if (ligaUnica) { if (j.l !== ligaUnica) return false; }
     else if (ligas && !ligas.has(j.l)) return false;
     if (nacao && !passaNacao(j, nacao)) return false;
-    if (txt && !(fsNorm(j.n).includes(txt) || fsNorm(j.t).includes(txt))) return false;
+    if (txt && !((j._fsN != null ? j._fsN : (j._fsN = fsNorm(j.n) + '\u0001' + fsNorm(j.t))).includes(txt))) return false;
     if (!passaIdade(j.id_, idMin, idMax)) return false;
     if (ovMin && (Number(j.ov) || 0) < ovMin) return false;
     if (minMin && (Number(j.min) || 0) < minMin) return false;
@@ -2106,10 +2107,31 @@ function renderTabela() {
   const linhaHtml = j => '<tr data-id="' + j.id + '"' + (jaNaPos.has(j.id) ? ' class="ja"' : '') + '>' +
     COLUNAS.map((col, i) => '<td' + (col.num ? ' class="num-c"' : '') +
       (col.tit ? ' title="' + esc(col.tit(j)) + '"' : '') + '>' + col.cel(j) + (i === 0 ? btPuxar(j) : '') + '</td>').join('') + '</tr>';
-  const tb = $('#tbody'), lote = ++renderTabela.lote, PRIM = 60, PASSO = 60;
-  tb.innerHTML = linhas.slice(0, PRIM).map(linhaHtml).join('');
-  for (let i = PRIM; i < linhas.length; i += PASSO) {
-    setTimeout(() => { if (lote !== renderTabela.lote) return; tb.insertAdjacentHTML('beforeend', linhas.slice(i, i + PASSO).map(linhaHtml).join('')); }, 16 * ((i - PRIM) / PASSO + 1));
+  /* 09/11 (Henrique: "a pesquisa está muito lenta"): com "Todas as ligas" e o nome vazio, a lista de extremos tinha 2.984
+     linhas e TODAS eram desenhadas em segundo plano — ~4,7 s de tela travada em blocos, bem na hora de digitar. Agora só sai
+     o que está na tela (80 linhas) e o resto entra quando a rolagem chega perto do fim (todos continuam acessíveis). A linha
+     pronta fica guardada enquanto os dados e a posição não mudam, e quem já foi desenhado não é recalculado. */
+  const ver = (window.DADOS_VER || 0) + '|' + posAtual;
+  if (renderTabela.ver !== ver) { renderTabela.ver = ver; renderTabela.memo = new Map(); }
+  const memo = renderTabela.memo;
+  const linhaMemo = j => { const k = j.id + (jaNaPos.has(j.id) ? '|j' : ''); let h = memo.get(k); if (h == null) { h = linhaHtml(j); memo.set(k, h); } return h; };
+  const tb = $('#tbody'), lote = ++renderTabela.lote, PRIM = 80, PASSO = 120;
+  if (renderTabela.obs) { renderTabela.obs.disconnect(); renderTabela.obs = null; }
+  let feito = Math.min(PRIM, linhas.length);
+  tb.innerHTML = linhas.slice(0, feito).map(linhaMemo).join('') + (feito < linhas.length ? '<tr class="mb-mais"><td colspan="' + COLUNAS.length + '" style="text-align:center;opacity:.6;padding:10px">carregando mais…</td></tr>' : '');
+  const sent = tb.querySelector('tr.mb-mais');
+  if (sent && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(es => {
+      if (lote !== renderTabela.lote) { obs.disconnect(); return; }
+      if (!es.some(e => e.isIntersecting)) return;
+      const fim = Math.min(feito + PASSO, linhas.length);
+      sent.insertAdjacentHTML('beforebegin', linhas.slice(feito, fim).map(linhaMemo).join(''));
+      feito = fim;
+      if (feito >= linhas.length) { obs.disconnect(); sent.remove(); }
+    }, { rootMargin: '600px 0px' });
+    obs.observe(sent); renderTabela.obs = obs;
+  } else if (sent) {
+    sent.remove(); tb.insertAdjacentHTML('beforeend', linhas.slice(feito).map(linhaMemo).join(''));
   }
   if (!tb.dataset.deleg) {
     tb.dataset.deleg = '1';
