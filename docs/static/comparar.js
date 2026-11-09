@@ -90,9 +90,18 @@
   const ini = n => { if (!CMP || !CMP.b || typeof fichaAtual === 'undefined' || !fichaAtual) return ini0(n); const a = ini0(fichaAtual.n), b = ini0(CMP.b.n);
     if (a !== b) return ini0(n); const ult = x => { const p = String(x || '').replace(/\(.*?\)/g, '').trim().split(/\s+/); return p.length > 1 ? p[p.length - 1][0].toUpperCase() : (n === CMP.b.n ? '2' : '1'); };
     return ini0(n).slice(0, 2) + ult(n); };
+  /* posição efetiva do jogador da ficha (a do campograma, se houver) aplicada ao outro jogador */
+  function naPosDe(b, a) {
+    if (!b || !a) return b;
+    let pa = a.p; try { const x = comPosCampo(registroComDados(a)); if (x && x.p) pa = x.p; } catch (e) {}
+    if (!pa || pa === 'GOL' || b.p === 'GOL' || pa === b.p) return b;
+    return Object.assign({}, b, { p: pa, _posBase: b._posBase || b.p });
+  }
   async function render() {
     if (!ativo()) return;
-    const A = fichaAtual, B = CMP.b;
+    /* 09/11 (Henrique, Paulo Vitor × Bernardo: "comparando com volante, traz o físico dele na posição do jogador comparado"):
+       o outro jogador é medido na posição do jogador da ficha — letra física (A/B/C/A+), régua física e técnica */
+    const A = fichaAtual, B = naPosDe(CMP.b, A);
     const corpo = document.getElementById('fiCorpo'); if (!corpo) return;
     const modo = (document.getElementById('fiBase') || {}).value || 'posliga';
     const fb = await montarFicha(B, modo);
@@ -258,7 +267,7 @@
     const fe = window.fecharFicha; if (typeof fe === 'function') window.fecharFicha = function () { CMP = null; return fe.apply(this, arguments); };
     /* 27/10: "jogadores similares" (static/similares.js) abre a comparação direto com o escolhido */
     /* 08/11: o comparativo de 12 meses (static/comparar12.js) lê o par aberto e redesenha a cada render */
-    window.cmpAtual = () => (ativo() ? { a: fichaAtual, b: CMP.b } : null);
+    window.cmpAtual = () => (ativo() ? { a: fichaAtual, b: naPosDe(CMP.b, fichaAtual) } : null);
     window.compararCom = b => { if (!b || typeof fichaAtual === 'undefined' || !fichaAtual) return; CMP = { a: pkDe(fichaAtual), b, so: false }; botao(); window.renderFicha(); };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
