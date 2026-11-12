@@ -105,7 +105,7 @@ A aba **Jogador** (Consulta) foi ocultada em 19/10 com `oculta: true` em visao_n
   - Arquivo: `docs/static/sofascore_dados.js`, com **19.289** jogadores.
   - Script: `ferramentas/montar_sofascore.py`. Bruto em `dados/sofascore/`.
 - **Campograma no PDF:** sai como imagem da tela, verde e com os cards (`gerarPdf` → `#impCampoImg`).
-- **Emails liberados no Firestore:** jrmannarino@hotmail.com e lucioguisilva@gmail.com.
+- **Emails liberados no Firestore:** jrmannarino@hotmail.com, lucioguisilva@gmail.com e danilo@matixcapital.com (12/11).
 - **Comparativos de 3 períodos (PDF de 1 página, visual da ficha do app):** Ricardo Silva e Gustavo Barreto (América-MG).
   - Barreto: América × 12 meses (Kyoto, só minutagem) × 13–24 meses (Criciúma + Avaí).
   - ▲ marca o melhor período em cada indicador.
