@@ -32,7 +32,11 @@
      (normal) ou 4.096 px (HD) no lado maior. O print largo (1.920 px de ficha, 2,5 × 1) encolhia a letra para menos da metade.
      O 📱 Celular monta a ficha em pé (1.180 px: físico ao lado do técnico em 2 × 2, minutagem/cobrador/finalizador embaixo)
      e desenha com o lado maior em 4.096 px — o tamanho exato do HD do WhatsApp, sem ele reduzir de novo. A letra fica
-     ~1,6 vez maior no celular. O 📷 Print (largo) continua igual. */
+     ~1,6 vez maior no celular. O 📷 Print (largo) continua igual.
+     13/11 (Henrique: "não quero esse negócio de celular… quero o print para computador, com a qualidade top"): sai o botão
+     📱 Celular. O 📷 Print fica no formato do computador (1.920 px de ficha, tudo numa tela) e é desenhado com o lado maior
+     em 4.096 px — o tamanho do HD do WhatsApp, que então não reduz a imagem de novo. Sem marcar HD, o WhatsApp corta para
+     1.600 px e a letra borra: marcar HD ou mandar como documento. */
   const HD = 4096;
   const quadro = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 250))));
   async function gerar(el, cel) {
@@ -45,7 +49,7 @@
     }
     try {
       const larg = Math.max(el.scrollWidth, el.offsetWidth), alt = Math.max(el.scrollHeight, el.offsetHeight);
-      const esc = cel ? HD / Math.max(larg, alt) : 3;
+      const esc = Math.max(2, HD / Math.max(larg, alt));
       return await window.modernScreenshot.domToBlob(el, {
         scale: esc, backgroundColor: bg, type: 'image/png', width: larg, height: alt,
         filter: n => !(n.id === 'btPrintAlta' || n.id === 'btPrintCel'),
@@ -61,7 +65,7 @@
     if (!window.modernScreenshot) { aviso('Gerador de print indisponível', 'ruim'); return; }
     const el = alvo(); const nome = nomeArq().replace(/\.png$/, cel ? '-celular.png' : '.png');
     if (cel && el.id !== 'ficha') { aviso('O print 📱 Celular é da ficha do jogador — abra uma ficha', 'ruim'); return; }
-    aviso(cel ? 'Gerando print para o celular (4.096 px)…' : 'Gerando print em alta…');
+    aviso('Gerando print em alta (4.096 px)…');
     const pBlob = gerar(el, cel);
     let copiou = false;
     try {   /* a promessa vai direto para o ClipboardItem: o Chrome mantém o clique como gesto do usuário */
@@ -71,21 +75,17 @@
       const b = await pBlob;
       const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nome; a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-      aviso((copiou ? 'Print copiado — cole no WhatsApp e marque HD para sair nítido. ' : '') + 'Também salvo como ' + nome, 'bom');
+      aviso((copiou ? 'Print copiado — no WhatsApp, marque HD (ou envie como documento) para não perder qualidade. ' : '') + 'Também salvo como ' + nome, 'bom');
     } catch (e) { aviso('Não deu para gerar o print: ' + ((e && e.message) || e), 'ruim'); }
   }
   window.printAlta = () => printar(false); window.printCelular = () => printar(true);
   function botao() {
     if (document.getElementById('btPrintAlta')) return;
     const b = document.createElement('button'); b.id = 'btPrintAlta'; b.type = 'button'; b.textContent = '📷 Print';
-    b.title = 'Print em alta resolução da tela aberta (a ficha, se estiver aberta) — copia para colar no WhatsApp e baixa o PNG (atalho: Alt+P)';
+    b.title = 'Print em alta (4.096 px, o HD do WhatsApp) da tela aberta — a ficha sai no formato do computador. Copia e baixa o PNG (atalho: Alt+P). No WhatsApp, marque HD ou envie como documento.';
     b.style.cssText = 'position:fixed;right:14px;bottom:14px;z-index:950;padding:7px 12px;border-radius:18px;border:1px solid #3aa0a0;background:#123;color:#9fe;font:600 12px Arial,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4)';
     b.onclick = () => printar(false); document.body.appendChild(b);
-    const c = document.createElement('button'); c.id = 'btPrintCel'; c.type = 'button'; c.textContent = '📱 Celular';
-    c.title = 'Print da ficha em pé, no tamanho do HD do WhatsApp (4.096 px) — letra maior no celular. Copia e baixa o PNG (atalho: Alt+Shift+P). No WhatsApp, marque HD ou envie como documento.';
-    c.style.cssText = b.style.cssText.replace('bottom:14px', 'bottom:52px');
-    c.onclick = () => printar(true); document.body.appendChild(c);
   }
-  document.addEventListener('keydown', e => { if (e.altKey && !e.metaKey && !e.ctrlKey && (e.code === 'KeyP')) { e.preventDefault(); printar(e.shiftKey); } });
+  document.addEventListener('keydown', e => { if (e.altKey && !e.metaKey && !e.ctrlKey && (e.code === 'KeyP')) { e.preventDefault(); printar(false); } });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', botao); else botao();
 })();
