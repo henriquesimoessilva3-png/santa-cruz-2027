@@ -7352,11 +7352,13 @@ function tipoEixos(j) {
    (29% dos médios de quem subiu × 4% de quem caiu); o explosivo puro não separa e o completo (explosão + volume) fica neutro
    com amostra mínima — explosão a mais não tira a letra. A = volume acima de +0,5 desvio; C segue a baixa intensidade; o resto é B. */
 const MED_VOLUME = 'Motor de volume (médio)';
+/* 13/11/2026: A do médio pelo volume exige explosão ≥ −1,0 desvio (abaixo, B "volume sem explosão"). */
+const MED_EXP_MIN = -1.0;
 function tipoLetra(j) {
   if (!j || j.p === 'GOL' || !window.CONSULTA) return null;
   const x = tipoResolvido(j); if (!x) return null;
   const D = window.CONSULTA, pos = j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
-  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5) return 'A'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
+  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5) return z.exp >= MED_EXP_MIN ? 'A' : 'B'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
   return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B';
 }
 /* 15/10/2026 — o C é de quem é fraco em explosão E em volume. Quem cai no tipo de baixa intensidade só pelo volume
