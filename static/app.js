@@ -7358,7 +7358,7 @@ function tipoLetra(j) {
   if (!j || j.p === 'GOL' || !window.CONSULTA) return null;
   const x = tipoResolvido(j); if (!x) return null;
   const D = window.CONSULTA, pos = j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
-  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5) return z.exp >= MED_EXP_MIN ? 'A' : 'B'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
+  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5 && z.exp >= MED_EXP_MIN) return 'A'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
   return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B';
 }
 /* 15/10/2026 — o C é de quem é fraco em explosão E em volume. Quem cai no tipo de baixa intensidade só pelo volume

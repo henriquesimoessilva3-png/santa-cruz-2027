@@ -7393,14 +7393,14 @@ function tipoEixos(j) {
    com amostra mínima — explosão a mais não tira a letra. A = volume acima de +0,5 desvio; C segue a baixa intensidade; o resto é B. */
 const MED_VOLUME = 'Motor de volume (médio)';
 /* 13/11/2026 (Henrique, caso Lucas Mineiro A × Matheus Trindade C: "não ficou legal desse jeito, ajusta para todos"): o A do
-   médio pelo volume passa a ter piso de explosão — com explosão abaixo de −1,0 desvio da Série B do setor, o volume sozinho dá B
-   (não A). Impacto na base: 82 dos 768 médios A viram B (3 da Série B: Miraíma, Lucas Mineiro ×2). */
+   médio pelo volume passa a ter piso de explosão — com explosão abaixo de −1,0 desvio da Série B do setor, o volume não dá A e vale a regra
+   normal (baixa intensidade = C, o resto B). 13/11 (2ª): "não faz sentido o Lucas Mineiro ser B, já que o Trindade é C". Impacto na base: 82 dos 768 médios A deixam de ser A — quase todos viram C (3 da Série B: Miraíma, Lucas Mineiro ×2). */
 const MED_EXP_MIN = -1.0;
 function tipoLetra(j) {
   if (!j || j.p === 'GOL' || !window.CONSULTA) return null;
   const x = tipoResolvido(j); if (!x) return null;
   const D = window.CONSULTA, pos = j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
-  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5) return z.exp >= MED_EXP_MIN ? 'A' : 'B'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
+  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5 && z.exp >= MED_EXP_MIN) return 'A'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
   return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B';
 }
 /* 15/10/2026 — o C é de quem é fraco em explosão E em volume. Quem cai no tipo de baixa intensidade só pelo volume
@@ -7424,7 +7424,6 @@ function tipoMais(j) {
 function tipoNome(j) {
   const x = tipoResolvido(j); if (!x) return null;
   if (j.p === 'MED' && tipoLetra(j) === 'A') return MED_VOLUME + (tipoMais(j) ? ' + explosão' : '');
-  if (j.p === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5 && z.exp < MED_EXP_MIN) return 'Volume sem explosão (médio)'; }
   if (explosivoSemVolume(j, x)) return 'Explosivo, pouco volume';
   return x.tipo + (tipoMais(j) ? ' + volume' : '');
 }
