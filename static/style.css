@@ -3975,3 +3975,15 @@ body.visao-nova .jpainel{flex:none}
   .sf-col-fis .sf-sub{font-size:clamp(11.5px,3.1cqi,16px);padding-top:5px;padding-bottom:5px}
   .sf-col-fis .fi-barra{height:.72em}
 }
+
+/* 19/11/2026 (Henrique: "não quero que o primeiro da fila de cada posição fique com fundo vermelho… deixe sempre sem cor"):
+   o titular (1º da fila) não pinta mais o card — nem o fundo rosa, nem a borda, nem a idade. A estrela continua marcando quem é.
+   As cores de NÍVEL (Main verde, Squad amarelo, Youth azul) seguem valendo, porque vêm depois e dizem outra coisa. */
+.jog.titular:not(.niv-main):not(.niv-squad):not(.niv-youth),
+body.claro .jog.titular:not(.niv-main):not(.niv-squad):not(.niv-youth){background:var(--pilula);border-color:var(--pilula-borda)}
+.jog.titular:not(.niv-main):not(.niv-squad):not(.niv-youth):hover{background:var(--pilula-hover)}
+.jog.titular .jog-nome .idade{background:transparent;color:inherit}
+.jog.st-elenco{border-left-color:var(--azul)}
+.jog.st-alvo{border-left-color:var(--ambar)}
+.jog.st-negociando{border-left-color:var(--roxo)}
+.jog.st-fechado{border-left-color:var(--verde)}
