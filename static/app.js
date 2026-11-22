@@ -2443,7 +2443,10 @@ async function fbEntrar() {
      lá o login vai por redirecionamento (a página sai e volta já logada) */
   const celular = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.matchMedia('(pointer:coarse)').matches;
   try {
-    if (celular) { await FB.auth.signInWithRedirect(prov); return; }
+    /* 22/11/2026: no celular o redirecionamento voltava SEM login (o Chrome/Safari bloqueiam o armazenamento entre
+       o github.io e o firebaseapp.com, onde o Google devolve a sessão) — o Henrique saiu e não conseguiu entrar de novo.
+       Agora a janelinha vem primeiro também no celular (abre numa aba e volta logado); redirecionamento só se ela for bloqueada. */
+    void celular;
     await FB.auth.signInWithPopup(prov);
   } catch (e) {
     /* fechar a janelinha do Google e desistencia, nao erro: nao merece toast vermelho */
