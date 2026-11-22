@@ -3999,3 +3999,9 @@ body.claro .jog.titular:not(.niv-main):not(.niv-squad):not(.niv-youth){backgroun
 .jog.st-alvo{border-left-color:var(--ambar)}
 .jog.st-negociando{border-left-color:var(--roxo)}
 .jog.st-fechado{border-left-color:var(--verde)}
+
+/* 22/11 — faixa de login no topo (some quando a pessoa entra) */
+.fb-faixa{position:relative;z-index:50;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;
+  padding:10px 14px;background:#0f7a3d;color:#fff;font:600 14px Arial,Helvetica,sans-serif;text-align:center}
+.fb-faixa-bt{font:700 14px Arial,Helvetica,sans-serif;padding:8px 18px;border-radius:999px;border:0;background:#fff;color:#0f7a3d;cursor:pointer}
+.fb-faixa-bt:hover{background:#e6f4ec}

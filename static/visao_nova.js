@@ -21,7 +21,8 @@
   let q = null;
   try { q = new URLSearchParams(location.search).get('visao'); } catch (e) {}
   if (q === 'nova' || q === 'atual') gravar(LS, q);
-  const NOVA = ler(LS) !== 'atual';
+  /* 22/11: só existe a visão nova (pedido do Henrique: o Danilo caiu na antiga, sem o login à vista). O botão de troca saiu. */
+  const NOVA = true;
   window.VISAO_NOVA = NOVA;
 
   const ABAS = [
@@ -80,6 +81,7 @@
       location.reload();   /* recarrega: os módulos leem a flag no carregamento (o Banco escolhe a base por ela) */
     };
     if (!NOVA) { nav.insertBefore(troca, info); return; }
+    troca.style.display = 'none';
     document.body.classList.add('visao-nova');
     const frag = document.createDocumentFragment();
     ABAS.forEach(a => {

@@ -2319,6 +2319,17 @@ function prepararEstatico() {
    Agora o estado fica na barra, escrito, sem precisar passar o mouse. */
 function fbBotao() {
   const el = $('#fbConta'), av = $('#avisoEstatico');
+  /* 22/11: faixa no topo, larga e verde, enquanto a pessoa não entrou — o botão da barra ficava fora da tela
+     em computador com a janela estreita e o Danilo não achava onde entrar */
+  let fx = document.getElementById('fbFaixa');
+  if (!fx && document.body) {
+    fx = document.createElement('div'); fx.id = 'fbFaixa'; fx.className = 'fb-faixa';
+    fx.innerHTML = '<span>Para ver e salvar os cenários compartilhados, entre com a sua conta Google.</span>' +
+      '<button type="button" class="fb-faixa-bt">Entrar com Google</button>';
+    fx.querySelector('button').onclick = () => fbEntrar();
+    document.body.insertBefore(fx, document.body.firstChild);
+  }
+  if (fx) fx.style.display = (FB.pronto && !FB.usuario) ? '' : 'none';
   if (!el) return;
   const base = 'Esta é a versão publicada. A exportação em Excel sai de cena (é o servidor ' +
                'que monta o arquivo); PNG, PDF e o comparativo entre grupos continuam.';
