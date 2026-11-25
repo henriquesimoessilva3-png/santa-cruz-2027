@@ -50,7 +50,12 @@
     return '<span class="jq jq-2t' + (s ? ' t2-' + s.c : '') + '" title="' + esc(s ? s.txt : '2º tempo: sem jogos completos rastreados (mínimo ' + D.min_jogos + ')') + '">' + (s ? '2T' : '<i class="jq-vaz"></i>') + '</span>';
   };
   window.segTempoHtml = function (j) {
-    const s = segTempoDe(j); if (!s) return '';
+    const s = segTempoDe(j);
+    /* 25/11: sem nota, o bloco aparece mesmo assim e diz por quê (Henrique: "não veio a questão do segundo tempo do Nicolas Careca"
+       — ele tem 1 jogo completo no SkillCorner desde 05/2024; quem entra ou sai no meio do tempo não conta) */
+    if (!s) return (!j || j.p === 'GOL') ? '' : '<div class="fi-grupo t2-ficha"><h4 class="sf-gh g-fis">2º tempo <span class="t2-chip">sem nota</span></h4>' +
+      '<div class="fi-src">Menos de ' + D.min_jogos + ' jogos completos no SkillCorner desde 01/05/2024 (1º tempo inteiro e 30+ min no 2º). ' +
+      'Quem costuma entrar ou sair no meio do jogo fica sem nota — não dá para comparar os dois tempos.</div></div>';
     const R = D.regua[s.grupo] || {};
     const barra = (v, marca) => '<span class="t2-barra"><i style="width:' + Math.max(0, Math.min(100, (v - 0.7) / 0.45 * 100)).toFixed(1) + '%"></i>' +
       (marca != null ? '<span class="t2-marca" style="left:' + Math.max(0, Math.min(100, (marca - 0.7) / 0.45 * 100)).toFixed(1) + '%"></span>' : '') + '</span>';
