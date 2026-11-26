@@ -4005,3 +4005,10 @@ body.claro .jog.titular:not(.niv-main):not(.niv-squad):not(.niv-youth){backgroun
   padding:10px 14px;background:#0f7a3d;color:#fff;font:600 14px Arial,Helvetica,sans-serif;text-align:center}
 .fb-faixa-bt{font:700 14px Arial,Helvetica,sans-serif;padding:8px 18px;border-radius:999px;border:0;background:#fff;color:#0f7a3d;cursor:pointer}
 .fb-faixa-bt:hover{background:#e6f4ec}
+/* 26/11: a cor do status (barra da esquerda) vale também no titular e nos cards com nível (Main/Squad/Youth) —
+   a borda do titular e do nível cobria a barra e o "negociando" aparecia branco */
+.jog.st-elenco{border-left-color:var(--azul)!important}
+.jog.st-alvo{border-left-color:var(--ambar)!important}
+.jog.st-negociando{border-left-color:var(--roxo)!important}
+.jog.st-fechado{border-left-color:var(--verde)!important}
+.jog.st-encerrada{border-left-color:#e5484d!important}
