@@ -78,6 +78,8 @@ CAMPOS_OBR = {"obr_hsr": "runs_above_hsr_p30tip", "obr_area": "runs_penalty_area
               "obr_per": "runs_dangerous_p30tip", "obr_rec": "runs_received_p30tip",
               "obr_rem": "runs_shot_within_10s_p30tip"}
 ANO_REF = 2026
+# quem NÃO recebe físico de outra temporada (pedido do Henrique), por (nome, time)
+SEM_FISICO_OUTRA = {("Everaldo", "Santa Cruz")}
 
 
 def completar_fisico_v2(saida):
@@ -218,6 +220,9 @@ def completar_fisico_v2(saida):
                 duvida += 1
 
     for j, (pid, ano, clube) in escolha.values():
+        # 26/11/2026 — o Henrique pediu para tirar o físico do Everaldo (Santa Cruz): não ganha físico de outra temporada
+        if (j.get("n"), j.get("t")) in SEM_FISICO_OUTRA:
+            continue
         f = fis[(pid, ano)]
         for campo, col in CAMPOS_V2.items():
             v = num(f.get(col), 2)
