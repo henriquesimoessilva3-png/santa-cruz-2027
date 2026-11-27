@@ -3798,6 +3798,7 @@ async function montarFicha(j, modo) {
       let pFis = '', pTec = '';
       if (dc && dc.fis && au && au.sc_desde) pFis = 'SkillCorner · desde ' + br(au.sc_desde) + (au.sc_jogos ? ' · ' + au.sc_jogos + ' jogos com 60+ min' : '') + ' · buscado em ' + br(au.em);
       else if (dc && dc.fis) pFis = 'SkillCorner · colado à mão' + (dc.fis_em || dc.em ? ' em ' + br(dc.fis_em || dc.em) : '') + (dc.fis.sc_n ? ' · ' + dc.fis.sc_n + ' jogos' : '');
+      else if (j.fis_rec) pFis = 'SkillCorner · ' + (j.fis_rec === 'nov26' ? 'recorte de nov/26 (temporada atual da liga)' : j.fis_rec) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + (j.sc_min ? ' · ' + mil(j.sc_min) + ' min por jogo' : '');   /* 27/11: atualizar_fisico_nov26.py / atualizar_fisico_banco.py */
       else if (j.fis_src) pFis = 'SkillCorner · ' + j.fis_src + ' (outra temporada)' + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '');
       else if (j._estudo) pFis = 'SkillCorner · estudo Série B 2022–25 (' + j._estudo + ')';
       else if (typeof j.psv === 'number') pFis = 'SkillCorner · base do ranking (recorte de jun/26)' + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + (j.sc_min ? ' · ' + mil(j.sc_min) + ' min por jogo' : '');
