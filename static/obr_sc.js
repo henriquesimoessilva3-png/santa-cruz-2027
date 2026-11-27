@@ -27,7 +27,8 @@
     let n = 0;
     BASE.forEach(j => {
       if (j.obr != null && !j.obr_gi) return;
-      const id = IDS[primaryKey(j)]; if (!id) return;
+      const pk = primaryKey(j); if (window.SC_IDS_VETADOS && window.SC_IDS_VETADOS[pk]) return;   /* 27/11: ligação suspeita de homônimo */
+      const id = IDS[pk]; if (!id) return;
       const r = OB.sc[id]; if (!r) return;
       CAMPOS.forEach((k, i) => { if (typeof r[i] === 'number') j[k] = r[i]; });
       j.obr_gi = { ed: eds[r[8]] || String(r[8] || ''), j: r[6], min: r[7] };

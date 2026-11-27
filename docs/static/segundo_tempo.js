@@ -16,6 +16,7 @@
     amarelo: 'cai mais que a metade da posição, mas não está entre os 25% que mais caem',
     vermelho: 'está entre os 25% da posição que mais perdem intensidade no 2º tempo' };
   let IDS = null;
+  const T2ID = new WeakMap();   /* 27/11: id do SkillCorner usada para cada jogador (decide a mensagem de "sem nota") */
   fetch('static/sc_ids.json' + (window.__verDados ? '?v=' + window.__verDados : '')).then(r => (r.ok ? r.json() : null)).then(m => { IDS = m || {}; }).catch(() => { IDS = {}; });
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const pc = v => (v == null ? '—' : Math.round(v * 100) + '%');
@@ -23,10 +24,16 @@
 
   function segTempoDe(j) {
     if (!j || j.p === 'GOL') return null;
-    let id = j.sc_id || null;
-    if (!id && IDS && typeof primaryKey === 'function') id = IDS[primaryKey(j)];
-    if (!id && D.chave && typeof primaryKey === 'function') id = D.chave[primaryKey(j)];
+    const VET = window.SC_IDS_VETADOS || {}, pk0 = typeof primaryKey === 'function' ? primaryKey(j) : null;
+    /* 27/11: o físico colado traz a id do SkillCorner do próprio jogador — ela vale antes do casamento por nome
+       (45 jogadores tinham a nota no arquivo e o card dizia "sem nota"). Chave vetada (suspeita de homônimo) não usa o mapa. */
+    let idCol = null;
+    try { const dc = j._dados || j._dadosFicha || (typeof dadosColados === 'function' && pk0 ? dadosColados(pk0, null) : null);
+      idCol = (dc && ((dc.fis_raw && dc.fis_raw['Player ID']) || (dc.auto && dc.auto.sc_id))) || null; } catch (e) {}
+    let id = j.sc_id || idCol || null;
+    if (!id && pk0 && !VET[pk0]) id = (IDS && IDS[pk0]) || (D.chave && D.chave[pk0]) || null;
     let r = id != null ? D.jog[id] : null;
+    T2ID.set(j, id || null);
     /* 02/11: o mesmo jogador em outro cadastro (outro clube/liga) — vale a nota do cadastro ligado ao SkillCorner
        (mesma regra do físico colado: nome igual, idade ±1, nacionalidade, posição compatível) */
     if (!r && typeof equivIndice === 'function' && typeof djMesmo === 'function' && typeof djIdent === 'function') {
@@ -34,7 +41,7 @@
         const pk = primaryKey(j), alvo = djIdent(pk, null), ix = equivIndice();
         for (const n of alvo.ns) { for (const e of (ix.get(n.split(' ')[0]) || [])) {
           const k = primaryKey(e.x); if (k === pk || !djMesmo(alvo, djIdent(k, null))) continue;
-          const id2 = (IDS && IDS[k]) || (D.chave && D.chave[k]); if (id2 != null && D.jog[id2]) { r = D.jog[id2]; break; }
+          if (VET[k]) continue; const id2 = (IDS && IDS[k]) || (D.chave && D.chave[k]); if (idCol && id2 != null && String(id2) !== String(idCol)) continue; if (id2 != null && D.jog[id2]) { r = D.jog[id2]; T2ID.set(j, id2); break; }
         } if (r) break; }
       } catch (e) {}
     }
@@ -47,15 +54,17 @@
   window.segTempoDe = segTempoDe;
   window.segTempoQuadrado = function (j) {
     const s = segTempoDe(j);
-    return '<span class="jq jq-2t' + (s ? ' t2-' + s.c : '') + '" title="' + esc(s ? s.txt : '2º tempo: sem jogos completos rastreados (mínimo ' + D.min_jogos + ')') + '">' + (s ? '2T' : '<i class="jq-vaz"></i>') + '</span>';
+    return '<span class="jq jq-2t' + (s ? ' t2-' + s.c : '') + '" title="' + esc(s ? s.txt : (j && T2ID.get(j) ? '2º tempo: menos de ' + D.min_jogos + ' jogos completos rastreados' : '2º tempo: jogador sem ligação com o SkillCorner (liga sem rastreio ou não encontrado)')) + '">' + (s ? '2T' : '<i class="jq-vaz"></i>') + '</span>';
   };
   window.segTempoHtml = function (j) {
     const s = segTempoDe(j);
     /* 25/11: sem nota, o bloco aparece mesmo assim e diz por quê (Henrique: "não veio a questão do segundo tempo do Nicolas Careca"
        — ele tem 1 jogo completo no SkillCorner desde 05/2024; quem entra ou sai no meio do tempo não conta) */
     if (!s) return (!j || j.p === 'GOL') ? '' : '<div class="fi-grupo t2-ficha"><h4 class="sf-gh g-fis">2º tempo <span class="t2-chip">sem nota</span></h4>' +
-      '<div class="fi-src">Menos de ' + D.min_jogos + ' jogos completos no SkillCorner desde 01/05/2024 (1º tempo inteiro e 30+ min no 2º). ' +
-      'Quem costuma entrar ou sair no meio do jogo fica sem nota — não dá para comparar os dois tempos.</div></div>';
+      '<div class="fi-src">' + (T2ID.get(j) ? 'Menos de ' + D.min_jogos + ' jogos completos no SkillCorner desde 01/05/2024 (1º tempo inteiro e 30+ min no 2º). ' +
+      'Quem costuma entrar ou sair no meio do jogo fica sem nota — não dá para comparar os dois tempos.'
+      : 'Jogador sem ligação com o SkillCorner: a liga não tem rastreio ou ele não foi encontrado lá. Sem jogos para comparar os dois tempos. ' +
+      'Se colar o físico dele (SkillCorner), a nota aparece quando houver ' + D.min_jogos + ' jogos completos.') + '</div></div>';
     const R = D.regua[s.grupo] || {};
     const barra = (v, marca) => '<span class="t2-barra"><i style="width:' + Math.max(0, Math.min(100, (v - 0.7) / 0.45 * 100)).toFixed(1) + '%"></i>' +
       (marca != null ? '<span class="t2-marca" style="left:' + Math.max(0, Math.min(100, (marca - 0.7) / 0.45 * 100)).toFixed(1) + '%"></span>' : '') + '</span>';
