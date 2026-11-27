@@ -679,6 +679,15 @@ window.abrevInd = function (r) {
       return null;
     };
   }
+  /* 27/11 — técnico do recorte de novembro (static/tecnico_atual_dados.js, de atualizar_tecnico_nov26.py): vale ANTES da base do estudo,
+     dos indicadores do ranking e do técnico extra, que são do recorte de agosto. O técnico colado continua por cima de tudo. */
+  let ixAtual = null;
+  function atualV(j, rot) {
+    const X = window.TEC_ATUAL; if (!X || !j) return null;
+    const v = X.jog[j.n + ' - ' + j.t + ' - ' + j.l] || (j.pk && X.jog[j.pk]); if (!v) return null;
+    if (!ixAtual) { ixAtual = {}; X.rots.forEach((r, i) => { ixAtual[r] = i; }); }
+    const k = ixAtual[rot]; return k != null && typeof v[k] === 'number' ? v[k] : null;
+  }
   /* 18/10 — liga fora da base do estudo (Série C…): o técnico completo vem de static/tecnico_extra_dados.js */
   function extraDe(j) {
     const X = window.TEC_EXTRA; if (!X || !j) return null;
@@ -705,6 +714,7 @@ window.abrevInd = function (r) {
         let v = null;
         if (i.cat === 'fis') v = numero(j[fisK[i.k]]);
         else if (raw) { if (!colS) colS = coladoDe(Object.assign({}, j0, { _dados: dc })); v = colS ? colS(i.rot) : null; }
+        if (v == null && i.cat !== 'fis' && !raw) v = atualV(j0, i.rot);
         if (v == null && r) v = r[NC + i.k];
         if (v == null && i.cat !== 'fis' && KPI[i.rot]) { usaFicha(); v = numero(tec[KPI[i.rot]]); }
         if (v == null && i.cat !== 'fis') { if (ext === undefined) ext = extraDe(j0); if (ext) v = ext(i.rot); }
@@ -724,6 +734,7 @@ window.abrevInd = function (r) {
       const o = seloVals(j.p, i => {
         let v = i.cat === 'fis' ? j[fisK[i.k]] : (KPI[i.rot] != null ? tec[KPI[i.rot]] : null);
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
+        if (i.cat !== 'fis' && !col && !j._dadosFicha) { const c = atualV(j, i.rot); if (c != null) v = c; }
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
         if (v == null && i.cat !== 'fis' && ext) v = ext(i.rot);
         return v;
@@ -758,6 +769,7 @@ window.abrevInd = function (r) {
       D.inds.forEach(i => {
         if (i.cat === 'fis' || (KPI[i.rot] && presentes.has(KPI[i.rot]))) return;
         let v = col ? col(i.rot) : null;
+        if (v == null && !col && !j._dadosFicha) v = atualV(j, i.rot);
         if (v == null && base && !j._dadosFicha) v = base[NC + i.k];
         if (typeof v !== 'number' || !isFinite(v)) return;
         const r = ref[i.k];
@@ -795,6 +807,7 @@ window.abrevInd = function (r) {
         let v = null, fk = null;
         if (i.cat === 'fis') { fk = FIS_ORD[nf++]; v = j[fk]; } else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
+        if (i.cat !== 'fis' && !col && !j._dadosFicha) { const c = atualV(j, i.rot); if (c != null) v = c; }
         const sb = serieB(j.p, i.k); if (!sb) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
         if (v == null && i.cat !== 'fis' && ext) v = ext(i.rot);
@@ -859,6 +872,7 @@ window.abrevInd = function (r) {
         let v = null;
         if (i.cat === 'fis') v = j[FIS_ORD[nf++]]; else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
+        if (i.cat !== 'fis' && !col && !j._dadosFicha) { const c = atualV(j, i.rot); if (c != null) v = c; }
         const r = ref(j.p, i.k); if (!r || r[0] == null || r[1] == null) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !(j._dadosFicha) && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
         linhas.push({ i, r, v, d: r[2], c: cor(i, r, v), chave: !i.nm && !r.fora && !estilo(i, r) && r[2] != null && Math.abs(r[2]) >= 0.3 });

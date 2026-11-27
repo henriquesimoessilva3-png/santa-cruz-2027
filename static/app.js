@@ -3780,6 +3780,7 @@ async function montarFicha(j, modo) {
       else if (pFis && dc && au && au.obr_ed) pFis += ' · corridas sem bola: ' + au.obr_ed + (au.obr_jogos ? ' (' + au.obr_jogos + ' jogos)' : '');
       if (dc && dc.tec_raw && au && au.wy_periodo) pTec = 'Wyscout · ' + au.wy_periodo + (au.wy_jogos ? ' · ' + au.wy_jogos + ' jogos' : '') + (au.wy_min ? ' · ' + mil(au.wy_min) + ' min' : '') + ' · buscado em ' + br(au.em);
       else if (dc && dc.tec_raw) pTec = 'Wyscout · export colado à mão' + (dc.tec_em || dc.em ? ' em ' + br(dc.tec_em || dc.em) : '') + (dc.tec && dc.tec.min ? ' · ' + mil(dc.tec.min) + ' min' : '');
+      else if (j.tec_rec && window.TEC_ATUAL && window.TEC_ATUAL.jog[primaryKey(j)]) pTec = 'Wyscout · recorte de ' + (j.tec_rec === 'out26' ? 'out/26' : 'nov/26') + ' (temporada atual da liga)' + (j.jog ? ' · ' + j.jog + ' jogos' : '') + (j.min ? ' · ' + mil(j.min) + ' min' : '');   /* 27/11: atualizar_tecnico_nov26.py */
       else if (dados && dados.ok) pTec = 'Wyscout · base do ranking ' + esc(String(dados.periodo || '').replace(/^([a-z]{3})(\d{2})$/, '$1/$2')) + ' (temporada atual da liga)' + (j.min ? ' · ' + mil(j.min) + ' min' : '');
       if (dc && dc._de) {   /* 30/10: levantado no cadastro de outra lista (mesmo jogador) */
         const de = ' · levantado em ' + String(dc._de).split(' - ').slice(1).join(' · ');
